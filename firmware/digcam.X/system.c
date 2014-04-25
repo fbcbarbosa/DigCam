@@ -29,22 +29,16 @@ __builtin functions. */
 /* TODO Add clock switching code if appropriate.  An example stub is below.   */
 void ConfigureOscillator(void)
 {
+    /* Disable Watch Dog Timer */
+    RCONbits.SWDTEN = 0;
 
-#if 0
+    /* When clock switch occurs switch to Prim Osc (HS, XT, EC)with PLL */
+    __builtin_write_OSCCONH(0x03); /* Set OSCCONH for clock switch */
+    __builtin_write_OSCCONL(0x01); /* Start clock switching */
+    while (OSCCONbits.COSC != 0b011);
 
-        /* Disable Watch Dog Timer */
-        RCONbits.SWDTEN = 0;
-
-        /* When clock switch occurs switch to Prim Osc (HS, XT, EC)with PLL */
-        __builtin_write_OSCCONH(0x03);  /* Set OSCCONH for clock switch */
-        __builtin_write_OSCCONL(0x01);  /* Start clock switching */
-        while(OSCCONbits.COSC != 0b011);
-
-        /* Wait for Clock switch to occur */
-        /* Wait for PLL to lock, if PLL is used */
-        /* while(OSCCONbits.LOCK != 1); */
-
-#endif
-        
+    /* Wait for Clock switch to occur */
+    /* Wait for PLL to lock, if PLL is used */
+    /* while(OSCCONbits.LOCK != 1); */
 }
 

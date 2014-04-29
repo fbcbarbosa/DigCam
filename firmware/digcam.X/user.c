@@ -10,7 +10,8 @@
 #include "UART1.h"              // UART1 peripheral functions
 
 #include "lib/picdev/picDev.h"  // Connections of the picDev board
-#include "lib/picdev/pinOut.h"  // Pin mapping of the picDev Board
+#include "lib/picdev/pinOut.h"
+#include "lib/picdev/UART2.h"  // Pin mapping of the picDev Board
 
 /******************************************************************************/
 /* User Functions                                                             */
@@ -23,10 +24,10 @@ void InitApp(void) {
     /* Setup analog functionality and port direction */
     
     //Set up I/O Port
-    AD1PCFGL = 0xFFFF;      // set to all digital I/O
-    TRISB = 0xF3FF;         // configure all PortB as input
-    RPINR18bits.U1RXR = 2;  // UART1 receive set to RB2
-    RPOR1bits.RP3R = 3;     // UART1 transmit set to RB3
+//    AD1PCFGL = 0xFFFF;      // set to all digital I/O
+//    TRISB = 0xF3FF;         // configure all PortB as input
+//    RPINR18bits.U1RXR = 2;  // UART1 receive set to RB2
+//    RPOR1bits.RP3R = 3;     // UART1 transmit set to RB3
 
     /* Initialize peripherals */
     UART1Init();
@@ -39,7 +40,7 @@ void RepeaterProcessEvents() {
     unsigned char data = 0;
 
     // wait for data to be received
-    //data = UART1GetChar();
+    data = UART1GetChar();
 
     // send data back on UART TX line
     UART1PutChar(data);

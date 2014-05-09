@@ -26,8 +26,6 @@
 
 int16_t main(void)
 {
-
-
     // Initialize IO ports and peripherals
     InitApp();
 
@@ -41,7 +39,7 @@ int16_t main(void)
 
     // Main loop
     while (1) {
-        //write(read());
+        writech(read());
         //RepeaterProcessEvents();
     };
 }

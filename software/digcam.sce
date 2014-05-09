@@ -6,6 +6,8 @@ function digcam()
         if queue(1) > 0 then
             disp(readserial(h));
         end
+        x = input("Write a hexadecimal string: ");
+        writeserial(h,x);
     end
 endfunction
 

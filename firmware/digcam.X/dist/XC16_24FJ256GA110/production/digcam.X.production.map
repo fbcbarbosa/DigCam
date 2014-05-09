@@ -64,10 +64,10 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xc8           0x12c  (300)
 .const                       0x2c8                0x56            0x81  (129)
-.text                        0x31e               0x110           0x198  (408)
-.dinit                       0x42e                 0x2             0x3  (3)
+.text                        0x31e               0x11c           0x1aa  (426)
+.dinit                       0x43a                 0x2             0x3  (3)
 
-                     Total program memory used (bytes):          0x348  (840) <1%
+                     Total program memory used (bytes):          0x35a  (858) <1%
 
 
 Data Memory  [Origin = 0x800, Length = 0x4000]
@@ -104,23 +104,23 @@ External Symbols in Program Memory (by address):
                   0x0002be                  __AltMathError
                   0x0002c4                  __DefaultInterrupt
                   0x00031e                  _UART1Init
-                  0x000354                  _UART1GetChar
-                  0x00036c                  _UART1PutChar
-                  0x000384                  _UART1PutString
-                  0x0003a0                  _main
-                  0x0003da                  _ConfigureOscillator
-                  0x00040c                  _InitApp
-                  0x000418                  _RepeaterProcessEvents
+                  0x000358                  _UART1GetChar
+                  0x000370                  _UART1PutChar
+                  0x000388                  _UART1PutString
+                  0x0003a4                  _main
+                  0x0003e6                  _ConfigureOscillator
+                  0x000418                  _InitApp
+                  0x000424                  _RepeaterProcessEvents
 
 External Symbols in Program Memory (by name):
 
-                  0x0003da                  _ConfigureOscillator
-                  0x00040c                  _InitApp
-                  0x000418                  _RepeaterProcessEvents
-                  0x000354                  _UART1GetChar
+                  0x0003e6                  _ConfigureOscillator
+                  0x000418                  _InitApp
+                  0x000424                  _RepeaterProcessEvents
+                  0x000358                  _UART1GetChar
                   0x00031e                  _UART1Init
-                  0x00036c                  _UART1PutChar
-                  0x000384                  _UART1PutString
+                  0x000370                  _UART1PutChar
+                  0x000388                  _UART1PutString
                   0x00029a                  __AddressError
                   0x0002b2                  __AltAddressError
                   0x0002be                  __AltMathError
@@ -134,7 +134,7 @@ External Symbols in Program Memory (by name):
                   0x000236                  __data_init_standard
                   0x000226                  __psv_init
                   0x000200                  __resetPRI
-                  0x0003a0                  _main
+                  0x0003a4                  _main
 
 Memory Configuration
 
@@ -222,7 +222,7 @@ __CONFIG1         0x02abfe          0x2
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x134b
+.debug_info       0x000000       0x13fe
  *(.debug_info)
  .debug_info      0x000000        0x11b build/XC16_24FJ256GA110/production/interrupts.o
  .debug_info      0x00011b        0x13c build/XC16_24FJ256GA110/production/main.o
@@ -230,7 +230,7 @@ __CONFIG1         0x02abfe          0x2
  .debug_info      0x0006c0        0x2df build/XC16_24FJ256GA110/production/traps.o
  .debug_info      0x00099f        0x18e build/XC16_24FJ256GA110/production/user.o
  .debug_info      0x000b2d        0x103 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
- .debug_info      0x000c30        0x71b build/XC16_24FJ256GA110/production/UART1.o
+ .debug_info      0x000c30        0x7ce build/XC16_24FJ256GA110/production/UART1.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x333
@@ -243,15 +243,15 @@ __CONFIG1         0x02abfe          0x2
  .debug_abbrev    0x0001f8         0x30 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
  .debug_abbrev    0x000228        0x10b build/XC16_24FJ256GA110/production/UART1.o
 
-.debug_line       0x000000        0x5ec
+.debug_line       0x000000        0x604
  *(.debug_line)
  .debug_line      0x000000         0x24 build/XC16_24FJ256GA110/production/interrupts.o
- .debug_line      0x000024         0xc4 build/XC16_24FJ256GA110/production/main.o
- .debug_line      0x0000e8         0xb6 build/XC16_24FJ256GA110/production/system.o
- .debug_line      0x00019e        0x1a5 build/XC16_24FJ256GA110/production/traps.o
- .debug_line      0x000343         0xd6 build/XC16_24FJ256GA110/production/user.o
- .debug_line      0x000419         0x70 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
- .debug_line      0x000489        0x163 build/XC16_24FJ256GA110/production/UART1.o
+ .debug_line      0x000024         0xcc build/XC16_24FJ256GA110/production/main.o
+ .debug_line      0x0000f0         0xb6 build/XC16_24FJ256GA110/production/system.o
+ .debug_line      0x0001a6        0x1a5 build/XC16_24FJ256GA110/production/traps.o
+ .debug_line      0x00034b         0xd6 build/XC16_24FJ256GA110/production/user.o
+ .debug_line      0x000421         0x70 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
+ .debug_line      0x000491        0x173 build/XC16_24FJ256GA110/production/UART1.o
 
 .debug_frame      0x000000        0x174
  *(.debug_frame)
@@ -261,11 +261,11 @@ __CONFIG1         0x02abfe          0x2
  .debug_frame     0x0000ec         0x34 build/XC16_24FJ256GA110/production/user.o
  .debug_frame     0x000120         0x54 build/XC16_24FJ256GA110/production/UART1.o
 
-.debug_str        0x000000         0x40
+.debug_str        0x000000         0x4a
  *(.debug_str)
  .debug_str       0x000000         0x14 build/XC16_24FJ256GA110/production/system.o
  .debug_str       0x000014          0xc build/XC16_24FJ256GA110/production/traps.o
- .debug_str       0x000020         0x20 build/XC16_24FJ256GA110/production/UART1.o
+ .debug_str       0x000020         0x2a build/XC16_24FJ256GA110/production/UART1.o
 
 .debug_loc
  *(.debug_loc)
@@ -1650,7 +1650,7 @@ OUTPUT(dist/XC16_24FJ256GA110/production/digcam.X.production.elf elf32-pic30)
 LOAD data_init
 
 .debug_pubtypes
-                  0x000078        0x14c
+                  0x000078        0x16b
  .debug_pubtypes
                   0x000078         0x12 build/XC16_24FJ256GA110/production/interrupts.o
  .debug_pubtypes
@@ -1664,45 +1664,45 @@ LOAD data_init
  .debug_pubtypes
                   0x00013f         0x12 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
  .debug_pubtypes
-                  0x000151         0x73 build/XC16_24FJ256GA110/production/UART1.o
+                  0x000151         0x92 build/XC16_24FJ256GA110/production/UART1.o
 
 __c30_signature
-                  0x0001c4         0x36
+                  0x0001e4         0x36
  __c30_signature
-                  0x0001c4          0x6 build/XC16_24FJ256GA110/production/interrupts.o
+                  0x0001e4          0x6 build/XC16_24FJ256GA110/production/interrupts.o
  __c30_signature
-                  0x0001ca          0x6 build/XC16_24FJ256GA110/production/main.o
+                  0x0001ea          0x6 build/XC16_24FJ256GA110/production/main.o
  __c30_signature
-                  0x0001d0          0x6 build/XC16_24FJ256GA110/production/system.o
+                  0x0001f0          0x6 build/XC16_24FJ256GA110/production/system.o
  __c30_signature
-                  0x0001d6          0x6 build/XC16_24FJ256GA110/production/traps.o
+                  0x0001f6          0x6 build/XC16_24FJ256GA110/production/traps.o
  __c30_signature
-                  0x0001dc          0x6 build/XC16_24FJ256GA110/production/user.o
+                  0x0001fc          0x6 build/XC16_24FJ256GA110/production/user.o
  __c30_signature
-                  0x0001e2          0x6 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
+                  0x000202          0x6 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
  __c30_signature
-                  0x0001e8          0x6 build/XC16_24FJ256GA110/production/UART1.o
+                  0x000208          0x6 build/XC16_24FJ256GA110/production/UART1.o
  __c30_signature
-                  0x0001ee          0x6 /opt/microchip/xc16/v1.21/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
+                  0x00020e          0x6 /opt/microchip/xc16/v1.21/bin/bin/../../lib/libpic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0001f4          0x6 /opt/microchip/xc16/v1.21/bin/bin/../../lib/libpic30-elf.a(data_init_standard.o)
+                  0x000214          0x6 /opt/microchip/xc16/v1.21/bin/bin/../../lib/libpic30-elf.a(data_init_standard.o)
 
 .const              0x82c8         0x56 load address 0x0002c8  
  .const             0x82c8         0x56 build/XC16_24FJ256GA110/production/main.o
 
-.text             0x00031e        0x110
- .text            0x00031e         0x82 build/XC16_24FJ256GA110/production/UART1.o
+.text             0x00031e        0x11c
+ .text            0x00031e         0x86 build/XC16_24FJ256GA110/production/UART1.o
                   0x00031e                  _UART1Init
-                  0x000354                  _UART1GetChar
-                  0x00036c                  _UART1PutChar
-                  0x000384                  _UART1PutString
- .text            0x0003a0         0x3a build/XC16_24FJ256GA110/production/main.o
-                  0x0003a0                  _main
- .text            0x0003da         0x32 build/XC16_24FJ256GA110/production/system.o
-                  0x0003da                  _ConfigureOscillator
- .text            0x00040c         0x22 build/XC16_24FJ256GA110/production/user.o
-                  0x00040c                  _InitApp
-                  0x000418                  _RepeaterProcessEvents
+                  0x000358                  _UART1GetChar
+                  0x000370                  _UART1PutChar
+                  0x000388                  _UART1PutString
+ .text            0x0003a4         0x42 build/XC16_24FJ256GA110/production/main.o
+                  0x0003a4                  _main
+ .text            0x0003e6         0x32 build/XC16_24FJ256GA110/production/system.o
+                  0x0003e6                  _ConfigureOscillator
+ .text            0x000418         0x22 build/XC16_24FJ256GA110/production/user.o
+                  0x000418                  _InitApp
+                  0x000424                  _RepeaterProcessEvents
 
-.dinit            0x00042e          0x2
- .dinit           0x00042e          0x2 data_init
+.dinit            0x00043a          0x2
+ .dinit           0x00043a          0x2 data_init

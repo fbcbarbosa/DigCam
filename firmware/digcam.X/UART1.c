@@ -44,8 +44,8 @@ void UART1Init() {
     U1MODE = U_MODE;
     U1STA = U_STA;
 
-    //TRISFbits.TRISF4 = 1;   // configure the RX pin (RF4 - RP10)
-    //TRISFbits.TRISF5 = 0;   // configure the TX pin (RF5 - RP17)
+    TRISFbits.TRISF4 = 1;   // configure the RX pin (RF4 - RP10)
+    TRISFbits.TRISF5 = 0;   // configure the TX pin (RF5 - RP17)
 
     _U1RXR = UART1_RX;      // map RX for picDev board
     UART1_TX = Ro_U1TX;     // map TX for picDev board

@@ -33,7 +33,7 @@
 //Initiation
 void UART1Init();
 
-//UART receive function
+//UART char receive function
 char UART1GetChar();
 
 //UART char transmit function

@@ -25,10 +25,8 @@
 #define LEDtris	 	P49tris
 
 //------------------- UART -----------------------------
-#define UART2_RX    Ri31        // U2RX at pin RP10
-#define UART2_TX    Ro32        // U2TX at pin RP17
-#define UART1_RX    Ri31        // U1RX at pin RP10
-#define UART1_TX    Ro32        // U1TX at pin RP17
+#define UART1_RX        Ri31        // U1RX at pin RP10
+#define UART1_TX        Ro32        // U1TX at pin RP17
 
 
 #endif

@@ -2,6 +2,10 @@
 /* User Level #define Macros                                                  */
 /******************************************************************************/
 
+#define write(s)            UART1PutString((char*)s)
+#define writeln(s)          UART1PutString((char*)s);UART1PutString("\r\n")
+#define read()              UART1GetChar()
+
 /******************************************************************************/
 /* User Function Prototypes                                                   */
 /******************************************************************************/

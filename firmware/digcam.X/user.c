@@ -2,16 +2,16 @@
 /* Files to Include                                                           */
 /******************************************************************************/
 
-#include <p24Fxxxx.h>        /* Device header file */
-#include <stdint.h>          /* For uint32_t definition */
-#include <stdbool.h>         /* For true/false definition */
-#include "user.h"            /* variables/params used by user.c */
+#include <p24Fxxxx.h>        // Device header file
+#include <stdint.h>          // For uint32_t definition
+#include <stdbool.h>         // For true/false definition
 
-#include "UART1.h"              // UART1 peripheral functions
+#include "user.h"            // Variables/params used by user.c
+#include "UART1.h"           // UART1 peripheral functions
 
 #include "lib/picdev/picDev.h"  // Connections of the picDev board
-#include "lib/picdev/pinOut.h"
-#include "lib/picdev/UART2.h"  // Pin mapping of the picDev Board
+#include "lib/picdev/pinOut.h"  // Pin mapping of the picDev Board
+
 
 /******************************************************************************/
 /* User Functions                                                             */
@@ -23,11 +23,8 @@
 void InitApp(void) {
     /* Setup analog functionality and port direction */
     
-    //Set up I/O Port
-//    AD1PCFGL = 0xFFFF;      // set to all digital I/O
-//    TRISB = 0xF3FF;         // configure all PortB as input
-//    RPINR18bits.U1RXR = 2;  // UART1 receive set to RB2
-//    RPOR1bits.RP3R = 3;     // UART1 transmit set to RB3
+    // Turn off analogue functions on all pins
+    AD1PCFG = 0xFFFF;
 
     /* Initialize peripherals */
     UART1Init();

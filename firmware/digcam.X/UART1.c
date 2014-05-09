@@ -20,17 +20,23 @@
 #include "lib/picdev/pinOut.h"  // Pin mapping of the picDev Board
 
 /******************************************************************************/
+/* Pre-processing code                                                        */
+/******************************************************************************/
+
+#if (BAUD_RATE_ERROR_PCT > 3)
+#error UART frequency error is worse than 3%
+#elif (BAUD_RATE_ERROR_PCT > 2)
+#warning UART frequency error is worse than 2%
+#endif
+
+/******************************************************************************/
 /* User Functions                                                             */
 /******************************************************************************/
+
 /**
  * UART1 initiation function.
  */
 void UART1Init() {
-//    if (BAUD_RATE_ERROR_PCT > 3)
-//        printf("ERROR: UART frequency error is worse than 3%");
-//    else if (BAUD_RATE_ERROR_PCT > 2)
-//        printf("WARNING UART frequency error is worse than 2%");
-
     char trash;
 
     // set up registers
@@ -38,30 +44,16 @@ void UART1Init() {
     U1MODE = U_MODE;
     U1STA = U_STA;
 
-    // reset RX interrupt flag
-    IFS0bits.U1RXIF = 0;
+    //TRISFbits.TRISF4 = 1;   // configure the RX pin (RF4 - RP10)
+    //TRISFbits.TRISF5 = 0;   // configure the TX pin (RF5 - RP17)
 
-    Ri_U1RX = UART1_RX;
-    UART1_TX = Ro_U1TX;
+    _U1RXR = UART1_RX;      // map RX for picDev board
+    UART1_TX = Ro_U1TX;     // map TX for picDev board
 
-// interrupt request enabled
-//    _U1TXIE = 1;
-//    _U1RXIE = 1;
-
+    // delete trash
     while (U1STAbits.URXDA)
         trash = U1RXREG;
-
     return;
-}
-
-/**
- * UART1 transmit function.
- * @param Ch Character to send.
- */
-void UART1PutChar(char Ch) {
-    // transmit ONLY if TX buffer is empty
-    while (U1STAbits.UTXBF);
-    U1TXREG = Ch;
 }
 
 /**
@@ -69,18 +61,28 @@ void UART1PutChar(char Ch) {
  * @return the received character.
  */
 char UART1GetChar() {
-    char Temp;
-
-    _U1TXIE = 1;
-
-    // wait for buffer to fill up, wait for interrupt
-    while (!IFS0bits.U1RXIF);
-    
-    _U1TXIE = 0;
-
-    Temp = U1RXREG;
-    // reset interrupt
-    IFS0bits.U1RXIF = 0;
-    // return my received byte
-    return Temp;
+    U1STAbits.OERR=0;
+    while (!U1STAbits.URXDA); // wait untill data arrives
+    return U1RXREG;
 }
+
+/**
+ * UART1 char transmit function.
+ * @param ch Character to send.
+ */
+void UART1PutChar(char ch) {
+    while (U1STAbits.UTXBF); // transmit ONLY if TX buffer is empty
+    U1TXREG = ch;
+}
+
+/**
+ * UART1 string transmit function.
+ * @param string
+ */
+void UART1PutString(char *string) {
+    while (*string) {
+        UART1PutChar(*string++); // sends char and points to the next one
+    };
+}
+
+

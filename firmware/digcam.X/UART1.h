@@ -10,7 +10,7 @@
  */
 
 /******************************************************************************/
-/* UART1 #define Macros                                                  */
+/* UART1 #define Macros                                                       */
 /******************************************************************************/
 
 #ifndef UART_H
@@ -24,24 +24,21 @@
 #define BAUD_RATE_ACTUAL    (GetPeripheralClock()/4/(BAUD_RATE_REG + 1))
 #define BAUD_RATE_ERROR     ((BAUD_RATE_ACTUAL > BAUD_RATE) ? BAUD_RATE_ACTUAL - BAUD_RATE : BAUD_RATE - BAUD_RATE_ACTUAL)
 #define BAUD_RATE_ERROR_PCT ((BAUD_RATE_ERROR*100+BAUD_RATE/2)/BAUD_RATE)
-
-//#if (BAUD_RATE_ERROR_PCT > 3)
-//#error UART frequency error is worse than 3%
-//#elif (BAUD_RATE_ERROR_PCT > 2)
-//#warning UART frequency error is worse than 2%
-//#endif
-
 #endif
 
 /******************************************************************************/
-/* UART1 Function Prototypes                                                   */
+/* UART1 Function Prototypes                                                  */
 /******************************************************************************/
 
 //Initiation
-extern void UART1Init();
-
-//UART transmit function
-extern void  UART1PutChar(char Ch);
+void UART1Init();
 
 //UART receive function
-extern char UART1GetChar();
+char UART1GetChar();
+
+//UART char transmit function
+void UART1PutChar(char ch);
+
+//UART string transmit function
+void UART1PutString(char *string);
+

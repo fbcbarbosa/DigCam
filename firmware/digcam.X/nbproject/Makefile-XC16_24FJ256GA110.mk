@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=interrupts.c main.c system.c traps.c user.c lib/picdev/configuration_bits.c UART1.c
+SOURCEFILES_QUOTED_IF_SPACED=interrupts.c main.c system.c traps.c user.c lib/picdev/configuration_bits.c UART1.c OV2640.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/interrupts.o ${OBJECTDIR}/main.o ${OBJECTDIR}/system.o ${OBJECTDIR}/traps.o ${OBJECTDIR}/user.o ${OBJECTDIR}/lib/picdev/configuration_bits.o ${OBJECTDIR}/UART1.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/interrupts.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/system.o.d ${OBJECTDIR}/traps.o.d ${OBJECTDIR}/user.o.d ${OBJECTDIR}/lib/picdev/configuration_bits.o.d ${OBJECTDIR}/UART1.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/interrupts.o ${OBJECTDIR}/main.o ${OBJECTDIR}/system.o ${OBJECTDIR}/traps.o ${OBJECTDIR}/user.o ${OBJECTDIR}/lib/picdev/configuration_bits.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/OV2640.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/interrupts.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/system.o.d ${OBJECTDIR}/traps.o.d ${OBJECTDIR}/user.o.d ${OBJECTDIR}/lib/picdev/configuration_bits.o.d ${OBJECTDIR}/UART1.o.d ${OBJECTDIR}/OV2640.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/interrupts.o ${OBJECTDIR}/main.o ${OBJECTDIR}/system.o ${OBJECTDIR}/traps.o ${OBJECTDIR}/user.o ${OBJECTDIR}/lib/picdev/configuration_bits.o ${OBJECTDIR}/UART1.o
+OBJECTFILES=${OBJECTDIR}/interrupts.o ${OBJECTDIR}/main.o ${OBJECTDIR}/system.o ${OBJECTDIR}/traps.o ${OBJECTDIR}/user.o ${OBJECTDIR}/lib/picdev/configuration_bits.o ${OBJECTDIR}/UART1.o ${OBJECTDIR}/OV2640.o
 
 # Source Files
-SOURCEFILES=interrupts.c main.c system.c traps.c user.c lib/picdev/configuration_bits.c UART1.c
+SOURCEFILES=interrupts.c main.c system.c traps.c user.c lib/picdev/configuration_bits.c UART1.c OV2640.c
 
 
 CFLAGS=
@@ -128,6 +128,13 @@ ${OBJECTDIR}/UART1.o: UART1.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  UART1.c  -o ${OBJECTDIR}/UART1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART1.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -I"../lib/picdev" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/UART1.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/OV2640.o: OV2640.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/OV2640.o.d 
+	@${RM} ${OBJECTDIR}/OV2640.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  OV2640.c  -o ${OBJECTDIR}/OV2640.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/OV2640.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -I"../lib/picdev" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/OV2640.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/interrupts.o: interrupts.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
@@ -177,6 +184,13 @@ ${OBJECTDIR}/UART1.o: UART1.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/UART1.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  UART1.c  -o ${OBJECTDIR}/UART1.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/UART1.o.d"        -g -omf=elf -O0 -I"../lib/picdev" -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/UART1.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/OV2640.o: OV2640.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/OV2640.o.d 
+	@${RM} ${OBJECTDIR}/OV2640.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  OV2640.c  -o ${OBJECTDIR}/OV2640.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/OV2640.o.d"        -g -omf=elf -O0 -I"../lib/picdev" -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/OV2640.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

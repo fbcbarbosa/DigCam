@@ -33,8 +33,14 @@
 //Initiation
 void UART1Init();
 
+//Check if there's a char in the RX buffer
+int UART1Check();
+
 //UART char receive function
 char UART1GetChar();
+
+//UART string receive function
+char* UART1GetString();
 
 //UART char transmit function
 void UART1PutChar(char ch);

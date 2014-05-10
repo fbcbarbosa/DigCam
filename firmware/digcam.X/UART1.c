@@ -12,7 +12,6 @@
 /******************************************************************************/
 /* Files to Include                                                           */
 /******************************************************************************/
-
 #include "UART1.h"          // Header file
 #include "p24Fxxxx.h"       // Compiler definitions
 
@@ -57,13 +56,36 @@ void UART1Init() {
 }
 
 /**
- * UART1 receive function.
+ * UART1 char receive function.
+ * @return returns 1 if there's a character in the buffer, 0 otherwise.
+ */
+int UART1Check() {
+    return U1STAbits.URXDA;
+}
+
+/**
+ * UART1 char receive function.
  * @return the received character.
  */
 char UART1GetChar() {
     U1STAbits.OERR=0;
     while (!U1STAbits.URXDA); // wait untill data arrives
     return U1RXREG;
+}
+
+/**
+ * UART1 string receive function.
+ * @return the received character.
+ */
+char* UART1GetString() {
+    char* string = "";
+
+    U1STAbits.OERR=0;
+    while (!U1STAbits.URXDA); // wait untill data arrives
+    while (!U1STAbits.URXDA) {
+        string = string + U1RXREG;
+    }
+    return string;
 }
 
 /**

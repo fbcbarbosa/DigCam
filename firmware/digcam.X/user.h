@@ -5,7 +5,8 @@
 #define write(s)            UART1PutString((char*)s)
 #define writeln(s)          UART1PutString((char*)s);UART1PutString("\r\n")
 #define writech(ch)         UART1PutChar((char)ch)
-#define read()              UART1GetChar()
+#define read()              UART1GetString()
+#define readch()            UART1GetChar()
 
 /******************************************************************************/
 /* User Function Prototypes                                                   */

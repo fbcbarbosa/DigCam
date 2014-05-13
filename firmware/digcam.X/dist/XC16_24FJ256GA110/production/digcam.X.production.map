@@ -65,10 +65,10 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xc8           0x12c  (300)
 .const                       0x2c8                0x54            0x7e  (126)
-.text                        0x31c               0x1ac           0x282  (642)
-.dinit                       0x4c8                 0x2             0x3  (3)
+.text                        0x31c               0x1a4           0x276  (630)
+.dinit                       0x4c0                 0x2             0x3  (3)
 
-                     Total program memory used (bytes):          0x42f  (1071) <1%
+                     Total program memory used (bytes):          0x423  (1059) <1%
 
 
 Data Memory  [Origin = 0x800, Length = 0x4000]
@@ -111,21 +111,21 @@ External Symbols in Program Memory (by address):
                   0x0003a6                  _UART1PutChar
                   0x0003be                  _UART1PutString
                   0x0003da                  _main
-                  0x000462                  _ConfigureOscillator
-                  0x000494                  _InitApp
-                  0x0004a0                  _RepeaterProcessEvents
-                  0x0004b6                  _TurnCameraOn
-                  0x0004bc                  _TurnCameraOff
-                  0x0004c2                  _TakePicture
+                  0x00045a                  _ConfigureOscillator
+                  0x00048c                  _InitApp
+                  0x000498                  _RepeaterProcessEvents
+                  0x0004ae                  _TurnCameraOn
+                  0x0004b4                  _TurnCameraOff
+                  0x0004ba                  _TakePicture
 
 External Symbols in Program Memory (by name):
 
-                  0x000462                  _ConfigureOscillator
-                  0x000494                  _InitApp
-                  0x0004a0                  _RepeaterProcessEvents
-                  0x0004c2                  _TakePicture
-                  0x0004bc                  _TurnCameraOff
-                  0x0004b6                  _TurnCameraOn
+                  0x00045a                  _ConfigureOscillator
+                  0x00048c                  _InitApp
+                  0x000498                  _RepeaterProcessEvents
+                  0x0004ba                  _TakePicture
+                  0x0004b4                  _TurnCameraOff
+                  0x0004ae                  _TurnCameraOn
                   0x000356                  _UART1Check
                   0x000366                  _UART1GetChar
                   0x00037e                  _UART1GetString
@@ -257,16 +257,16 @@ __CONFIG1         0x02abfe          0x2
  .debug_abbrev    0x000242        0x122 build/XC16_24FJ256GA110/production/UART1.o
  .debug_abbrev    0x000364         0x27 build/XC16_24FJ256GA110/production/OV2640.o
 
-.debug_line       0x000000        0x75e
+.debug_line       0x000000        0x756
  *(.debug_line)
  .debug_line      0x000000         0x24 build/XC16_24FJ256GA110/production/interrupts.o
- .debug_line      0x000024        0x134 build/XC16_24FJ256GA110/production/main.o
- .debug_line      0x000158         0xb6 build/XC16_24FJ256GA110/production/system.o
- .debug_line      0x00020e        0x1a5 build/XC16_24FJ256GA110/production/traps.o
- .debug_line      0x0003b3         0xd6 build/XC16_24FJ256GA110/production/user.o
- .debug_line      0x000489         0x70 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
- .debug_line      0x0004f9        0x1e7 build/XC16_24FJ256GA110/production/UART1.o
- .debug_line      0x0006e0         0x7e build/XC16_24FJ256GA110/production/OV2640.o
+ .debug_line      0x000024        0x12c build/XC16_24FJ256GA110/production/main.o
+ .debug_line      0x000150         0xb6 build/XC16_24FJ256GA110/production/system.o
+ .debug_line      0x000206        0x1a5 build/XC16_24FJ256GA110/production/traps.o
+ .debug_line      0x0003ab         0xd6 build/XC16_24FJ256GA110/production/user.o
+ .debug_line      0x000481         0x70 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
+ .debug_line      0x0004f1        0x1e7 build/XC16_24FJ256GA110/production/UART1.o
+ .debug_line      0x0006d8         0x7e build/XC16_24FJ256GA110/production/OV2640.o
 
 .debug_frame      0x000000        0x1d8
  *(.debug_frame)
@@ -1713,7 +1713,7 @@ __c30_signature
  .const             0x82c8         0x52 build/XC16_24FJ256GA110/production/main.o
  .const             0x831a          0x2 build/XC16_24FJ256GA110/production/UART1.o
 
-.text             0x00031c        0x1ac
+.text             0x00031c        0x1a4
  .text            0x00031c         0xbe build/XC16_24FJ256GA110/production/UART1.o
                   0x00031c                  _UART1Init
                   0x000356                  _UART1Check
@@ -1721,17 +1721,17 @@ __c30_signature
                   0x00037e                  _UART1GetString
                   0x0003a6                  _UART1PutChar
                   0x0003be                  _UART1PutString
- .text            0x0003da         0x88 build/XC16_24FJ256GA110/production/main.o
+ .text            0x0003da         0x80 build/XC16_24FJ256GA110/production/main.o
                   0x0003da                  _main
- .text            0x000462         0x32 build/XC16_24FJ256GA110/production/system.o
-                  0x000462                  _ConfigureOscillator
- .text            0x000494         0x22 build/XC16_24FJ256GA110/production/user.o
-                  0x000494                  _InitApp
-                  0x0004a0                  _RepeaterProcessEvents
- .text            0x0004b6         0x12 build/XC16_24FJ256GA110/production/OV2640.o
-                  0x0004b6                  _TurnCameraOn
-                  0x0004bc                  _TurnCameraOff
-                  0x0004c2                  _TakePicture
+ .text            0x00045a         0x32 build/XC16_24FJ256GA110/production/system.o
+                  0x00045a                  _ConfigureOscillator
+ .text            0x00048c         0x22 build/XC16_24FJ256GA110/production/user.o
+                  0x00048c                  _InitApp
+                  0x000498                  _RepeaterProcessEvents
+ .text            0x0004ae         0x12 build/XC16_24FJ256GA110/production/OV2640.o
+                  0x0004ae                  _TurnCameraOn
+                  0x0004b4                  _TurnCameraOff
+                  0x0004ba                  _TakePicture
 
-.dinit            0x0004c8          0x2
- .dinit           0x0004c8          0x2 data_init
+.dinit            0x0004c0          0x2
+ .dinit           0x0004c0          0x2 data_init

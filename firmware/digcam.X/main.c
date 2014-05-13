@@ -49,7 +49,6 @@ int16_t main(void)
         switch(ch)
         {
             case COM_NONE:
-                writeln("");
                 break;
             case COM_TURN_ON:
                 writeln("ON");

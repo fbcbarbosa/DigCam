@@ -11,7 +11,7 @@ def main():
     """
     Run serial communication.
     """
-    ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=1) # open USB port
+    ser = serial.Serial('/dev/ttyUSB1', 115200, timeout=1) # open USB port
     print 'Reading from ' + ser.name
     print 'Command list:'
     instructions.initDatabase()
@@ -21,7 +21,7 @@ def main():
         while ser.inWaiting() > 0:
             sys.stdout.write(ser.read())        # read serial data
         com = raw_input('Insert instruction: ') # ask user for command
-        ser.write(instructions.lookup(com))     # write serial data
+        ser.write(instructions.encode(com))     # write serial data
         sys.stdout.write(ser.readline())
         
     ser.close();

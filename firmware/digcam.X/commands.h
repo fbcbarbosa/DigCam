@@ -33,3 +33,5 @@ extern "C" {
 #define COM_TURN_ON     0x01
 #define COM_TURN_OFF    0x02
 #define COM_TAKE_PIC    0x03
+#define COM_GET_P       0x04
+#define COM_SET_P       0x05

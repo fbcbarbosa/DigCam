@@ -4,6 +4,7 @@
 
 #include <p24Fxxxx.h>       // Device header file
 
+#include <stdio.h>
 #include <stdint.h>         // Includes uint16_t definition
 #include <stdbool.h>        // Includes true/false definition
 
@@ -26,6 +27,7 @@
 /******************************************************************************/
 /* Main Program                                                               */
 /******************************************************************************/
+uint8_t p = 100;
 
 int16_t main(void)
 {
@@ -42,11 +44,15 @@ int16_t main(void)
     // Main loop
     while (1) {
         //RepeaterProcessEvents();
-        char ch = 0x00;
+        char ch1, ch2;
+        char buf [33];
+        // ch1 = command
+        // ch2 = parameter (optional)
 
-        ch = readch();
-
-        switch(ch)
+        ch1 = readch();
+        ch2 = readch();
+        
+        switch(ch1)
         {
             case COM_NONE:
                 break;
@@ -61,6 +67,14 @@ int16_t main(void)
             case COM_TAKE_PIC:
                 writeln("PIC");
                 TakePicture();
+                break;
+            case COM_GET_P:
+                sprintf(buf, "The value of parameter p is %d", p);
+                writeln(buf);
+                break;
+            case COM_SET_P:
+                writeln("P is set!");
+                p = (uint8_t)ch2;
                 break;
             default:
                 break;

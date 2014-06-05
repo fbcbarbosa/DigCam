@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 
 """
@@ -45,19 +47,21 @@ def listAll():
         
 def encode(command):
     """
-    Interpret the command according to the Instruction Database and return its code.
+    Interpret the command according to the Instruction Database and return its code. 
+    Handles errors.
 
     Keyword arguments:
     command - string: the command given
     """
     words = command.split() # split the command in single words
     n = len(words)
-    ch1 = chr(0);   # first char, PIC instruction code
-    ch2 = chr(0);   # second char, instruction parameter (optional)
+    ch1 = chr(0);    # first char, PIC instruction code
+    ch2 = chr(0);    # second char, instruction parameter (optional)
     try:
         if n == 0:
-            return ch1 + ch2
-        elif n == 1: # its a single-word command, like 'on' or 'off'
+            print "Error: '" + command + "'" + " is not a valid command!"
+            return -1
+        if n == 1:   # its a single-word command, like 'on' or 'off'
             ch1 = __database[command][0]
         elif n == 2: # its a two-word command, like 'get color'
             ch1 = __database[words[0] + " " + words[1]][0]
@@ -70,9 +74,10 @@ def encode(command):
                 ch2 = chr(param)
             except ValueError:
                 print "Error: '" + words[2] + "'" + " is not and integer between 0 and 255!"
-                return ch1 + ch2
+                return -1
         else:
             raise KeyError
     except KeyError:
         print "Error: '" + command + "'" + " is not a valid command!"
+        return -1
     return ch1 + ch2

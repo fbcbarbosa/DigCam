@@ -1,7 +1,6 @@
 /*
  * File:   OV2640.c
- * Author: fernando
- * List of commands known to the PIC.
+ * Author: Fernando Barbosa
  *
  * Created on May 10, 2014, 02:02 AM
  *

@@ -1,6 +1,6 @@
 /* 
  * File:   commands.h
- * Author: fernando
+ * Author: Fernando Barbosa
  * List of commands known to the PIC.
  *
  * Created on May 9, 2014, 11:23 PM

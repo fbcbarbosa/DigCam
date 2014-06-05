@@ -10,7 +10,6 @@
 
 #include "commands.h"       // List of commands known to the PIC
 #include "system.h"         // System funct/params, like osc/peripheral config
-#include "user.h"           // User funct/params, such as InitApp
 #include "UART1.h"          // UART1 peripheral functions
 #include "OV2640.h"
 
@@ -19,10 +18,27 @@
 #include "commands.h"  // Pin mapping of the picDev Board
 
 /******************************************************************************/
+/* User Level #define Macros                                                  */
+/******************************************************************************/
+
+#define write(s)            UART1PutString((char*)s)
+#define writeln(s)          UART1PutString((char*)s);UART1PutString("\r\n")
+#define writech(ch)         UART1PutChar((char)ch)
+#define read()              UART1GetString()
+#define readch()            UART1GetChar()
+
+/******************************************************************************/
 /* Global Variable Declaration                                                */
 /******************************************************************************/
 
 /* i.e. uint16_t <variable_name>; */
+
+/******************************************************************************/
+/* User Function Prototypes                                                   */
+/******************************************************************************/
+
+void InitApp(void);                 // I/O and Peripheral Initialization
+void RepeaterProcessEvents(void);   // Repeater main function
 
 /******************************************************************************/
 /* Main Program                                                               */
@@ -44,6 +60,7 @@ int16_t main(void)
     // Main loop
     while (1) {
         //RepeaterProcessEvents();
+        
         char ch1, ch2;
         char buf [33];
         // ch1 = command
@@ -80,4 +97,17 @@ int16_t main(void)
                 break;
         }
     };
+}
+
+/**
+ * Setup analog functionality and port direction and initialize peripherals.
+ */
+void InitApp(void) {
+    /* Setup analog functionality and port direction */
+
+    // Turn off analogue functions on all pins
+    AD1PCFG = 0xFFFF;
+
+    /* Initialize peripherals */
+    UART1Init();
 }

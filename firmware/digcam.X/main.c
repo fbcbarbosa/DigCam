@@ -10,8 +10,8 @@
 
 #include "commands.h"       // List of commands known to the PIC
 #include "system.h"         // System funct/params, like osc/peripheral config
-#include "UART1.h"          // UART1 peripheral functions
-#include "OV2640.h"
+#include "uart1.h"          // UART1 peripheral functions
+#include "ov2640.h"
 
 #include "lib/picdev/picDev.h"  // Connections of the picDev board
 #include "lib/picdev/pinOut.h"
@@ -49,20 +49,13 @@ int16_t main(void)
 {
     // Initialize IO ports and peripherals
     InitApp();
-
-    writeln("");
-    writeln("Date: "__DATE__);
-    writeln("Time: "__TIME__);
-    writeln("");
-    writeln("Welcome to DigCam Interface v0.1!");
-    writeln("");
-    
+  
     // Main loop
     while (1) {
         //RepeaterProcessEvents();
-        
+
+        char buf[33];
         char ch1, ch2;
-        char buf [33];
         // ch1 = command
         // ch2 = parameter (optional)
 

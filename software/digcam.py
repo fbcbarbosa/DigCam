@@ -65,7 +65,7 @@ def openRoutine():
             try:
                 ser = serial.Serial('/dev/ttyUSB2', 115200, timeout=1)
             except serial.serialutil.SerialException:
-                print 'Error: did not find DIGCAM! Check your USB connection!'
+                print 'Error: did not find PicDev! Please check your USB connection.'
                 return -1
     return 0
     

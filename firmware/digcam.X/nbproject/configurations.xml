@@ -8,7 +8,9 @@
       <itemPath>lib/picdev/picDev.h</itemPath>
       <itemPath>lib/picdev/pinOut.h</itemPath>
       <itemPath>uart1.h</itemPath>
-      <itemPath>spi1.h</itemPath>
+      <itemPath>ov2640.h</itemPath>
+      <itemPath>delay.h</itemPath>
+      <itemPath>i2c_cam.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -23,10 +25,10 @@
       <itemPath>traps.c</itemPath>
       <itemPath>lib/picdev/configuration_bits.c</itemPath>
       <itemPath>commands.h</itemPath>
-      <itemPath>spi1.c</itemPath>
       <itemPath>uart1.c</itemPath>
       <itemPath>ov2640.c</itemPath>
-      <itemPath>ov2640.h</itemPath>
+      <itemPath>i2c_cam.c</itemPath>
+      <itemPath>delay.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

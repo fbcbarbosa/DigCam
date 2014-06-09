@@ -4,6 +4,7 @@ commands.h  \
 system.h  \
  uart1.h  \
 ov2640.h  \
+i2c_cam.h  \
 lib/picdev/picDev.h  \
 lib/picdev/pinOut.h  \
  lib/picdev/pinOut.h 

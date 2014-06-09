@@ -1,30 +1,30 @@
 /*
- * File:   OV2640.c
- * Author: Fernando Barbosa
+ * File:   delay.c
+ * Author: fernando
  *
- * Created on May 10, 2014, 02:02 AM
- *
- * Description: defines all commands known to the pic. Each command is define by
- * two hexadecimal characters, for a total of 256 commands.
+ * Created on June 9, 2014, 5:33 PM
  */
 
 /******************************************************************************/
 /* Files to Include                                                           */
 /******************************************************************************/
 
-#include "OV2640.h"
+#include "delay.h"      // Device header file
 
 /******************************************************************************/
-/* OV2640 Functions                                                           */
+/* User Functions                                                             */
 /******************************************************************************/
 
-void TurnCameraOn() {
+/**
+ * User Timer1 to create a delay. WARNING: must call 'Timer1Init()' first!
+ * @param t Delay in microseconds.
+ */
+void Delay(int t)
+{
+    // write code here
 }
 
-void TurnCameraOff() {
-
-}
-
-void TakePicture() {
-
+void Timer1Init()
+{
+    // write code here
 }

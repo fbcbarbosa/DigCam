@@ -12,6 +12,7 @@
 #include "system.h"         // System funct/params, like osc/peripheral config
 #include "uart1.h"          // UART1 peripheral functions
 #include "ov2640.h"
+#include "i2c_cam.h"
 
 #include "lib/picdev/picDev.h"  // Connections of the picDev board
 #include "lib/picdev/pinOut.h"
@@ -49,7 +50,11 @@ int16_t main(void)
 {
     // Initialize IO ports and peripherals
     InitApp();
-  
+
+    while(1)
+    {
+        writech('x');
+    }
     // Main loop
     while (1) {
         //RepeaterProcessEvents();
@@ -104,3 +109,4 @@ void InitApp(void) {
     /* Initialize peripherals */
     UART1Init();
 }
+

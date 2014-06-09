@@ -16,3 +16,4 @@
 
 void Delay();
 void Timer1Init();
+void __attribute__((__interrupt__)) _T1Interrupt(void);

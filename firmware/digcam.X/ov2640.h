@@ -12,6 +12,10 @@
 /* Commands #define Macros                                                    */
 /******************************************************************************/
 
+#include "lib/picdev/picDev.h"  // Connections of the picDev board
+#include "lib/picdev/pinOut.h"  // Pin mapping of the picDev Board
+
+
 /******************************************************************************/
 /* OV2640 Functions                                                           */
 /******************************************************************************/

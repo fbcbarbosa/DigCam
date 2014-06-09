@@ -53,21 +53,26 @@ def main():
 
 def openRoutine():
     """
-    Tries to find and open the correct serial port (search USB0, USB1 and USB2).
+    Tries to find and open the correct serial port.
     """
     global ser # serial communication handler 
-    try:
-        ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=1)
-    except serial.serialutil.SerialException:
+    
+    while True:
+        port = raw_input('> Insert COM/USB port number ("'"exit"'" to quit): ');
+        if port == 'exit':
+            return -1;
+        
         try:
-            ser = serial.Serial('/dev/ttyUSB1', 115200, timeout=1)
+            ser = serial.Serial(int(port), 115200, timeout=1)   # Windows
         except serial.serialutil.SerialException:
             try:
-                ser = serial.Serial('/dev/ttyUSB2', 115200, timeout=1)
+                ser = serial.Serial('/dev/ttyUSB' + port, 115200, timeout=1)    # Linux
             except serial.serialutil.SerialException:
-                print 'Error: did not find PicDev! Please check your USB connection.'
-                return -1
-    return 0
+                print 'Error: did not find PicDev! Check your USB connection or try another port.'
+            else:
+                return 0
+        else:
+            return 0          
     
 def helpMessage():
     """

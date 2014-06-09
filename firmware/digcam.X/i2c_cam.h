@@ -43,10 +43,18 @@
 #define MAX_ITER        200
 #define PAGE_SIZE       8       // before 8
 
-void i2c_init(int clk);
+#define CAM_ADDR        0x00
 
-//int i2c_read_bytes(uint16_t eeaddr, int len, uint8_t *buf);
-//int i2c_write_page(uint16_t eeaddr, int len, uint8_t *buf);
-//int i2c_write_bytes(uint16_t eeaddr, int len, uint8_t *buf);
+void CamWrite(char reg, char value);
+void CamRead(char reg, char value);
+
+void i2c_init(int clk);
+void i2c_restart();
+void i2c_start();
+void i2c_reset_bus(void);
+char i2c_read();
+char i2c_read_ack();
+void i2c_send_byte(int data);
+
 #endif
 

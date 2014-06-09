@@ -1,0 +1,6 @@
+REQUIRES
+-- Python 2.7.2
+-- PySerial
+
+WINDOWS
+-- Virtual COM Port Drivers: http://www.facebook.com/l.php?u=http%3A%2F%2Fwww.ftdichip.com%2FDrivers%2FVCP.htm&h=fAQEQQ7d_

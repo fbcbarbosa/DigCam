@@ -21,10 +21,8 @@
  * ---------------------------------------------------------------------------
  */
 
-void reset_i2c_bus(void);
-
 #include "i2c_cam.h"
-#include <i2c.h>
+#include <i2c.h>        // Microchip I2C library
 
 //function initiates I2C1 module to baud rate BRG
 void i2c_init(int BRG)
@@ -41,8 +39,48 @@ void i2c_init(int BRG)
    reset_i2c_bus();             // set bus to idle
 }
 
+//function iniates a start condition on bus
+void i2c_start(void)
+{
+   int x = 0;
+   I2C1CONbits.ACKDT = 0;	//Reset any previous Ack
+   Delay(10);
+   I2C1CONbits.SEN = 1;	//Initiate Start condition
+   Nop();
+
+   //the hardware will automatically clear Start Bit
+   //wait for automatic clear before proceding
+   while (I2C1CONbits.SEN)
+   {
+      Delay(1);
+      x++;
+      if (x > 20)
+      break;
+   }
+   Delay(2);
+}
+
+void i2c_restart(void)
+{
+   int x = 0;
+
+   I2C1CONbits.RSEN = 1;	//Initiate restart condition
+   Nop();
+
+   //the hardware will automatically clear restart bit
+   //wait for automatic clear before proceding
+   while (I2C1CONbits.RSEN)
+   {
+      Delay(1);
+      x++;
+      if (x > 20)	break;
+   }
+
+   Delay(2);
+}
+
 //Resets the I2C bus to Idle
-void reset_i2c_bus(void)
+void i2c_reset_bus(void)
 {
    int x = 0;
 
@@ -52,7 +90,7 @@ void reset_i2c_bus(void)
    //wait for hardware clear of stop bit
    while (I2C1CONbits.PEN)
    {
-   //   DelayuSec(1);
+   //   Delay(1);
       x++;
       if (x > 20) break;
    }
@@ -60,306 +98,122 @@ void reset_i2c_bus(void)
    IFS1bits.MI2C1IF = 0; // Clear Interrupt
    I2C1STATbits.IWCOL = 0;
    I2C1STATbits.BCL = 0;
-   //DelayuSec(10);
+   //Delay(10);
 }
 
-//void
-//i2c_init(int clk)
-//{
-//
-//  /* initialize TWI clock: 100 kHz clock, TWPS = 0 => prescaler = 1 */
-//#if defined(TWPS0)
-//  /* has prescaler (mega128 & newer) */
-//  TWSR = 0;
-//#endif
-//  TWBR = (clk*1000000 / 100000UL - 16) / 2;
-//
-//}
-//
-//int
-//i2c_read_bytes(uint16_t eeaddr, int len, uint8_t *buf)
-//{
-//
-//  unsigned long int counter=0;
-//  uint8_t sla, twcr, n = 0;
-//  int rv = 0;
-//
-//
-//  /* patch high bits of EEPROM address into SLA */
-//  sla = TWI_SLA_CAM |(((eeaddr >> 8) & 0x07) << 1);
-//
-//  /*
-//   * Note [6]
-//   * First cycle: master transmitter mode
-//   */
-//  restart:
-//  if (n++ >= MAX_ITER)
-//    return -1;
-//  begin:
-//
-//  TWCR = _BV(TWINT) | _BV(TWSTA) | _BV(TWEN); /* send start condition */
-//  while ((TWCR & _BV(TWINT)) == 0) ; /* wait for transmission */
-//  switch ((TW_STATUS))
-//    {
-//    case TW_REP_START:          /* OK, but should not happen */
-//    case TW_START:
-//      break;
-//
-//    case TW_MT_ARB_LOST:        /* Note [7] */
-//      goto begin;
-//
-//    default:
-//      return -1;                /* error: not in start condition */
-//                                /* NB: do /not/ send stop condition */
-//    }
-//
-//
-//   /* Note [8] */
-//  /* send SLA+W */
-//  TWDR = sla | TW_WRITE;
-//  TWCR = _BV(TWINT) | _BV(TWEN); /* clear interrupt to start transmission */
-//  while ((TWCR & _BV(TWINT)) == 0) ; /* wait for transmission */
-//  switch ((TW_STATUS))
-//    {
-//    case TW_MT_SLA_ACK:
-//      break;
-//
-//    case TW_MT_SLA_NACK:        /* nack during select: device busy writing */
-//                                /* Note [9] */
-//      goto restart;
-//
-//    case TW_MT_ARB_LOST:        /* re-arbitrate */
-//      goto begin;
-//
-//    default:
-//      goto error;               /* must send stop condition */
-//    }
-//
-//  TWDR = eeaddr;                /* low 8 bits of addr */
-//  TWCR = _BV(TWINT) | _BV(TWEN); /* clear interrupt to start transmission */
-//  while ((TWCR & _BV(TWINT)) == 0) ; /* wait for transmission */
-//  switch ((TW_STATUS))
-//    {
-//    case TW_MT_DATA_ACK:
-//      break;
-//
-//    case TW_MT_DATA_NACK:
-//      goto quit;
-//
-//    case TW_MT_ARB_LOST:
-//      goto begin;
-//
-//    default:
-//      goto error;               /* must send stop condition */
-//    }
-//
-//
-//
-//  TWCR = 0; // Stop the twi interface to make the camera able to rescognise the new start
-//  while (counter != 0x0020)
-//		{
-//		    counter++;
-//		}
-//
-//
-//  /*
-//   * Note [10]
-//   * Next cycle(s): master receiver mode
-//   */
-//  TWCR = _BV(TWINT) | _BV(TWSTA) | _BV(TWEN); /* send (rep.) start condition */
-//  while ((TWCR & _BV(TWINT)) == 0) ; /* wait for transmission */
-//  switch ((TW_STATUS))
-//    {
-//    case TW_START:              /* OK, but should not happen */
-//    case TW_REP_START:
-//      break;
-//
-//    case TW_MT_ARB_LOST:
-//      goto begin;
-//
-//    default:
-//      goto error;
-//    }
-//
-//  /* send SLA+R */
-//  TWDR = (sla | TW_READ);
-//  TWCR = _BV(TWINT) | _BV(TWEN); /* clear interrupt to start transmission */
-//  while ((TWCR & _BV(TWINT)) == 0) ; /* wait for transmission */
-//  switch ((TW_STATUS))
-//    {
-//    case TW_MR_SLA_ACK:
-//      break;
-//
-//    case TW_MR_SLA_NACK:
-//      goto quit;
-//
-//    case TW_MR_ARB_LOST:
-//      goto begin;
-//
-//    default:
-//      goto error;
-//    }
-//
-//  for (twcr = _BV(TWINT) | _BV(TWEN) | _BV(TWEA) /* Note [11] */;
-//       len > 0;
-//       len--)
-//    {
-//      if (len == 1)
-//        twcr = _BV(TWINT) | _BV(TWEN); /* send NAK this time */
-//      TWCR = twcr;              /* clear int to start transmission */
-//      while ((TWCR & _BV(TWINT)) == 0) ; /* wait for transmission */
-//      switch ((TW_STATUS))
-//        {
-//        case TW_MR_DATA_NACK:
-//          len = 0;              /* force end of loop */
-//          /* FALLTHROUGH */
-//        case TW_MR_DATA_ACK:
-//          *buf++ = TWDR;
-//          rv++;
-//          break;
-//
-//        default:
-//          goto error;
-//        }
-//    }
-//  quit:
-//  /* Note [12] */
-//  TWCR = _BV(TWINT) | _BV(TWSTO) | _BV(TWEN); /* send stop condition */
-//
-//  return rv;
-//
-//  error:
-//  rv = -1;
-//  goto quit;
-//}
-//
-//int
-//i2c_write_page(uint16_t eeaddr, int len, uint8_t *buf)
-//{
-//  uint8_t sla, n = 0;
-//  int rv = 0;
-//  uint16_t endaddr;
-//
-//  if (eeaddr + len < (eeaddr | (PAGE_SIZE - 1)))
-//    endaddr = eeaddr + len;
-//  else
-//    endaddr = (eeaddr | (PAGE_SIZE - 1)) + 1;
-//  len = endaddr - eeaddr;
-//
-//  /* patch high bits of EEPROM address into SLA */
-//  sla = TWI_SLA_CAM | (((eeaddr >> 8) & 0x07) << 1);
-//
-//  restart:
-//  if (n++ >= MAX_ITER)
-//    return -1;
-//  begin:
-//
-//  /* Note 13 */
-//  TWCR = _BV(TWINT) | _BV(TWSTA) | _BV(TWEN); /* send start condition */
-//  while ((TWCR & _BV(TWINT)) == 0) ; /* wait for transmission */
-//  switch ((TW_STATUS))
-//    {
-//    case TW_REP_START:          /* OK, but should not happen */
-//    case TW_START:
-//      break;
-//
-//    case TW_MT_ARB_LOST:
-//      goto begin;
-//
-//    default:
-//      return -1;                /* error: not in start condition */
-//                                /* NB: do /not/ send stop condition */
-//    }
-//
-//  /* send SLA+W */
-//  TWDR = sla | TW_WRITE;
-//  TWCR = _BV(TWINT) | _BV(TWEN); /* clear interrupt to start transmission */
-//  while ((TWCR & _BV(TWINT)) == 0) ; /* wait for transmission */
-//  switch ((TW_STATUS))
-//    {
-//    case TW_MT_SLA_ACK:
-//      break;
-//
-//    case TW_MT_SLA_NACK:        /* nack during select: device busy writing */
-//      goto restart;
-//
-//    case TW_MT_ARB_LOST:        /* re-arbitrate */
-//      goto begin;
-//
-//    default:
-//      goto error;               /* must send stop condition */
-//    }
-//
-//  TWDR = eeaddr;                /* low 8 bits of addr */
-//  TWCR = _BV(TWINT) | _BV(TWEN); /* clear interrupt to start transmission */
-//  while ((TWCR & _BV(TWINT)) == 0) ; /* wait for transmission */
-//  switch ((TW_STATUS))
-//    {
-//    case TW_MT_DATA_ACK:
-//      break;
-//
-//    case TW_MT_DATA_NACK:
-//      goto quit;
-//
-//    case TW_MT_ARB_LOST:
-//      goto begin;
-//
-//    default:
-//      goto error;               /* must send stop condition */
-//    }
-//
-//  for (; len > 0; len--)
-//    {
-//      TWDR = *buf++;
-//      TWCR = _BV(TWINT) | _BV(TWEN); /* start transmission */
-//      while ((TWCR & _BV(TWINT)) == 0) ; /* wait for transmission */
-//      switch ((TW_STATUS))
-//        {
-//        case TW_MT_DATA_NACK:
-//          goto error;           /* device write protected -- Note [14] */
-//
-//        case TW_MT_DATA_ACK:
-//          rv++;
-//          break;
-//
-//        default:
-//          goto error;
-//        }
-//    }
-//  quit:
-//  TWCR = _BV(TWINT) | _BV(TWSTO) | _BV(TWEN); /* send stop condition */
-//
-//  return rv;
-//
-//  error:
-//  rv = -1;
-//  goto quit;
-//}
-//
-//int
-//i2c_write_bytes(uint16_t eeaddr, int len, uint8_t *buf)
-//{
-//  int rv, total;
-//
-//  total = 0;
-//  do
-//    {
-//#if DEBUG
-//      printf("Calling i2c_write_page(%d, %d, %p)",
-//             eeaddr, len, buf);
-//#endif
-//      rv = i2c_write_page(eeaddr, len, buf);
-//#if DEBUG
-//      printf(" => %d\n", rv);
-//#endif
-//      if (rv == -1)
-//        return -1;
-//      eeaddr += rv;
-//      len -= rv;
-//      buf += rv;
-//      total += rv;
-//    }
-//  while (len > 0);
-//
-//  return total;
-//}
+unsigned char I2Cpoll(char addr)
+{
+   unsigned char temp = 0;
+
+   i2c_start();
+   temp = i2c_send_byte(addr);
+   i2c_reset_bus();
+
+   return temp;
+}
+
+//basic I2C byte send
+char i2c_send_byte(int data)
+{
+   int i;
+
+   while (I2C1STATbits.TBF) { }
+   IFS1bits.MI2C1IF = 0; // Clear Interrupt
+   I2CTRN = data; // load the outgoing data byte
+
+   // wait for transmission
+   for (i=0; i<500; i++)
+   {
+      if (!I2C1STATbits.TRSTAT) break;
+      Delay(1);
+
+      }
+      if (i == 500) {
+      return(1);
+   }
+
+   // Check for NO_ACK from slave, abort if not found
+   if (I2C1STATbits.ACKSTAT == 1)
+   {
+      reset_i2c_bus();
+      return(1);
+   }
+
+   Delay(2);
+   return(0);
+}
+
+//function reads data, returns the read data, no ack
+char i2c_read(void)
+{
+   int i = 0;
+   char data = 0;
+
+   //set I2C module to receive
+   I2C1CONbits.RCEN = 1;
+
+   //if no response, break
+   while (!I2C1STATbits.RBF)
+   {
+      i ++;
+      if (i > 2000) break;
+   }
+
+   //get data from I2CRCV register
+   data = I2CRCV;
+
+   //return data
+   return data;
+}
+
+//function reads data, returns the read data, with ack
+char i2c_read_ack(void)	//does not reset bus!!!
+{
+   int i = 0;
+   char data = 0;
+
+   //set I2C module to receive
+   I2C1CONbits.RCEN = 1;
+
+   //if no response, break
+   while (!I2C1STATbits.RBF)
+   {
+      i++;
+      if (i > 2000) break;
+   }
+
+   //get data from I2CRCV register
+   data = I2CRCV;
+
+   //set ACK to high
+   I2C1CONbits.ACKEN = 1;
+
+   //wait before exiting
+   Delay(10);
+
+   //return data
+   return data;
+}
+
+//function reads data, returns the read data, no ack
+char i2c_read(void)
+{
+   int i = 0;
+   char data = 0;
+
+   //set I2C module to receive
+   I2C1CONbits.RCEN = 1;
+
+   //if no response, break
+   while (!I2C1STATbits.RBF)
+   {
+      i ++;
+      if (i > 2000) break;
+   }
+
+   //get data from I2CRCV register
+   data = I2CRCV;
+
+   //return data
+   return data;
+}

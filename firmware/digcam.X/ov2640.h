@@ -23,4 +23,3 @@
 void TurnCameraOn();
 void TurnCameraOff();
 void TakePicture();
-

@@ -15,8 +15,8 @@
 #include "i2c_cam.h"
 
 #include "lib/picdev/picDev.h"  // Connections of the picDev board
-#include "lib/picdev/pinOut.h"
-#include "commands.h"  // Pin mapping of the picDev Board
+#include "lib/picdev/pinOut.h"  // Pinout for the picDev Board
+#include "commands.h"           // Pin mapping of the picDev Board
 
 /******************************************************************************/
 /* User Level #define Macros                                                  */
@@ -51,23 +51,17 @@ int16_t main(void)
     // Initialize IO ports and peripherals
     InitApp();
 
-    while(1)
-    {
-        writech('x');
-    }
     // Main loop
     while (1) {
-        //RepeaterProcessEvents();
 
-        char buf[33];
-        char ch1, ch2;
-        // ch1 = command
-        // ch2 = parameter (optional)
+        char buf[33];   // buffer (support for writing strings)
+        char chCommand;
+        char chParameter;
 
-        ch1 = readch();
-        ch2 = readch();
+        chCommand = readch();
+        chParameter = readch();
         
-        switch(ch1)
+        switch(chCommand)
         {
             case COM_NONE:
                 break;
@@ -89,7 +83,7 @@ int16_t main(void)
                 break;
             case COM_SET_P:
                 writeln("P is set!");
-                p = (uint8_t)ch2;
+                p = (uint8_t)chParameter;
                 break;
             default:
                 break;
@@ -109,4 +103,3 @@ void InitApp(void) {
     /* Initialize peripherals */
     UART1Init();
 }
-

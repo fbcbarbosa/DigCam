@@ -22,7 +22,19 @@
  */
 
 #include "i2c_cam.h"
+#include "delay.h"
+
 #include <i2c.h>        // Microchip I2C library
+
+void CamWrite(char reg, char value)
+{
+    return;
+}
+
+char CamRead(char reg)
+{
+    return 0x00;
+}
 
 //function initiates I2C1 module to baud rate BRG
 void i2c_init(int BRG)
@@ -35,8 +47,8 @@ void i2c_init(int BRG)
    I2C1CONbits.DISSLW = 1;	// Disable slew rate control
    IFS1bits.MI2C1IF = 0;	// Clear Interrupt
    I2C1CONbits.I2CEN = 1;	// Enable I2C Mode
-   //temp = I2CRCV;               // read buffer to clear buffer full
-   reset_i2c_bus();             // set bus to idle
+   temp = I2C1RCV;               // read buffer to clear buffer full
+   i2c_reset_bus();             // set bus to idle
 }
 
 //function iniates a start condition on bus
@@ -101,7 +113,7 @@ void i2c_reset_bus(void)
    //Delay(10);
 }
 
-unsigned char I2Cpoll(char addr)
+char I2Cpoll(char addr)
 {
    unsigned char temp = 0;
 
@@ -119,7 +131,7 @@ char i2c_send_byte(int data)
 
    while (I2C1STATbits.TBF) { }
    IFS1bits.MI2C1IF = 0; // Clear Interrupt
-   I2CTRN = data; // load the outgoing data byte
+   I2C1TRN = data; // load the outgoing data byte
 
    // wait for transmission
    for (i=0; i<500; i++)
@@ -135,7 +147,7 @@ char i2c_send_byte(int data)
    // Check for NO_ACK from slave, abort if not found
    if (I2C1STATbits.ACKSTAT == 1)
    {
-      reset_i2c_bus();
+      i2c_reset_bus();
       return(1);
    }
 
@@ -160,7 +172,7 @@ char i2c_read(void)
    }
 
    //get data from I2CRCV register
-   data = I2CRCV;
+   data = I2C1RCV;
 
    //return data
    return data;
@@ -183,36 +195,13 @@ char i2c_read_ack(void)	//does not reset bus!!!
    }
 
    //get data from I2CRCV register
-   data = I2CRCV;
+   data = I2C1RCV;
 
    //set ACK to high
    I2C1CONbits.ACKEN = 1;
 
    //wait before exiting
    Delay(10);
-
-   //return data
-   return data;
-}
-
-//function reads data, returns the read data, no ack
-char i2c_read(void)
-{
-   int i = 0;
-   char data = 0;
-
-   //set I2C module to receive
-   I2C1CONbits.RCEN = 1;
-
-   //if no response, break
-   while (!I2C1STATbits.RBF)
-   {
-      i ++;
-      if (i > 2000) break;
-   }
-
-   //get data from I2CRCV register
-   data = I2CRCV;
 
    //return data
    return data;

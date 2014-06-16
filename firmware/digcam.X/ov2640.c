@@ -13,10 +13,9 @@
 
 #include "uart1.h"
 #include "ov2640.h"
+#include "i2c_cam.h"
 #include "lib/picdev/picDev.h"  // Connections of the picDev board
 #include "lib/picdev/pinOut.h"  // Pin mapping of the picDev Board
-
-
 
 /******************************************************************************/
 /* Commands #define Macros                                                    */
@@ -42,7 +41,7 @@
 #define camY1      _RB5
 #define camY0      _RB8
 
-#define camDATA    [camD7 camD6 camD5 camD4 camD3 camD2 camD1 camD0]
+#define camDATA    (unsigned char)(camD7 << 7 | camD6 << 6) // camD5 camD4 camD3 camD2 camD1 camD0]
 
 /******************************************************************************/
 /* OV2640 Functions                                                           */
@@ -55,13 +54,25 @@ void InitCamera() {
     CamWrite(0x12, CamRead(0x12)|0X80);
 }
 
+void TurnCameraOn()
+{
+
+}
+
+void TurnCameraOff()
+{
+    
+}
+
 void TakePicture() {
-    for (int y = 0; y < 352; y++) {
+    int y, r, h;
+    
+    for (y = 0; y < 352; y++) {
         while (camVSYNC);
         while (!camVSYNC);
-        for (int r = 0; r < 244; r++) {
+        for (r = 0; r < 244; r++) {
             while (!camHREFX);
-            for (int h = 0; h < y; h++) {
+            for (h = 0; h < y; h++) {
                 while (camPCLK);
                 while (!camPCLK);
             }

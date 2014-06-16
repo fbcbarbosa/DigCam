@@ -46,7 +46,7 @@
 #define CAM_ADDR        0x00
 
 void CamWrite(char reg, char value);
-void CamRead(char reg, char value);
+char CamRead(char reg);
 
 void i2c_init(int clk);
 void i2c_restart();
@@ -54,7 +54,8 @@ void i2c_start();
 void i2c_reset_bus(void);
 char i2c_read();
 char i2c_read_ack();
-void i2c_send_byte(int data);
+char i2c_send_byte(int data);
 
+char I2Cpoll(char addr);
 #endif
 

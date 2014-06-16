@@ -48,6 +48,9 @@
 void CamWrite(char reg, char value);
 char CamRead(char reg);
 
+void I2Cwrite(char addr, char subaddr, char value);
+void I2CRead(char addr, char subaddr, char value);
+
 void i2c_init(int clk);
 void i2c_restart();
 void i2c_start();

@@ -82,11 +82,11 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x994           0xe5e  (3678)
 .const                       0xb94                0x3a            0x57  (87)
-.text                        0xbce               0x19c           0x26a  (618)
-.dinit                       0xd6a                0xd4           0x13e  (318)
-.text                        0xe3e               0x28c           0x3d2  (978)
+.text                        0xbce               0x1fa           0x2f7  (759)
+.dinit                       0xdc8                0xd4           0x13e  (318)
+.text                        0xe9c               0x28c           0x3d2  (978)
 
-                     Total program memory used (bytes):         0x162f  (5679) 2%
+                     Total program memory used (bytes):         0x16bc  (5820) 2%
 
 
 Data Memory  [Origin = 0x800, Length = 0x4000]
@@ -159,50 +159,54 @@ External Symbols in Program Memory (by address):
                   0x000b38                  ___moddi3
                   0x000bce                  _CamWrite
                   0x000bd8                  _CamRead
-                  0x000be4                  _i2c_init
-                  0x000bfe                  _i2c_start
-                  0x000c30                  _i2c_restart
-                  0x000c5c                  _i2c_reset_bus
-                  0x000c86                  _I2Cpoll
-                  0x000ca6                  _i2c_send_byte
-                  0x000d04                  _i2c_read
-                  0x000d34                  _i2c_read_ack
-                  0x000e3e                  _UART1Init
-                  0x000e78                  _UART1Check
-                  0x000e88                  _UART1GetChar
-                  0x000ea0                  _UART1GetString
-                  0x000ec8                  _UART1PutChar
-                  0x000ee0                  _UART1PutString
-                  0x000efc                  _InitCamera
-                  0x000f12                  _TurnCameraOn
-                  0x000f18                  _TurnCameraOff
-                  0x000f1e                  _TakePicture
-                  0x000fb8                  _main
-                  0x00103e                  _InitApp
-                  0x00104a                  _Delay
-                  0x001062                  _Timer1Init
-                  0x00107e                  __T1Interrupt
-                  0x001098                  _ConfigureOscillator
+                  0x000be4                  _I2Cwrite
+                  0x000c0a                  _I2Cread
+                  0x000c42                  _i2c_init
+                  0x000c5c                  _i2c_start
+                  0x000c8e                  _i2c_restart
+                  0x000cba                  _i2c_reset_bus
+                  0x000ce4                  _I2Cpoll
+                  0x000d04                  _i2c_send_byte
+                  0x000d62                  _i2c_read
+                  0x000d92                  _i2c_read_ack
+                  0x000e9c                  _UART1Init
+                  0x000ed6                  _UART1Check
+                  0x000ee6                  _UART1GetChar
+                  0x000efe                  _UART1GetString
+                  0x000f26                  _UART1PutChar
+                  0x000f3e                  _UART1PutString
+                  0x000f5a                  _InitCamera
+                  0x000f70                  _TurnCameraOn
+                  0x000f76                  _TurnCameraOff
+                  0x000f7c                  _TakePicture
+                  0x001016                  _main
+                  0x00109c                  _InitApp
+                  0x0010a8                  _Delay
+                  0x0010c0                  _Timer1Init
+                  0x0010dc                  __T1Interrupt
+                  0x0010f6                  _ConfigureOscillator
 
 External Symbols in Program Memory (by name):
 
                   0x000bd8                  _CamRead
                   0x000bce                  _CamWrite
-                  0x001098                  _ConfigureOscillator
-                  0x00104a                  _Delay
-                  0x000c86                  _I2Cpoll
-                  0x00103e                  _InitApp
-                  0x000efc                  _InitCamera
-                  0x000f1e                  _TakePicture
-                  0x001062                  _Timer1Init
-                  0x000f18                  _TurnCameraOff
-                  0x000f12                  _TurnCameraOn
-                  0x000e78                  _UART1Check
-                  0x000e88                  _UART1GetChar
-                  0x000ea0                  _UART1GetString
-                  0x000e3e                  _UART1Init
-                  0x000ec8                  _UART1PutChar
-                  0x000ee0                  _UART1PutString
+                  0x0010f6                  _ConfigureOscillator
+                  0x0010a8                  _Delay
+                  0x000ce4                  _I2Cpoll
+                  0x000c0a                  _I2Cread
+                  0x000be4                  _I2Cwrite
+                  0x00109c                  _InitApp
+                  0x000f5a                  _InitCamera
+                  0x000f7c                  _TakePicture
+                  0x0010c0                  _Timer1Init
+                  0x000f76                  _TurnCameraOff
+                  0x000f70                  _TurnCameraOn
+                  0x000ed6                  _UART1Check
+                  0x000ee6                  _UART1GetChar
+                  0x000efe                  _UART1GetString
+                  0x000e9c                  _UART1Init
+                  0x000f26                  _UART1PutChar
+                  0x000f3e                  _UART1PutString
                   0x00029a                  __AddressError
                   0x0002b2                  __AltAddressError
                   0x0002be                  __AltMathError
@@ -212,7 +216,7 @@ External Symbols in Program Memory (by name):
                   0x0002a6                  __MathError
                   0x000294                  __OscillatorFail
                   0x0002a0                  __StackError
-                  0x00107e                  __T1Interrupt
+                  0x0010dc                  __T1Interrupt
                   0x000ad8                  ___divdi3
                   0x000b38                  ___moddi3
                   0x000ac2                  ___udivdi3
@@ -224,14 +228,14 @@ External Symbols in Program Memory (by name):
                   0x000200                  __resetPRI
                   0x0002c8                  __sprintf_cdnopuxX
                   0x0002f4                  __vfprintf_cdnopuxX
-                  0x000be4                  _i2c_init
-                  0x000d04                  _i2c_read
-                  0x000d34                  _i2c_read_ack
-                  0x000c5c                  _i2c_reset_bus
-                  0x000c30                  _i2c_restart
-                  0x000ca6                  _i2c_send_byte
-                  0x000bfe                  _i2c_start
-                  0x000fb8                  _main
+                  0x000c42                  _i2c_init
+                  0x000d62                  _i2c_read
+                  0x000d92                  _i2c_read_ack
+                  0x000cba                  _i2c_reset_bus
+                  0x000c8e                  _i2c_restart
+                  0x000d04                  _i2c_send_byte
+                  0x000c5c                  _i2c_start
+                  0x001016                  _main
 
 Memory Configuration
 
@@ -356,7 +360,7 @@ __CONFIG1         0x02abfe          0x2
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x2666
+.debug_info       0x000000       0x2704
  *(.debug_info)
  .debug_info      0x000000        0x11b build/XC16_24FJ256GA110/production/interrupts.o
  .debug_info      0x00011b        0x228 build/XC16_24FJ256GA110/production/main.o
@@ -365,8 +369,8 @@ __CONFIG1         0x02abfe          0x2
  .debug_info      0x000a8b        0x103 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
  .debug_info      0x000b8e        0x829 build/XC16_24FJ256GA110/production/uart1.o
  .debug_info      0x0013b7        0x476 build/XC16_24FJ256GA110/production/ov2640.o
- .debug_info      0x00182d        0x852 build/XC16_24FJ256GA110/production/i2c_cam.o
- .debug_info      0x00207f        0x5e7 build/XC16_24FJ256GA110/production/delay.o
+ .debug_info      0x00182d        0x8f0 build/XC16_24FJ256GA110/production/i2c_cam.o
+ .debug_info      0x00211d        0x5e7 build/XC16_24FJ256GA110/production/delay.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x5f6
@@ -381,7 +385,7 @@ __CONFIG1         0x02abfe          0x2
  .debug_abbrev    0x0003f2         0xf1 build/XC16_24FJ256GA110/production/i2c_cam.o
  .debug_abbrev    0x0004e3        0x113 build/XC16_24FJ256GA110/production/delay.o
 
-.debug_line       0x000000        0xcfe
+.debug_line       0x000000        0xda2
  *(.debug_line)
  .debug_line      0x000000         0x24 build/XC16_24FJ256GA110/production/interrupts.o
  .debug_line      0x000024        0x1a2 build/XC16_24FJ256GA110/production/main.o
@@ -390,18 +394,18 @@ __CONFIG1         0x02abfe          0x2
  .debug_line      0x000421         0x70 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
  .debug_line      0x000491        0x1e7 build/XC16_24FJ256GA110/production/uart1.o
  .debug_line      0x000678        0x154 build/XC16_24FJ256GA110/production/ov2640.o
- .debug_line      0x0007cc        0x419 build/XC16_24FJ256GA110/production/i2c_cam.o
- .debug_line      0x000be5        0x119 build/XC16_24FJ256GA110/production/delay.o
+ .debug_line      0x0007cc        0x4bd build/XC16_24FJ256GA110/production/i2c_cam.o
+ .debug_line      0x000c89        0x119 build/XC16_24FJ256GA110/production/delay.o
 
-.debug_frame      0x000000        0x2e0
+.debug_frame      0x000000        0x300
  *(.debug_frame)
  .debug_frame     0x000000         0x58 build/XC16_24FJ256GA110/production/main.o
  .debug_frame     0x000058         0x24 build/XC16_24FJ256GA110/production/system.o
  .debug_frame     0x00007c         0xa4 build/XC16_24FJ256GA110/production/traps.o
  .debug_frame     0x000120         0x74 build/XC16_24FJ256GA110/production/uart1.o
  .debug_frame     0x000194         0x54 build/XC16_24FJ256GA110/production/ov2640.o
- .debug_frame     0x0001e8         0xb4 build/XC16_24FJ256GA110/production/i2c_cam.o
- .debug_frame     0x00029c         0x44 build/XC16_24FJ256GA110/production/delay.o
+ .debug_frame     0x0001e8         0xd4 build/XC16_24FJ256GA110/production/i2c_cam.o
+ .debug_frame     0x0002bc         0x44 build/XC16_24FJ256GA110/production/delay.o
 
 .debug_str        0x000000         0xa5
  *(.debug_str)
@@ -419,7 +423,7 @@ __CONFIG1         0x02abfe          0x2
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x303
+                  0x000000        0x31c
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x2d build/XC16_24FJ256GA110/production/main.o
@@ -434,9 +438,9 @@ __CONFIG1         0x02abfe          0x2
  .debug_pubnames
                   0x0001c5         0x54 build/XC16_24FJ256GA110/production/ov2640.o
  .debug_pubnames
-                  0x000219         0xa4 build/XC16_24FJ256GA110/production/i2c_cam.o
+                  0x000219         0xbd build/XC16_24FJ256GA110/production/i2c_cam.o
  .debug_pubnames
-                  0x0002bd         0x46 build/XC16_24FJ256GA110/production/delay.o
+                  0x0002d6         0x46 build/XC16_24FJ256GA110/production/delay.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -470,7 +474,7 @@ __CONFIG1         0x02abfe          0x2
                   0x000014          0x4 LONG 0x2c4 DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000016          0x4 LONG 0x2c4 DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000018          0x4 LONG 0x2c4 DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00001a          0x4 LONG 0x107e DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001a          0x4 LONG 0x10dc DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001c          0x4 LONG 0x2c4 DEFINED (__Interrupt4)?ABSOLUTE (__Interrupt4):ABSOLUTE (__DefaultInterrupt)
                   0x00001e          0x4 LONG 0x2c4 DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000020          0x4 LONG 0x2c4 DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -598,7 +602,7 @@ __CONFIG1         0x02abfe          0x2
                   0x000114          0x4 LONG 0x2c4 DEFINED (__AltINT0Interrupt)?ABSOLUTE (__AltINT0Interrupt):DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000116          0x4 LONG 0x2c4 DEFINED (__AltIC1Interrupt)?ABSOLUTE (__AltIC1Interrupt):DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000118          0x4 LONG 0x2c4 DEFINED (__AltOC1Interrupt)?ABSOLUTE (__AltOC1Interrupt):DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00011a          0x4 LONG 0x107e DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00011a          0x4 LONG 0x10dc DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011c          0x4 LONG 0x2c4 DEFINED (__AltInterrupt4)?ABSOLUTE (__AltInterrupt4):DEFINED (__Interrupt4)?ABSOLUTE (__Interrupt4):ABSOLUTE (__DefaultInterrupt)
                   0x00011e          0x4 LONG 0x2c4 DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000120          0x4 LONG 0x2c4 DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1897,41 +1901,43 @@ __c30_signature
  .const             0x8b94         0x38 build/XC16_24FJ256GA110/production/main.o
  .const             0x8bcc          0x2 build/XC16_24FJ256GA110/production/uart1.o
 
-.text             0x000bce        0x19c
- .text            0x000bce        0x19c build/XC16_24FJ256GA110/production/i2c_cam.o
+.text             0x000bce        0x1fa
+ .text            0x000bce        0x1fa build/XC16_24FJ256GA110/production/i2c_cam.o
                   0x000bce                  _CamWrite
                   0x000bd8                  _CamRead
-                  0x000be4                  _i2c_init
-                  0x000bfe                  _i2c_start
-                  0x000c30                  _i2c_restart
-                  0x000c5c                  _i2c_reset_bus
-                  0x000c86                  _I2Cpoll
-                  0x000ca6                  _i2c_send_byte
-                  0x000d04                  _i2c_read
-                  0x000d34                  _i2c_read_ack
+                  0x000be4                  _I2Cwrite
+                  0x000c0a                  _I2Cread
+                  0x000c42                  _i2c_init
+                  0x000c5c                  _i2c_start
+                  0x000c8e                  _i2c_restart
+                  0x000cba                  _i2c_reset_bus
+                  0x000ce4                  _I2Cpoll
+                  0x000d04                  _i2c_send_byte
+                  0x000d62                  _i2c_read
+                  0x000d92                  _i2c_read_ack
 
-.dinit            0x000d6a         0xd4
- .dinit           0x000d6a         0xd4 data_init
+.dinit            0x000dc8         0xd4
+ .dinit           0x000dc8         0xd4 data_init
 
-.text             0x000e3e        0x28c
- .text            0x000e3e         0xbe build/XC16_24FJ256GA110/production/uart1.o
-                  0x000e3e                  _UART1Init
-                  0x000e78                  _UART1Check
-                  0x000e88                  _UART1GetChar
-                  0x000ea0                  _UART1GetString
-                  0x000ec8                  _UART1PutChar
-                  0x000ee0                  _UART1PutString
- .text            0x000efc         0xbc build/XC16_24FJ256GA110/production/ov2640.o
-                  0x000efc                  _InitCamera
-                  0x000f12                  _TurnCameraOn
-                  0x000f18                  _TurnCameraOff
-                  0x000f1e                  _TakePicture
- .text            0x000fb8         0x92 build/XC16_24FJ256GA110/production/main.o
-                  0x000fb8                  _main
-                  0x00103e                  _InitApp
- .text            0x00104a         0x4e build/XC16_24FJ256GA110/production/delay.o
-                  0x00104a                  _Delay
-                  0x001062                  _Timer1Init
-                  0x00107e                  __T1Interrupt
- .text            0x001098         0x32 build/XC16_24FJ256GA110/production/system.o
-                  0x001098                  _ConfigureOscillator
+.text             0x000e9c        0x28c
+ .text            0x000e9c         0xbe build/XC16_24FJ256GA110/production/uart1.o
+                  0x000e9c                  _UART1Init
+                  0x000ed6                  _UART1Check
+                  0x000ee6                  _UART1GetChar
+                  0x000efe                  _UART1GetString
+                  0x000f26                  _UART1PutChar
+                  0x000f3e                  _UART1PutString
+ .text            0x000f5a         0xbc build/XC16_24FJ256GA110/production/ov2640.o
+                  0x000f5a                  _InitCamera
+                  0x000f70                  _TurnCameraOn
+                  0x000f76                  _TurnCameraOff
+                  0x000f7c                  _TakePicture
+ .text            0x001016         0x92 build/XC16_24FJ256GA110/production/main.o
+                  0x001016                  _main
+                  0x00109c                  _InitApp
+ .text            0x0010a8         0x4e build/XC16_24FJ256GA110/production/delay.o
+                  0x0010a8                  _Delay
+                  0x0010c0                  _Timer1Init
+                  0x0010dc                  __T1Interrupt
+ .text            0x0010f6         0x32 build/XC16_24FJ256GA110/production/system.o
+                  0x0010f6                  _ConfigureOscillator

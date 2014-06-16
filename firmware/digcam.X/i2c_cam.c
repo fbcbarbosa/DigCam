@@ -36,6 +36,32 @@ char CamRead(char reg)
     return 0x00;
 }
 
+void I2Cwrite(char addr, char subaddr, char value)
+{
+   i2c_start();
+   i2c_send_byte(addr);
+   i2c_send_byte(subaddr);
+   i2c_send_byte(value);
+   i2c_reset_bus();
+}
+
+char I2Cread(char addr, char subaddr)
+{
+   char temp;
+
+   i2c_start();
+   i2c_send_byte(addr);
+   i2c_send_byte(subaddr);
+   Delay(10);
+
+   i2c_restart();
+   i2c_send_byte(addr | 0x01);
+   temp = i2c_read();
+
+   i2c_reset_bus();
+   return temp;
+}
+
 //function initiates I2C1 module to baud rate BRG
 void i2c_init(int BRG)
 {
@@ -47,7 +73,7 @@ void i2c_init(int BRG)
    I2C1CONbits.DISSLW = 1;	// Disable slew rate control
    IFS1bits.MI2C1IF = 0;	// Clear Interrupt
    I2C1CONbits.I2CEN = 1;	// Enable I2C Mode
-   temp = I2C1RCV;               // read buffer to clear buffer full
+   temp = I2C1RCV;              // read buffer to clear buffer full
    i2c_reset_bus();             // set bus to idle
 }
 

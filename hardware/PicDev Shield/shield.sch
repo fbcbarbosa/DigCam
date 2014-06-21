@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.6.0">
+<eagle version="6.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1757,11 +1757,6 @@ Grid 5.00 mm&lt;p&gt;
 <label x="86.36" y="20.32" size="1.27" layer="95" rot="R270" xref="yes"/>
 <pinref part="JP2" gate="A" pin="14"/>
 </segment>
-<segment>
-<wire x1="165.1" y1="83.82" x2="180.34" y2="83.82" width="0.1524" layer="91"/>
-<label x="165.1" y="83.82" size="1.27" layer="95" rot="R180" xref="yes"/>
-<pinref part="OV2640" gate="A" pin="9"/>
-</segment>
 </net>
 <net name="RF3" class="0">
 <segment>
@@ -1790,11 +1785,6 @@ Grid 5.00 mm&lt;p&gt;
 <segment>
 <wire x1="99.06" y1="76.2" x2="93.98" y2="76.2" width="0.1524" layer="91"/>
 <label x="99.06" y="76.2" size="1.27" layer="95" xref="yes"/>
-</segment>
-<segment>
-<wire x1="127" y1="76.2" x2="119.38" y2="76.2" width="0.1524" layer="91"/>
-<label x="127" y="76.2" size="1.27" layer="95" xref="yes"/>
-<pinref part="JP3" gate="A" pin="11"/>
 </segment>
 </net>
 <net name="RD9" class="0">
@@ -2008,21 +1998,11 @@ Grid 5.00 mm&lt;p&gt;
 </net>
 <net name="SOSC1" class="0">
 <segment>
-<wire x1="127" y1="88.9" x2="119.38" y2="88.9" width="0.1524" layer="91"/>
-<label x="127" y="88.9" size="1.27" layer="95" xref="yes"/>
-<pinref part="JP3" gate="A" pin="16"/>
-</segment>
-<segment>
 <wire x1="99.06" y1="88.9" x2="93.98" y2="88.9" width="0.1524" layer="91"/>
 <label x="99.06" y="88.9" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="SOSC2" class="0">
-<segment>
-<wire x1="127" y1="91.44" x2="119.38" y2="91.44" width="0.1524" layer="91"/>
-<label x="127" y="91.44" size="1.27" layer="95" xref="yes"/>
-<pinref part="JP3" gate="A" pin="17"/>
-</segment>
 <segment>
 <wire x1="99.06" y1="91.44" x2="93.98" y2="91.44" width="0.1524" layer="91"/>
 <label x="99.06" y="91.44" size="1.27" layer="95" xref="yes"/>
@@ -2033,21 +2013,11 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="99.06" y1="63.5" x2="93.98" y2="63.5" width="0.1524" layer="91"/>
 <label x="99.06" y="63.5" size="1.27" layer="95" xref="yes"/>
 </segment>
-<segment>
-<wire x1="127" y1="63.5" x2="119.38" y2="63.5" width="0.1524" layer="91"/>
-<label x="127" y="63.5" size="1.27" layer="95" xref="yes"/>
-<pinref part="JP3" gate="A" pin="6"/>
-</segment>
 </net>
 <net name="D-" class="0">
 <segment>
 <wire x1="99.06" y1="60.96" x2="93.98" y2="60.96" width="0.1524" layer="91"/>
 <label x="99.06" y="60.96" size="1.27" layer="95" xref="yes"/>
-</segment>
-<segment>
-<wire x1="127" y1="60.96" x2="119.38" y2="60.96" width="0.1524" layer="91"/>
-<label x="127" y="60.96" size="1.27" layer="95" xref="yes"/>
-<pinref part="JP3" gate="A" pin="5"/>
 </segment>
 </net>
 <net name="LED" class="0">
@@ -2222,7 +2192,6 @@ Grid 5.00 mm&lt;p&gt;
 <label x="20.32" y="53.34" size="1.27" layer="95" rot="R180" xref="yes"/>
 <wire x1="27.94" y1="53.34" x2="20.32" y2="53.34" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="17"/>
-<label x="203.2" y="86.36" size="1.27" layer="95" xref="yes"/>
 </segment>
 <segment>
 <pinref part="OV2640" gate="A" pin="8"/>

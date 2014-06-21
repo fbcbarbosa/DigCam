@@ -10,27 +10,29 @@ class Instruction:
     This class implements a instruction.
     """
     
-    def __init__(self, code, name, description):
+    def __init__(self, number, name, description):
         """
         Creates a new instruction.
         
         PARAMETERS
-        code - char: microcontroller's instruction code
+        number - int: an integer between 0 and 256
         name - string: call name of the instruction
         description - string: description of the instruction
         """
-        self.code = code;
+        self.code = chr(number);
         self.name = name;
         self.description = description;
 
 __database = {}
 
 def initDatabase():
-    add(Instruction(chr(1), 'on',  'Turns on the camera.'))
-    add(Instruction(chr(2), 'off', 'Turns off the camera.'))
-    add(Instruction(chr(3), 'take', 'Take a picture.'))
-    add(Instruction(chr(4), 'get p', 'Get parameter p value'))
-    add(Instruction(chr(5), 'set p', 'Set parameter p value.'))
+    add(Instruction(1, 'on',  'Turns on the camera'))
+    add(Instruction(2, 'off', 'Turns off the camera'))
+    add(Instruction(3, 'take', 'Take a picture'))
+    add(Instruction(4, 'get p', 'Get parameter p value'))
+    add(Instruction(5, 'set p', 'Set parameter p value'))
+    add(Instruction(6, 'reset', 'Executes software reset'))
+    add(Instruction(7, 'status', 'Prints camera status'))
     
 def add(instruction):
     """

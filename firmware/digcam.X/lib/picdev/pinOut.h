@@ -10,6 +10,7 @@
 
 #ifndef _PINOUT
 #define _PINOUT
+
 //------------ MACROS --------------------
 #define AllPinsDigital() AD1PCFGL = 0xffff
 #define OUTPUT 0;

@@ -1,32 +1,22 @@
 /******************************************************************************/
 /* Files to Include                                                           */
 /******************************************************************************/
-
 #include <p24Fxxxx.h>       // Device header file
 
-#include <stdio.h>
+#include <stdio.h>          // String management functions
 #include <stdint.h>         // Includes uint16_t definition
 #include <stdbool.h>        // Includes true/false definition
 
 #include "commands.h"       // List of commands known to the PIC
+#include "delay.h"
+#include "i2c.h"
+#include "ov2640.h"
 #include "system.h"         // System funct/params, like osc/peripheral config
 #include "uart1.h"          // UART1 peripheral functions
-#include "ov2640.h"
-#include "i2c_cam.h"
 
 #include "lib/picdev/picDev.h"  // Connections of the picDev board
 #include "lib/picdev/pinOut.h"  // Pinout for the picDev Board
 #include "commands.h"           // Pin mapping of the picDev Board
-
-/******************************************************************************/
-/* User Level #define Macros                                                  */
-/******************************************************************************/
-
-#define write(s)            UART1PutString((char*)s)
-#define writeln(s)          UART1PutString((char*)s);UART1PutString("\r\n")
-#define writech(ch)         UART1PutChar((char)ch)
-#define read()              UART1GetString()
-#define readch()            UART1GetChar()
 
 /******************************************************************************/
 /* Global Variable Declaration                                                */
@@ -38,56 +28,90 @@
 /* User Function Prototypes                                                   */
 /******************************************************************************/
 
-void InitApp(void);                 // I/O and Peripheral Initialization
-void RepeaterProcessEvents(void);   // Repeater main function
+void InitApp(void); // I/O and Peripheral Initialization
 
 /******************************************************************************/
 /* Main Program                                                               */
 /******************************************************************************/
-uint8_t p = 100;
+int debugging = 1;
+int p = 100;
+char buffer[64];
 
-int16_t main(void)
-{
-    // Initialize IO ports and peripherals
+int16_t main(void) {
+    // initialize IO ports and peripherals
     InitApp();
 
-    // Main loop
+    // main loop
     while (1) {
-
-        char buf[33];   // buffer (support for writing strings)
         char chCommand;
         char chParameter;
 
+        // wait for command
         chCommand = readch();
         chParameter = readch();
-        
-        switch(chCommand)
-        {
+
+        // acknolowdges command
+        ack();
+
+        switch (chCommand) {
+            case COM_GET_P:
+                sprintf(buffer, "The value of parameter p is %d", p);
+                writeln(buffer);
+                break;
+
             case COM_NONE:
                 break;
-            case COM_TURN_ON:
-                writeln("ON");
-                TurnCameraOn();
+
+            case COM_RESET:
+                writeln("Reseting camera...");
+                CamReset();
                 break;
-            case COM_TURN_OFF:
-                writeln("OFF");
-                TurnCameraOff();
-                break;
-            case COM_TAKE_PIC:
-                writeln("PIC");
-                TakePicture();
-                break;
-            case COM_GET_P:
-                sprintf(buf, "The value of parameter p is %d", p);
-                writeln(buf);
-                break;
+
             case COM_SET_P:
                 writeln("P is set!");
-                p = (uint8_t)chParameter;
+                p = (uint8_t) chParameter;
                 break;
+
+            case COM_STATUS:
+                if (CamIsOn()) {
+                    writeln("The camera is on!");
+                }
+                else {
+                    writeln("The camera is off!");
+                }
+
+                if (CamIsReset()) {
+                    writeln("The camera is on reset!");
+                }
+                else {
+                    writeln("The camera is not on reset!");
+                }
+                break;
+                
+            case COM_TAKE_PIC:
+                writeln("Taking picture...");
+                CamTakePic();
+                writeln("Done!");
+                break;
+
+            case COM_TURN_OFF:
+                writeln("Turning off camera...");
+                CamTurnOff();
+                writeln("Done!");
+                break;
+
+            case COM_TURN_ON:
+                writeln("Turning on camera...");
+                CamTurnOn();
+                writeln("Done!");
+                break;
+
             default:
                 break;
         }
+
+        // informs that command has concluded
+        end();
     };
 }
 
@@ -96,10 +120,10 @@ int16_t main(void)
  */
 void InitApp(void) {
     /* Setup analog functionality and port direction */
-
-    // Turn off analogue functions on all pins
-    AD1PCFG = 0xFFFF;
+    AllPinsDigital();
 
     /* Initialize peripherals */
     UART1Init();
+    I2CInit();
+    CamInit();
 }

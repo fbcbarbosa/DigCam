@@ -21,44 +21,18 @@
  * ---------------------------------------------------------------------------
  */
 
-#ifndef _EE24XX__
-#define _EE24XX_
-
-#ifndef UCSRB
-# ifdef UCSR1A          /* ATmega128 */
-#  define UCSRA UCSR1A
-#  define UCSRB UCSR1B
-#  define UBRR UBRR1L
-#  define UDR UDR1
-# else /* ATmega8 */
-#  define UCSRA USR
-#  define UCSRB UCR
-# endif
-#endif
-#ifndef UBRR
-#  define UBRR UBRRL
-#endif
-
-#define TWI_SLA_CAM     0xc0    //Cam C0    sensor 90
-#define MAX_ITER        200
-#define PAGE_SIZE       8       // before 8
-
+#define ACK             0
+#define NACK            1
 #define CAM_ADDR        0x00
 
-void CamWrite(char reg, char value);
-char CamRead(char reg);
-
-void I2Cwrite(char addr, char subaddr, char value);
-void I2CRead(char addr, char subaddr, char value);
-
-void i2c_init(int clk);
-void i2c_restart();
-void i2c_start();
-void i2c_reset_bus(void);
-char i2c_read();
-char i2c_read_ack();
-char i2c_send_byte(int data);
-
-char I2Cpoll(char addr);
-#endif
-
+void I2CInit();
+void I2CStart(void);
+void I2CStop(void);
+void I2CRestart(void);
+void I2CNack(void);
+void I2CAck(void);
+unsigned char I2CRead(void);
+unsigned char I2CWriteAck(unsigned char byte);
+unsigned char I2CWriteByte(unsigned char device_addr, unsigned char reg_addr, unsigned char data);
+unsigned char I2CReadByte(unsigned char device_addr, unsigned char reg_addr, unsigned char *data);
+unsigned char I2CReadArray(unsigned char device_addr, unsigned char reg_addr, unsigned char *data, unsigned char length);

@@ -15,11 +15,17 @@
 #include "lib/picdev/picDev.h"  // Connections of the picDev board
 #include "lib/picdev/pinOut.h"  // Pin mapping of the picDev Board
 
+#include "main.h"
 
 /******************************************************************************/
 /* OV2640 Functions                                                           */
 /******************************************************************************/
 
-void TurnCameraOn();
-void TurnCameraOff();
-void TakePicture();
+int CamIsOn();
+int CamIsReset();
+
+void CamInit();
+void CamReset();
+void CamTakePic();
+void CamTurnOn();
+void CamTurnOff();

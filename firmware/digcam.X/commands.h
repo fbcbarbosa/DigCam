@@ -12,19 +12,6 @@
 #ifndef COMMANDS_H
 #define	COMMANDS_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
-
-
-
-#ifdef	__cplusplus
-}
-#endif
-
-#endif	/* COMMANDS_H */
-
 /******************************************************************************/
 /* Commands #define Macros                                                    */
 /******************************************************************************/
@@ -35,3 +22,7 @@ extern "C" {
 #define COM_TAKE_PIC    0x03
 #define COM_GET_P       0x04
 #define COM_SET_P       0x05
+#define COM_RESET       0x06
+#define COM_STATUS      0x07
+
+#endif	/* COMMANDS_H */

@@ -1292,26 +1292,26 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="10.16" y1="-1.905" x2="10.795" y2="-2.54" width="0.1524" layer="21"/>
 <wire x1="12.7" y1="1.905" x2="12.7" y2="-1.905" width="0.1524" layer="21"/>
 <wire x1="10.795" y1="-2.54" x2="12.065" y2="-2.54" width="0.1524" layer="21"/>
-<pad name="1" x="-11.43" y="-1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="2" x="-11.43" y="1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="3" x="-8.89" y="-1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="4" x="-8.89" y="1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="5" x="-6.35" y="-1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="6" x="-6.35" y="1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="7" x="-3.81" y="-1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="8" x="-3.81" y="1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="9" x="-1.27" y="-1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="10" x="-1.27" y="1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="11" x="1.27" y="-1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="12" x="1.27" y="1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="13" x="3.81" y="-1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="14" x="3.81" y="1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="15" x="6.35" y="-1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="16" x="6.35" y="1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="17" x="8.89" y="-1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="18" x="8.89" y="1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="19" x="11.43" y="-1.27" drill="0.7" diameter="1.778" shape="octagon"/>
-<pad name="20" x="11.43" y="1.27" drill="0.7" diameter="1.778" shape="octagon"/>
+<pad name="1" x="-11.43" y="-1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="2" x="-11.43" y="1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="3" x="-8.89" y="-1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="4" x="-8.89" y="1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="5" x="-6.35" y="-1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="6" x="-6.35" y="1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="7" x="-3.81" y="-1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="8" x="-3.81" y="1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="9" x="-1.27" y="-1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="10" x="-1.27" y="1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="11" x="1.27" y="-1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="12" x="1.27" y="1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="13" x="3.81" y="-1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="14" x="3.81" y="1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="15" x="6.35" y="-1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="16" x="6.35" y="1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="17" x="8.89" y="-1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="18" x="8.89" y="1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="19" x="11.43" y="-1.27" drill="0.6" diameter="1.524" shape="octagon"/>
+<pad name="20" x="11.43" y="1.27" drill="0.6" diameter="1.524" shape="octagon"/>
 <text x="-12.7" y="3.175" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 <text x="-12.7" y="-4.445" size="1.27" layer="27">&gt;VALUE</text>
 <rectangle x1="-11.684" y1="-1.524" x2="-11.176" y2="-1.016" layer="51"/>
@@ -1557,7 +1557,6 @@ Grid 5.00 mm&lt;p&gt;
 <part name="JP2" library="pinhead" deviceset="PINHD-1X16" device="/90"/>
 <part name="GND2" library="SparkFun" deviceset="GND" device=""/>
 <part name="ENC28J60" library="pinhead" deviceset="PINHD-1X10" device=""/>
-<part name="GND3" library="SparkFun" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -1569,7 +1568,7 @@ Grid 5.00 mm&lt;p&gt;
 <text x="165.1" y="137.16" size="1.778" layer="91" rot="R90">SCK</text>
 <text x="167.64" y="137.16" size="1.778" layer="91" rot="R90">/CS</text>
 <text x="170.18" y="137.16" size="1.778" layer="91" rot="R90">/RESET</text>
-<text x="170.18" y="93.98" size="1.778" layer="91">VCC</text>
+<text x="167.64" y="93.98" size="1.778" layer="91">VCC</text>
 <text x="193.04" y="93.98" size="1.778" layer="91">GND</text>
 <text x="193.04" y="91.44" size="1.778" layer="91">SDA</text>
 <text x="193.04" y="88.9" size="1.778" layer="91">HREFX</text>
@@ -1580,15 +1579,15 @@ Grid 5.00 mm&lt;p&gt;
 <text x="193.04" y="76.2" size="1.778" layer="91">D0</text>
 <text x="193.04" y="73.66" size="1.778" layer="91">Y0</text>
 <text x="193.04" y="71.12" size="1.778" layer="91">PWDN</text>
-<text x="170.18" y="91.44" size="1.778" layer="91">SCL</text>
-<text x="170.18" y="88.9" size="1.778" layer="91">VSYNC</text>
-<text x="170.18" y="86.36" size="1.778" layer="91">PCLK</text>
-<text x="170.18" y="83.82" size="1.778" layer="91">D7</text>
-<text x="170.18" y="81.28" size="1.778" layer="91">D5</text>
-<text x="170.18" y="78.74" size="1.778" layer="91">D3</text>
-<text x="170.18" y="76.2" size="1.778" layer="91">D1</text>
-<text x="170.18" y="73.66" size="1.778" layer="91">Y1</text>
-<text x="170.18" y="71.12" size="1.778" layer="91">RESET</text>
+<text x="167.64" y="91.44" size="1.778" layer="91">SCL</text>
+<text x="167.64" y="88.9" size="1.778" layer="91">VSYNC</text>
+<text x="167.64" y="86.36" size="1.778" layer="91">PCLK</text>
+<text x="167.64" y="83.82" size="1.778" layer="91">D7</text>
+<text x="167.64" y="81.28" size="1.778" layer="91">D5</text>
+<text x="167.64" y="78.74" size="1.778" layer="91">D3</text>
+<text x="167.64" y="76.2" size="1.778" layer="91">D1</text>
+<text x="167.64" y="73.66" size="1.778" layer="91">Y1</text>
+<text x="167.64" y="71.12" size="1.778" layer="91">RESET</text>
 </plain>
 <instances>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
@@ -1602,7 +1601,6 @@ Grid 5.00 mm&lt;p&gt;
 <instance part="JP2" gate="A" x="71.12" y="30.48" rot="R90"/>
 <instance part="GND2" gate="1" x="149.86" y="121.92"/>
 <instance part="ENC28J60" gate="A" x="157.48" y="154.94" rot="R90"/>
-<instance part="GND3" gate="1" x="213.36" y="88.9"/>
 </instances>
 <busses>
 </busses>
@@ -1618,8 +1616,8 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="JP2" gate="A" pin="5"/>
 </segment>
 <segment>
-<wire x1="198.12" y1="76.2" x2="187.96" y2="76.2" width="0.1524" layer="91"/>
-<label x="198.12" y="76.2" size="1.27" layer="95" xref="yes"/>
+<wire x1="203.2" y1="76.2" x2="187.96" y2="76.2" width="0.1524" layer="91"/>
+<label x="203.2" y="76.2" size="1.27" layer="95" xref="yes"/>
 <pinref part="OV2640" gate="A" pin="16"/>
 </segment>
 </net>
@@ -1634,8 +1632,8 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="JP2" gate="A" pin="6"/>
 </segment>
 <segment>
-<wire x1="167.64" y1="76.2" x2="180.34" y2="76.2" width="0.1524" layer="91"/>
-<label x="167.64" y="76.2" size="1.27" layer="95" rot="R180" xref="yes"/>
+<wire x1="165.1" y1="76.2" x2="180.34" y2="76.2" width="0.1524" layer="91"/>
+<label x="165.1" y="76.2" size="1.27" layer="95" rot="R180" xref="yes"/>
 <pinref part="OV2640" gate="A" pin="15"/>
 </segment>
 </net>
@@ -1650,8 +1648,8 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="JP2" gate="A" pin="7"/>
 </segment>
 <segment>
-<wire x1="198.12" y1="78.74" x2="187.96" y2="78.74" width="0.1524" layer="91"/>
-<label x="198.12" y="78.74" size="1.27" layer="95" xref="yes"/>
+<wire x1="203.2" y1="78.74" x2="187.96" y2="78.74" width="0.1524" layer="91"/>
+<label x="203.2" y="78.74" size="1.27" layer="95" xref="yes"/>
 <pinref part="OV2640" gate="A" pin="14"/>
 </segment>
 </net>
@@ -1666,8 +1664,8 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="JP2" gate="A" pin="8"/>
 </segment>
 <segment>
-<wire x1="167.64" y1="78.74" x2="180.34" y2="78.74" width="0.1524" layer="91"/>
-<label x="167.64" y="78.74" size="1.27" layer="95" rot="R180" xref="yes"/>
+<wire x1="165.1" y1="78.74" x2="180.34" y2="78.74" width="0.1524" layer="91"/>
+<label x="165.1" y="78.74" size="1.27" layer="95" rot="R180" xref="yes"/>
 <pinref part="OV2640" gate="A" pin="13"/>
 </segment>
 </net>
@@ -1682,8 +1680,8 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="JP2" gate="A" pin="11"/>
 </segment>
 <segment>
-<wire x1="198.12" y1="81.28" x2="187.96" y2="81.28" width="0.1524" layer="91"/>
-<label x="198.12" y="81.28" size="1.27" layer="95" xref="yes"/>
+<wire x1="203.2" y1="81.28" x2="187.96" y2="81.28" width="0.1524" layer="91"/>
+<label x="203.2" y="81.28" size="1.27" layer="95" xref="yes"/>
 <pinref part="OV2640" gate="A" pin="12"/>
 </segment>
 </net>
@@ -1698,8 +1696,8 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="JP2" gate="A" pin="12"/>
 </segment>
 <segment>
-<wire x1="167.64" y1="81.28" x2="180.34" y2="81.28" width="0.1524" layer="91"/>
-<label x="167.64" y="81.28" size="1.27" layer="95" rot="R180" xref="yes"/>
+<wire x1="165.1" y1="81.28" x2="180.34" y2="81.28" width="0.1524" layer="91"/>
+<label x="165.1" y="81.28" size="1.27" layer="95" rot="R180" xref="yes"/>
 <pinref part="OV2640" gate="A" pin="11"/>
 </segment>
 </net>
@@ -1710,8 +1708,8 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="JP2" gate="A" pin="13"/>
 </segment>
 <segment>
-<wire x1="198.12" y1="83.82" x2="187.96" y2="83.82" width="0.1524" layer="91"/>
-<label x="198.12" y="83.82" size="1.27" layer="95" xref="yes"/>
+<wire x1="203.2" y1="83.82" x2="187.96" y2="83.82" width="0.1524" layer="91"/>
+<label x="203.2" y="83.82" size="1.27" layer="95" xref="yes"/>
 <pinref part="OV2640" gate="A" pin="10"/>
 </segment>
 </net>
@@ -1722,8 +1720,8 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="JP2" gate="A" pin="14"/>
 </segment>
 <segment>
-<wire x1="167.64" y1="83.82" x2="180.34" y2="83.82" width="0.1524" layer="91"/>
-<label x="167.64" y="83.82" size="1.27" layer="95" rot="R180" xref="yes"/>
+<wire x1="165.1" y1="83.82" x2="180.34" y2="83.82" width="0.1524" layer="91"/>
+<label x="165.1" y="83.82" size="1.27" layer="95" rot="R180" xref="yes"/>
 <pinref part="OV2640" gate="A" pin="9"/>
 </segment>
 </net>
@@ -1736,6 +1734,11 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="127" y1="53.34" x2="119.38" y2="53.34" width="0.1524" layer="91"/>
 <label x="127" y="53.34" size="1.27" layer="95" xref="yes"/>
 <pinref part="JP3" gate="A" pin="2"/>
+<label x="203.2" y="88.9" size="1.27" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="OV2640" gate="A" pin="6"/>
+<wire x1="203.2" y1="88.9" x2="187.96" y2="88.9" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VBUS_SENSE" class="0">
@@ -1754,7 +1757,11 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="127" y1="76.2" x2="119.38" y2="76.2" width="0.1524" layer="91"/>
 <label x="127" y="76.2" size="1.27" layer="95" xref="yes"/>
 <pinref part="JP3" gate="A" pin="11"/>
-<label x="167.64" y="88.9" size="1.27" layer="95" rot="R180" xref="yes"/>
+<label x="203.2" y="86.36" size="1.27" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="OV2640" gate="A" pin="8"/>
+<wire x1="203.2" y1="86.36" x2="187.96" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RD9" class="0">
@@ -1782,11 +1789,11 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="127" y1="81.28" x2="119.38" y2="81.28" width="0.1524" layer="91"/>
 <label x="127" y="81.28" size="1.27" layer="95" xref="yes"/>
 <pinref part="JP3" gate="A" pin="13"/>
-<label x="167.64" y="91.44" size="1.27" layer="95" rot="R180" xref="yes"/>
+<label x="165.1" y="91.44" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
 <pinref part="OV2640" gate="A" pin="3"/>
-<wire x1="167.64" y1="91.44" x2="180.34" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="91.44" x2="180.34" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RD11" class="0">
@@ -1799,7 +1806,11 @@ Grid 5.00 mm&lt;p&gt;
 <label x="127" y="83.82" size="1.27" layer="95" xref="yes"/>
 <pinref part="JP3" gate="A" pin="14"/>
 <label x="127" y="83.82" size="1.27" layer="95" xref="yes"/>
-<label x="167.64" y="71.12" size="1.27" layer="95" rot="R180" xref="yes"/>
+<label x="165.1" y="88.9" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="OV2640" gate="A" pin="5"/>
+<wire x1="165.1" y1="88.9" x2="180.34" y2="88.9" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RD0" class="0">
@@ -1811,7 +1822,11 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="127" y1="86.36" x2="119.38" y2="86.36" width="0.1524" layer="91"/>
 <label x="127" y="86.36" size="1.27" layer="95" xref="yes"/>
 <pinref part="JP3" gate="A" pin="15"/>
-<label x="198.12" y="71.12" size="1.27" layer="95" xref="yes"/>
+<label x="165.1" y="86.36" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="OV2640" gate="A" pin="7"/>
+<wire x1="180.34" y1="86.36" x2="165.1" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -1841,12 +1856,6 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="GND2" gate="1" pin="GND"/>
 <wire x1="149.86" y1="124.46" x2="149.86" y2="152.4" width="0.1524" layer="91"/>
 <pinref part="ENC28J60" gate="A" pin="2"/>
-</segment>
-<segment>
-<pinref part="OV2640" gate="A" pin="2"/>
-<pinref part="GND3" gate="1" pin="GND"/>
-<wire x1="187.96" y1="93.98" x2="213.36" y2="93.98" width="0.1524" layer="91"/>
-<wire x1="213.36" y1="93.98" x2="213.36" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="OSC1" class="0">
@@ -1896,6 +1905,7 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="127" y1="58.42" x2="119.38" y2="58.42" width="0.1524" layer="91"/>
 <label x="127" y="58.42" size="1.27" layer="95" xref="yes"/>
 <pinref part="JP3" gate="A" pin="4"/>
+<label x="165.1" y="93.98" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
 <wire x1="71.12" y1="99.06" x2="71.12" y2="93.98" width="0.1524" layer="91"/>
@@ -1903,7 +1913,7 @@ Grid 5.00 mm&lt;p&gt;
 </segment>
 <segment>
 <pinref part="OV2640" gate="A" pin="1"/>
-<wire x1="167.64" y1="93.98" x2="180.34" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="93.98" x2="180.34" y2="93.98" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="ICSP_DAT" class="0">
@@ -2071,6 +2081,11 @@ Grid 5.00 mm&lt;p&gt;
 <label x="20.32" y="81.28" size="1.27" layer="95" rot="R180" xref="yes"/>
 <wire x1="27.94" y1="81.28" x2="20.32" y2="81.28" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="6"/>
+<label x="165.1" y="73.66" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="OV2640" gate="A" pin="17"/>
+<wire x1="165.1" y1="73.66" x2="180.34" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RG8" class="0">
@@ -2082,6 +2097,11 @@ Grid 5.00 mm&lt;p&gt;
 <label x="20.32" y="78.74" size="1.27" layer="95" rot="R180" xref="yes"/>
 <wire x1="27.94" y1="78.74" x2="20.32" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="7"/>
+<label x="165.1" y="71.12" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="OV2640" gate="A" pin="19"/>
+<wire x1="165.1" y1="71.12" x2="180.34" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RG9" class="0">
@@ -2104,6 +2124,11 @@ Grid 5.00 mm&lt;p&gt;
 <label x="20.32" y="66.04" size="1.27" layer="95" rot="R180" xref="yes"/>
 <wire x1="27.94" y1="66.04" x2="20.32" y2="66.04" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="12"/>
+<label x="203.2" y="71.12" size="1.27" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="OV2640" gate="A" pin="20"/>
+<wire x1="203.2" y1="71.12" x2="187.96" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RB4" class="0">
@@ -2115,6 +2140,11 @@ Grid 5.00 mm&lt;p&gt;
 <label x="20.32" y="63.5" size="1.27" layer="95" rot="R180" xref="yes"/>
 <wire x1="27.94" y1="63.5" x2="20.32" y2="63.5" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="13"/>
+<label x="203.2" y="73.66" size="1.27" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="OV2640" gate="A" pin="18"/>
+<wire x1="203.2" y1="73.66" x2="187.96" y2="73.66" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="RB3" class="0">
@@ -2368,22 +2398,16 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="119.38" y1="55.88" x2="127" y2="55.88" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$2" class="0">
+<net name="GND2" class="0">
 <segment>
-<pinref part="OV2640" gate="A" pin="20"/>
-<wire x1="198.12" y1="71.12" x2="187.96" y2="71.12" width="0.1524" layer="91"/>
+<pinref part="JP3" gate="A" pin="1"/>
+<wire x1="119.38" y1="50.8" x2="127" y2="50.8" width="0.1524" layer="91"/>
+<label x="127" y="50.8" size="1.27" layer="95" xref="yes"/>
+<label x="203.2" y="93.98" size="1.27" layer="95" xref="yes"/>
 </segment>
-</net>
-<net name="N$3" class="0">
 <segment>
-<pinref part="OV2640" gate="A" pin="19"/>
-<wire x1="167.64" y1="71.12" x2="180.34" y2="71.12" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$4" class="0">
-<segment>
-<pinref part="OV2640" gate="A" pin="5"/>
-<wire x1="167.64" y1="88.9" x2="180.34" y2="88.9" width="0.1524" layer="91"/>
+<pinref part="OV2640" gate="A" pin="2"/>
+<wire x1="187.96" y1="93.98" x2="203.2" y2="93.98" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

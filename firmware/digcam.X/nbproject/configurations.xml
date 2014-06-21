@@ -10,7 +10,10 @@
       <itemPath>uart1.h</itemPath>
       <itemPath>ov2640.h</itemPath>
       <itemPath>delay.h</itemPath>
-      <itemPath>i2c_cam.h</itemPath>
+      <itemPath>bmp.h</itemPath>
+      <itemPath>main.h</itemPath>
+      <itemPath>i2c.h</itemPath>
+      <itemPath>commands.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -24,11 +27,11 @@
       <itemPath>system.c</itemPath>
       <itemPath>traps.c</itemPath>
       <itemPath>lib/picdev/configuration_bits.c</itemPath>
-      <itemPath>commands.h</itemPath>
       <itemPath>uart1.c</itemPath>
       <itemPath>ov2640.c</itemPath>
-      <itemPath>i2c_cam.c</itemPath>
       <itemPath>delay.c</itemPath>
+      <itemPath>bmp.c</itemPath>
+      <itemPath>i2c.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -233,7 +236,6 @@
         <property key="UART 3" value="true"/>
         <property key="UART 4" value="true"/>
         <property key="UCNFG1" value="true"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
@@ -256,7 +258,7 @@
         <property key="programoptions.testmodeentrymethod" value="VPPFirst"/>
         <property key="programoptions.usehighvoltageonmclr" value="false"/>
         <property key="programoptions.uselvpprogramming" value="false"/>
-        <property key="voltagevalue" value="3.0"/>
+        <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
     </conf>
     <conf name="C30_24FJ256GA110" type="2">

@@ -25,8 +25,8 @@
 #define I2CREAD     1
 
 #ifndef I2CSPEED
-//#define I2CSPEED    37     // 400KHz
-#define I2CSPEED    157     // 100KHz
+#define I2CSPEED    37     // 400KHz
+//#define I2CSPEED    157     // 100KHz
 #endif
 
 #include "lib/picdev/pinOut.h"  // Pinout for the picDev Board
@@ -160,10 +160,10 @@ unsigned char I2CReadByte(unsigned char device_addr, unsigned char reg_addr, uns
     I2CStart();
     error += !I2CWriteAck((device_addr << 1) | I2CREAD);
 
-    if (error) {
-        I2CStop();
-        return error;
-    }
+//    if (error) {
+//        I2CStop();
+//        return error;
+//    }
 
     *data = I2CRead();
     I2CNack();

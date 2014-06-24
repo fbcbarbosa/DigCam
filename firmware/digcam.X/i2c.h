@@ -23,7 +23,6 @@
 
 #define ACK             0
 #define NACK            1
-#define CAM_ADDR        0x00
 
 void I2CInit();
 void I2CStart(void);

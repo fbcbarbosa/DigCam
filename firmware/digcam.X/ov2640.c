@@ -70,7 +70,7 @@
 unsigned char i2c_data;
 
 unsigned char CamWrite(unsigned char reg_addr, unsigned char data);
-unsigned char CamRead(unsigned char reg_addr, unsigned char *data);
+unsigned char CamRead(unsigned char reg_addr);
 
 /**
  * Initializes pin connections and turns on the Camera.
@@ -81,6 +81,8 @@ void CamInit() {
     _TRISB3 = 0; // PWDN
     _TRISB4 = 0; // RESET
     _TRISD0 = 0; // PCLK
+
+    // Output
     _TRISF3 = 0; // HREFX
     _TRISD11 = 0; // VSYNC
 
@@ -106,69 +108,61 @@ void CamInit() {
     IFS0bits.T2IF = 0; //reset interrupt flag
     IEC0bits.T2IE = 1; //turn on the timer1 interrupt
 
+    CAM_HREFX = 0;
+    CAM_VSYNC = 0;
+
     // Turn on camera
     CamTurnOn();
 }
 
 /**
- *
+ * Software reset on the camera.
  */
 void CamReset() {
-     CamWrite(CAM_REG_COM7, 0x80);
-    //CamWrite(CAM_REG_COM7, CamRead(CAM_REG_COM7)|0X80);
+    CamWrite(CAM_REG_COM7, 0x80 | CamRead(CAM_REG_COM7));
 }
 
 int CamIsOn() {
-    if(CAM_PWDN) {
+    if (CAM_PWDN) {
         return 0;
-    }
-    else {
+    } else {
         return 1;
     }
 }
 
 int CamIsReset() {
-    if(CAM_RESET) {
+    if (CAM_RESET) {
         return 0;
-    }
-    else {
+    } else {
         return 1;
     }
 }
+
 /**
  *
  */
 void CamTakePic() {
-//    CamRead(0x12, &i2c_data);
-//    CamRead(0x13, &i2c_data);
-//    CamRead(0x14, &i2c_data);
-//    CamRead(0x15, &i2c_data);
+    //    CamRead(0x12, &i2c_data);
+    //    CamRead(0x13, &i2c_data);
+    //    CamRead(0x14, &i2c_data);
+    //    CamRead(0x15, &i2c_data);
 
-    sprintf(buffer, "CAM_DATA %d", CAM_DATA), debugmsg(buffer);
-
-    //    writeln("Starting to take picture...");
-    //    int y, r, h;
-    //
-    //    for (y = 0; y < CAM_WIDTH; y++) {
-    //        sprintf(buf, "y = %d", y);
-    //        writeln(buf);
-    //        for (r = 0; r < CAM_HEIGHT; r++) {
-    //            sprintf(buf, "\tr = %d", r);
-    //            writeln(buf);
-    //            while (!CAM_HREFX);
-    //            for (h = 0; h < y; h++) {
-    //                sprintf(buf, "\t\th = %d", h);
-    //                writeln(buf);
-    //                while (CAM_PCLK);
-    //                while (!CAM_PCLK);
-    //            }
-    //            sprintf(buf, "\t\t\tD7 = %d", (int)CAM_D7);
-    //            writeln(buf);
-    //            //writech(CAM_D7);
-    //            //writech(CAM_DATA);
-    //            while (CAM_HREFX);
-    //        }
-    //    }
+    int y, r, h;
+    for (y = 0; y < CAM_WIDTH; y++) {
+        CAM_VSYNC = 1;
+        Delayus(100);
+        CAM_VSYNC = 0;
+        for (r = 0; r < CAM_HEIGHT; r++) {
+            CAM_HREFX = 1;
+            Delayus(100);
+            CAM_HREFX = 0;
+            for (h = 0; h < y; h++) {
+                while (CAM_PCLK);
+                while (!CAM_PCLK);
+            }
+            sprintf(buffer, "CAM_DATA %d", CAM_DATA), debugmsg(buffer);
+        }
+    }
 }
 
 /**
@@ -177,7 +171,7 @@ void CamTakePic() {
 void CamTurnOn() {
     debugmsg("CAM_PDWM -> 0");
     CAM_PWDN = 0;
-    
+
     // Hardware reset sequency
     CAM_RESET = 0;
     Delayms(200);
@@ -217,19 +211,18 @@ unsigned char CamWrite(unsigned char reg_addr, unsigned char data) {
  * @param *data     buffer where to store the data
  * @return error value
  */
-unsigned char CamRead(unsigned char reg_addr, unsigned char *data) {
+unsigned char CamRead(unsigned char reg_addr) {
     unsigned char error = 0;
-    unsigned char temp;
+    unsigned char data;
 
-    error = I2CReadByte(CAM_ADDR, reg_addr, &temp);
-    *data = temp;
-    
+    error = I2CReadByte(CAM_ADDR, reg_addr, &data);
+
     debugmsg("In CamRead");
     sprintf(buffer, "reg_addr %d", reg_addr), debugmsg(buffer);
-    sprintf(buffer, "data %d", *data), debugmsg(buffer);
+    sprintf(buffer, "data %d", data), debugmsg(buffer);
     sprintf(buffer, "error %d", error), debugmsg(buffer);
 
-    return error;
+    return data;
 }
 
 void __attribute__((__interrupt__, auto_psv)) _T2Interrupt(void) {

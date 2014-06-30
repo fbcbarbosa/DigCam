@@ -18,47 +18,10 @@
 #include "delay.h"
 #include "main.h"
 #include "ov2640.h"
+#include "ov2640_regs.h"
 #include "uart1.h"
 
 #include <stdio.h>
-
-/******************************************************************************/
-/* Commands #define Macros                                                    */
-/******************************************************************************/
-
-// Camera Pin Map
-#define CAM_SCL     _RD10
-#define CAM_SDA     _RD9
-#define CAM_PCLK    _RD0
-#define CAM_HREFX   _RF3
-#define CAM_XVCLK   _RB15       // _RB0
-#define CAM_VSYNC   _RD11
-#define CAM_PWDN    _RB3     // must be 1 to activate CAM_era
-#define CAM_RESET   _RB4
-#define CAM_D7      _RB0        //_RB15
-#define CAM_D6      _RB14
-#define CAM_D5      _RB13
-#define CAM_D4      _RB12
-#define CAM_D3      _RB11
-#define CAM_D2      _RB10
-#define CAM_D1      _RB9
-#define CAM_D0      _RB8
-#define CAM_Y1      _RB5
-#define CAM_Y0      _RB2
-
-// Camera definitions
-#define CAM_DATA        (unsigned char)(CAM_D7 << 7 | CAM_D6 << 6 | CAM_D5 << 5 | CAM_D4 << 4 | CAM_D3 << 3 | CAM_D2 << 2 | CAM_D1 << 1 | CAM_D0 << 1)
-#define CAM_WIDTH       1600
-#define CAM_HEIGHT      1200
-#define CAM_PCLK_FREQ   400     // KHZ
-
-// Slave address
-//#define CAM_READ_ADDR   0x61
-//#define CAM_WRITE_ADDR  0x60
-#define CAM_ADDR    0x30
-
-// Camera registers
-#define CAM_REG_COM7    0x12    // Common Control 7
 
 /******************************************************************************/
 /* OV2640 Functions                                                           */
@@ -69,22 +32,24 @@
 
 unsigned char i2c_data;
 
-unsigned char CamWrite(unsigned char reg_addr, unsigned char data);
-unsigned char CamRead(unsigned char reg_addr);
+int CamIsOn();
+int CamIsReset();
+int CamCheckPCLK();
+int CamCheckHREFX();
+int CamCheckVSYNC();
 
 /**
  * Initializes pin connections and turns on the Camera.
  */
 void CamInit() {
     // Output
-    _TRISB15 = 0; // XVCLK
     _TRISB3 = 0; // PWDN
     _TRISB4 = 0; // RESET
-    _TRISD0 = 0; // PCLK
-
-    // Output
-    _TRISF3 = 0; // HREFX
-    _TRISD11 = 0; // VSYNC
+    
+    // Input
+    _TRISD0 = 1; // PCLK
+    _TRISF3 = 1; // HREFX
+    _TRISD11 = 1; // VSYNC
 
     // Input
     _TRISB0 = 1; // D7
@@ -98,28 +63,37 @@ void CamInit() {
     _TRISB5 = 1; // Y1
     _TRISB2 = 1; // Y0
 
+    Nop();
+    Nop();
+    
     // Clock output (XVCLK)
-    REFOCON = 0x8000; // 32 mhz
-
-    // Init PCLK (uses Timer2)
-    PR2 = (int) 16 * 1000 / (4 * CAM_PCLK_FREQ);
-    IPC1bits.T2IP = 5; //set interrupt priority
-    T2CON = 0b1000000000000000; //turn on the timer
-    IFS0bits.T2IF = 0; //reset interrupt flag
-    IEC0bits.T2IE = 1; //turn on the timer1 interrupt
-
-    CAM_HREFX = 0;
-    CAM_VSYNC = 0;
+    REFOCON = 0x9000;
 
     // Turn on camera
     CamTurnOn();
+    CamReset();
 }
-
 /**
  * Software reset on the camera.
  */
 void CamReset() {
-    CamWrite(CAM_REG_COM7, 0x80 | CamRead(CAM_REG_COM7));
+    CamWrite(0xff, 0x01); // Select bank
+    CamWrite(0x12, 0x80); // Reset
+
+    Delayms(100);
+
+    // JPEG
+//    CamWriteArray(OV2640_JPEG_INIT);
+//    CamWriteArray(OV2640_YUV422);
+//    CamWriteArray(OV2640_JPEG);
+//
+//    CamWrite(0xFF, 0x01);
+//    CamWrite(0x15, 0x00);
+//
+//    CamWriteArray(OV2640_320x240_JPEG);
+
+    // BMP
+    CamWriteArray(OV2640_QVGA);
 }
 
 int CamIsOn() {
@@ -139,30 +113,93 @@ int CamIsReset() {
 }
 
 /**
+ * Return camera status.
+ * @return
+ */
+struct cam_status CamStatus() {
+    struct cam_status tempStatus;
+
+    tempStatus.POWER = CamIsOn();
+    tempStatus.RESET = CamIsReset();
+    tempStatus.PCLK = CamCheckPCLK();
+    tempStatus.HREF = CamCheckHREFX();
+    tempStatus.VSYNC = CamCheckVSYNC();
+
+    return tempStatus;
+}
+
+int CamCheckPCLK() {
+    long i;
+    unsigned char temp = CAM_PCLK;
+
+    for (i = 0; i < 50000; i++) {
+        if (temp != CAM_PCLK) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+int CamCheckVSYNC() {
+    long i;
+    unsigned char temp = CAM_VSYNC;
+
+    for (i = 0; i < 50000; i++) {
+        if (temp != CAM_VSYNC) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+int CamCheckHREFX() {
+    long i;
+    unsigned char temp = CAM_HREFX;
+
+    for (i = 0; i < 50000; i++) {
+        if (temp != CAM_HREFX) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+/**
  *
  */
 void CamTakePic() {
-    //    CamRead(0x12, &i2c_data);
-    //    CamRead(0x13, &i2c_data);
-    //    CamRead(0x14, &i2c_data);
-    //    CamRead(0x15, &i2c_data);
+    int high_bit;
+    int low_bit;
 
     int y, r, h;
     for (y = 0; y < CAM_WIDTH; y++) {
-        CAM_VSYNC = 1;
-        Delayus(100);
-        CAM_VSYNC = 0;
+        while (CAM_VSYNC);
+        while (!CAM_VSYNC);
         for (r = 0; r < CAM_HEIGHT; r++) {
-            CAM_HREFX = 1;
-            Delayus(100);
-            CAM_HREFX = 0;
+            while (!CAM_HREFX);
             for (h = 0; h < y; h++) {
                 while (CAM_PCLK);
                 while (!CAM_PCLK);
             }
-            sprintf(buffer, "CAM_DATA %d", CAM_DATA), debugmsg(buffer);
+            writech(CAM_DATA);
+            while (CAM_HREFX);
         }
     }
+
+//    for (y = 0; y < CAM_WIDTH/100; y++) {
+//        CAM_MVSYNC = 0;
+//        Delayus(200);
+//        CAM_MVSYNC = 1;
+//        for (r = 0; r < CAM_HEIGHT/100; r++) {
+//            CAM_MHSYNC = 1;
+//            Delayus(100);
+//            CAM_MHSYNC = 0;
+//            sprintf(buffer, "CAM_DATA %d", CAM_DATA), debugmsg(buffer);
+//        }
+//    }
 }
 
 /**
@@ -172,9 +209,6 @@ void CamTurnOn() {
     debugmsg("CAM_PDWM -> 0");
     CAM_PWDN = 0;
 
-    // Hardware reset sequency
-    CAM_RESET = 0;
-    Delayms(200);
     debugmsg("CAM_RESET -> 1");
     CAM_RESET = 1;
 }
@@ -191,9 +225,8 @@ void CamTurnOff() {
  * Write on camera register.
  * @param reg_addr
  * @param data
- * @return error value
  */
-unsigned char CamWrite(unsigned char reg_addr, unsigned char data) {
+void CamWrite(unsigned char reg_addr, unsigned char data) {
     unsigned char error = 0;
     error = I2CWriteByte(CAM_ADDR, reg_addr, data);
 
@@ -202,14 +235,33 @@ unsigned char CamWrite(unsigned char reg_addr, unsigned char data) {
     sprintf(buffer, "data %d", data), debugmsg(buffer);
     sprintf(buffer, "error %d", error), debugmsg(buffer);
 
-    return error;
+    return;
+}
+
+/**
+ * 
+ * @param camlist
+ */
+void CamWriteArray(const struct cam_reg camlist[])
+{
+	unsigned char reg_addr = 0;
+	unsigned char reg_val = 0;
+        
+	const struct cam_reg *next = camlist;
+
+	while ((reg_addr != 0xFF) | (reg_val != 0xFF))
+	{
+		reg_addr = next->reg;
+		reg_val = next->val;
+		CamWrite(reg_addr, reg_val);
+	   	next++;
+	}
 }
 
 /**
  * Read camera register.
  * @param reg_addr  register address
- * @param *data     buffer where to store the data
- * @return error value
+ * @return data
  */
 unsigned char CamRead(unsigned char reg_addr) {
     unsigned char error = 0;
@@ -224,6 +276,12 @@ unsigned char CamRead(unsigned char reg_addr) {
 
     return data;
 }
+
+/**
+ * Read camera register.
+ * @param reg_addr  register address
+ * @return data
+ */
 
 void __attribute__((__interrupt__, auto_psv)) _T2Interrupt(void) {
     CAM_PCLK = ~CAM_PCLK;

@@ -14,6 +14,7 @@
       <itemPath>main.h</itemPath>
       <itemPath>i2c.h</itemPath>
       <itemPath>commands.h</itemPath>
+      <itemPath>ov2640_regs.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

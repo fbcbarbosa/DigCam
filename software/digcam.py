@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import time
+import os
 import serial
 import sys
 
@@ -10,6 +11,11 @@ import instructions
 # global variables
 ser = 0
 version = 0.1;
+
+# constants
+LOG = chr(253)
+ACK = chr(254)
+END = chr(255)
 
 def main():
     """
@@ -59,17 +65,22 @@ def main():
                 
                 # wait for acknowledgement
                 answer = ser.read()         # check answer
-                while answer != chr(254):   # 254 - code for acknowledgement
+                while answer != ACK:        # ACK - code for acknowledgement
                     answer = ser.read()
                     
                     if answer == '':
                         print 'Error: connection timeout!'
-                        break
+                        sys.exit()
                 
                 # print until end of stream
                 answer = ser.read()         # check answer
-                while answer != chr(255):   # 255 - code for end of stream
-                    sys.stdout.write(answer)
+                             
+                while answer != END:        # END - code for end of stream
+                    if answer == LOG:
+                        startLogging()
+                    else:
+                        sys.stdout.write(answer)
+                    
                     answer = ser.read()
                     
             
@@ -103,14 +114,34 @@ def helpMessage():
     global ser # serial communication handler
     print 'Reading from ' + ser.name
     print 'Terminal command list:'
-    print '\t' +  'about' + '\t' + 'display program info'
-    print '\t' +  'close' + '\t' + 'close program'
-    print '\t' +  'exit'  + '\t' + 'close program'
-    print '\t' +  'help'  + '\t' + 'display the instruction list'
-    print '\t' +  'quit'  + '\t' + 'close program'
+    print '\t' +  'about' + '\t\t' + 'display program info'
+    print '\t' +  'close' + '\t\t' + 'close program'
+    print '\t' +  'exit'  + '\t\t' + 'close program'
+    print '\t' +  'help'  + '\t\t' + 'display the instruction list'
+    print '\t' +  'quit'  + '\t\t' + 'close program'
     print 'Camera command list:'
     instructions.initDatabase()
     instructions.listAll()
+    print 'IMPORTANT: parameters must be decimal values between 0 and 255.'
 
+def startLogging():
+    """
+    Logs UART output to a file.
+    """
+    log = open('log.txt', 'w+')
+    
+    i = 0;
+    while True:
+        i = i + 1
+        answer = ser.read()
+        
+        if answer == '':
+            print '\nLog saved at log.txt!'
+            log.close()
+            return
+        
+        print '\rByte Count = {0}'.format(i),
+        log.write(answer)
+    
 if __name__ == "__main__":
     main()

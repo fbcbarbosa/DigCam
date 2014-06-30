@@ -24,5 +24,9 @@
 #define COM_SET_P       0x05
 #define COM_RESET       0x06
 #define COM_STATUS      0x07
+#define COM_READ        0x08
+#define COM_WRITE       0x09
+#define COM_READALL     0x0A
+#define COM_BMP         0x0B
 
 #endif	/* COMMANDS_H */

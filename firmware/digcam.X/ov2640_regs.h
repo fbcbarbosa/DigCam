@@ -15,12 +15,13 @@
 /* Registers                                                                  */
 /******************************************************************************/
 
+// 320 x 160 RGB565 (2 bytes/px)
 const struct cam_reg OV2640_QVGA[] =
 {
-	{0xff, 0x0},
-	{0x2c, 0xff},
-	{0x2e, 0xdf},
-	{0xff, 0x1},
+	{0xff, 0x0},    // Select register bank 0x00
+	{0x2c, 0xff},   // Configure PCLK/VSYNC/HREFX as output
+	{0x2e, 0xdf},   // Configure PCLK/VSYNC/HREFX as output
+	{0xff, 0x1},    // Select register bank 0x01
 	{0x3c, 0x32},
 	{0x11, 0x0},
 	{0x9, 0x2},
@@ -219,7 +220,7 @@ const struct cam_reg OV2640_QVGA[] =
 	{0x5, 0x0},
 
 
-	{0xff,0xff},
+	{0xff,0xff},    // End
 };
 
 const struct cam_reg OV2640_JPEG_INIT[] =

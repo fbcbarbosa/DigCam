@@ -188,7 +188,6 @@ int16_t main(void) {
                 createinfoheader(infoheader,352,244);
                 usart_putnumchars(header, 14);
                 usart_putnumchars(infoheader, 40);
-                sendtable();
                 CamTakePic();
                 Delayms(4000); // delay will announce data stream is over
                 writeln("Done!");

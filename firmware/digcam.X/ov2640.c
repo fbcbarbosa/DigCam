@@ -83,14 +83,14 @@ void CamReset() {
     Delayms(100);
 
     // JPEG
-//    CamWriteArray(OV2640_JPEG_INIT);
-//    CamWriteArray(OV2640_YUV422);
-//    CamWriteArray(OV2640_JPEG);
-//
-//    CamWrite(0xFF, 0x01);
-//    CamWrite(0x15, 0x00);
-//
-//    CamWriteArray(OV2640_320x240_JPEG);
+    //    CamWriteArray(OV2640_JPEG_INIT);
+    //    CamWriteArray(OV2640_YUV422);
+    //    CamWriteArray(OV2640_JPEG);
+    //
+    //    CamWrite(0xFF, 0x01);
+    //    CamWrite(0x15, 0x00);
+    //
+    //    CamWriteArray(OV2640_320x240_JPEG);
 
     // BMP
     CamWriteArray(OV2640_QVGA);
@@ -171,9 +171,9 @@ int CamCheckHREFX() {
  *
  */
 void CamTakePic() {
-    int high_bit;
-    int low_bit;
-
+    //int high_bit;
+    //int low_bit;
+    //RGB565 cada px é 16 bits = 2bytes
     int y, r, h;
     for (y = 0; y < CAM_WIDTH; y++) {
         while (CAM_VSYNC);

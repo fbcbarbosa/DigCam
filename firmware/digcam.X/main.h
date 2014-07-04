@@ -8,8 +8,12 @@
 #ifndef MAIN_H
 #define	MAIN_H
 
+#include "ov2640.h"
+
 extern int debugging;
-extern char buffer[64];
+extern char buffer[32];
+extern unsigned int cam_buffer[CAM_WIDTH];
+//extern unsigned int cam_buffer[CAM_HEIGHT/10][CAM_WIDTH/10];
 
 /******************************************************************************/
 /* UART shortcuts                                                             */

@@ -42,11 +42,11 @@
 
 // Camera definitions
 #define CAM_DATA        (unsigned char)(CAM_D7 << 7 | CAM_D6 << 6 | CAM_D5 << 5 | CAM_D4 << 4 | CAM_D3 << 3 | CAM_D2 << 2 | CAM_D1 << 1 | CAM_D0 << 0)
-#define CAM_WIDTH       352//320
-#define CAM_HEIGHT      244//240
+#define CAM_WIDTH       320
+#define CAM_HEIGHT      160
 
 // Slave address
-#define CAM_ADDR    0x30
+#define CAM_ADDR        0x30
 
 // Camera registers
 #define CAM_REG_COM7    0x12    // Common Control 7
@@ -66,6 +66,14 @@ struct cam_status {
     int PCLK;
     int HREF;
     int VSYNC;
+
+    long WIDTH;
+    long HEIGHT;
+
+    long NBYTELINE;
+    long NHSYNC;
+
+    long NBYTETOTAL;
 };
 
 struct cam_status CamStatus();
@@ -76,6 +84,8 @@ void CamTakePic();
 void CamTurnOn();
 void CamTurnOff();
 
+void CamGetPixelRow(int r0);
+unsigned int CamReadPixel(int r0, int c0);
 unsigned char CamRead(unsigned char reg_addr);
 void CamWrite(unsigned char reg_addr, unsigned char data);
 void CamWriteArray(const struct cam_reg camlist[]);

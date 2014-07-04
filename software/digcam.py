@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
-import time
-import os
+import numpy as np
+from PIL import Image
+
 import serial
 import sys
 
@@ -10,7 +11,9 @@ import instructions
 
 # global variables
 ser = 0
-version = 0.1;
+version = 0.1
+WIDTH = 320
+HEIGHT = 160
 
 # constants
 LOG = chr(253)
@@ -71,13 +74,14 @@ def main():
                     if answer == '':
                         print 'Error: connection timeout!'
                         sys.exit()
-                
-                # print until end of stream
+                    
                 answer = ser.read()         # check answer
-                             
+ 
+                # print until end of stream             
                 while answer != END:        # END - code for end of stream
                     if answer == LOG:
-                        startLogging()
+                        readImage()
+                        #startLogging()
                     else:
                         sys.stdout.write(answer)
                     
@@ -128,6 +132,7 @@ def startLogging():
     """
     Logs UART output to a file.
     """
+
     log = open('log.txt', 'w+')
     
     i = 0;
@@ -141,7 +146,35 @@ def startLogging():
             return
         
         print '\rByte Count = {0}'.format(i),
-        log.write(answer)
+        log.write(str(ord(answer)) + " ") # write ASCII code (integer value) of tchar
+
+def readImage():
+    """
+    Read the photo.
+    """
+    error = 0
+    imgarray = np.empty([WIDTH,HEIGHT])
+    for i in range(0, WIDTH):
+        for j in range(0, HEIGHT):
+            answer = ser.read()
+            if answer != '': 
+                imgarray[i][j] = ord(answer) # write ASCII code (integer value) of char    
+            else: # timeout
+                error = error + 1
+                j = j - 1 # try again to get a char!
+            print '\rRow count = {0}\tTimeout count = {1}'.format(i+1, error),
+    
+    # more light!
+    #imgarray = imgarray*256/np.amax(imgarray)
+    
+    img = Image.fromarray(imgarray)
+    #img = img.resize([800,592])
+    img.show('Photo')
+    
+    log = open('log.txt', 'w+')
+    for i in range(0, WIDTH):
+        for j in range(0, HEIGHT):
+            log.write(str(int(imgarray[i][j])) + " ") # write ASCII code (integer value) of tchar
     
 if __name__ == "__main__":
     main()

@@ -1,6 +1,6 @@
 /* 
  * File:   main.h
- * Author: fernando
+ * Authors: Fernando Barbosa, João Lucas e Roberto Walter
  *
  * Created on June 20, 2014, 4:20 PM
  */

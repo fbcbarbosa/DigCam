@@ -1,12 +1,10 @@
 /* 
  * File:   commands.h
- * Author: Fernando Barbosa
- * List of commands known to the PIC.
+ * Authors: Fernando Barbosa, João Lucas e Roberto Walter
  *
  * Created on May 9, 2014, 11:23 PM
  *
- * Description: defines all commands known to the pic. Each command is define by
- * two hexadecimal characters, for a total of 256 commands.
+ * Description: defines all commands known to the pic.
  */
 
 #ifndef COMMANDS_H

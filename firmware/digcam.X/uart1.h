@@ -1,12 +1,11 @@
 /*
- * File:   uart1.h
- * Author: Fernando Barbosa
- * Serial communication library. Based on picDev library by Arthur Benemann.
+ * File:   UART1.h
+ * Authors: Fernando Barbosa, João Lucas e Roberto Walter
  *
  * Created on April 23, 2014, 2:33 PM
  *
- * Description: opens UART1 peripheral for serial communication. Contains some
- * basic input/output routines.
+ * Description: opens UART1 peripheral for serial communication using ISRs.
+ * Contains some basic input/output routines.
  */
 
 /******************************************************************************/

@@ -14,7 +14,7 @@ import instructions
 # global variables
 ser = 0
 version = 0.1
-WIDTH = 400
+WIDTH = 800
 HEIGHT = 200
 
 # constants
@@ -122,7 +122,7 @@ def readImage():
         for j in range(0, WIDTH):
             answer = ser.read()
             if answer != '': 
-                imgarray[i][j] = ord(answer) # write ASCII code (integer value) of char    
+                imgarray[i][j] = int(ord(answer)) # write ASCII code (integer value) of char    
             else: # timeout
                 error = error + 1
                 j = j - 1 # try again to get a char!
@@ -130,23 +130,15 @@ def readImage():
      
     img = Image.fromarray(imgarray)
     img.show()
-    img.mode = 'L'
-    img.save(os.path.join(os.pardir, "temp\\photo.bmp"))
-    img.save(os.path.join(os.pardir, "temp\\photo.png"))
-    img.save(os.path.join(os.pardir, "temp\\photo.jpg"))
+    img.mode = "L"
+    img.save(os.path.join(os.pardir, "temp\\photo.bmp"), "L")
     print 'Image saved in "'"DigCam\\temp\\.photo.bmp"'"'
-    
-    #plt.imshow(imgarray)
-    #plt.show()
-    #plt.savefig('photo.bmp')
 
-    raw_input('Press any key to continue...')
     txt = open(os.path.join(os.pardir, "temp\\grayscale.txt"), "w+")
     for i in range(0, HEIGHT):
         for j in range(0, WIDTH):
             txt.write(str(int(imgarray[i][j])) + " ") # write ASCII code (integer value) of char
     print 'Grayscale matrix saved in "'"DigCam\\temp\\grayscale.txt"'"'
-    raw_input('Press any key to continue...')
              
 def helpMessage():
     """

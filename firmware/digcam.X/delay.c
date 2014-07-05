@@ -1,6 +1,6 @@
 /*
- * File:   delay.c
- * Author: fernando
+ * File: delay.c
+ * Authors: Fernando Barbosa, João Lucas e Roberto Walter
  *
  * Created on June 9, 2014, 5:33 PM
  */
@@ -15,10 +15,7 @@
 
 /******************************************************************************/
 /* User Functions                                                             */
-
 /******************************************************************************/
-
-int count = 0;
 
 /**
  * Delay function.

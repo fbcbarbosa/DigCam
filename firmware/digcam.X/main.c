@@ -7,13 +7,11 @@
 #include <stdint.h>         // Includes uint16_t definition
 #include <stdbool.h>        // Includes true/false definition
 
-#include "bmp.h"
 #include "commands.h"       // List of commands known to the PIC
 #include "delay.h"
 #include "i2c.h"
 #include "main.h"
 #include "ov2640.h"
-#include "system.h"         // System funct/params, like osc/peripheral config
 #include "uart1.h"          // UART1 peripheral functions
 
 #include "lib/picdev/picDev.h"  // Connections of the picDev board

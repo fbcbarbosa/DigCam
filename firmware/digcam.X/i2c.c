@@ -1,35 +1,18 @@
 /*
- * ----------------------------------------------------------------------------
- * "THE BEER-WARE LICENSE" (Revision 42):
- * <joerg@FreeBSD.ORG> wrote this file.  As long as you retain this notice you
- * can do whatever you want with this stuff. If we meet some day, and you think
- * this stuff is worth it, you can buy me a beer in return.        Joerg Wunsch
- * ----------------------------------------------------------------------------
- */
-
-/* $Id: twitest.c,v 1.1 2002/12/18 22:35:38 joerg_wunsch Exp $ */
-
-/*
- * Simple demo program that talks to a 24Cxx I²C EEPROM using the
- * builtin TWI interface of an ATmega device.
- */
-
-/*
- * ---------------------------------------------------------------------------
- * The code modified and reorganized by Jaakko Ala-Paavola 2003/08/20
- * jap@iki.fi
- * ---------------------------------------------------------------------------
+ * File: i2c.c
+ * Authors: Fernando Barbosa, João Lucas e Roberto Walter
+ *
+ * Description: opens I2C peripheral for serial communication as master.
  */
 
 #define I2CWRITE    0
 #define I2CREAD     1
 
 #ifndef I2CSPEED
-#define I2CSPEED    37     // 400KHz
-//#define I2CSPEED    157     // 100KHz
+#define I2CSPEED    37          // 400KHz
 #endif
 
-#include "lib/picdev/pinOut.h"  // Pinout for the picDev Board
+#include "lib/picdev/pinOut.h"  // Pinout for the PicDev Board
 
 #include "i2c.h"
 #include "delay.h"

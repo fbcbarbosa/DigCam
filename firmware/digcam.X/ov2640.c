@@ -1,10 +1,10 @@
 /*
  * File:   ov2640.c
- * Author: Fernando Barbosa
+ * Authors: Fernando Barbosa, João Lucas e Roberto Walter
  *
  * Created on May 10, 2014, 02:02 AM
  *
- * Description: camera isnstruction file.
+ * Description: OV2640 function file.
  */
 
 /******************************************************************************/
@@ -19,7 +19,6 @@
 #include "main.h"
 #include "ov2640.h"
 #include "uart1.h"
-#include "ov2640_regs.h"
 
 #include <stdio.h>
 
@@ -119,15 +118,15 @@ void CamReset() {
      */
 
     /* CIF mode */
-    CamWrite(0xff, 0x01); // Select bank
-    CamWrite(0x12, 0x10); // CIF mode
-    CamWrite(0x17, 0x11); // HREFST[10:3] (Default)
-    CamWrite(0x03, 0x06); // CIF default
-    CamWrite(0x18, 0x43); // HREFEND[10:3] (CIF default)
-    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
-    CamWrite(0x1a, 0x97); // VEND[9:2] (Default)
-    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
-    CamWrite(0x03, 0x06); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
+//    CamWrite(0xff, 0x01); // Select bank
+//    CamWrite(0x12, 0x10); // CIF mode
+//    CamWrite(0x17, 0x11); // HREFST[10:3] (Default)
+//    CamWrite(0x03, 0x06); // CIF default
+//    CamWrite(0x18, 0x43); // HREFEND[10:3] (CIF default)
+//    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
+//    CamWrite(0x1a, 0x97); // VEND[9:2] (Default)
+//    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
+//    CamWrite(0x03, 0x06); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
 
     /* Window
      * HREFST = 0001 0001 001 = 137
@@ -324,24 +323,6 @@ void CamWrite(unsigned char reg_addr, unsigned char data) {
     unsigned char error = 0;
     error = I2CWriteByte(CAM_ADDR, reg_addr, data);
     return;
-}
-
-/**
- * Write on a list of registers through the I2C protocol.
- * @param camlist
- */
-void CamWriteArray(const struct cam_reg camlist[]) {
-    unsigned char reg_addr = 0;
-    unsigned char reg_val = 0;
-
-    const struct cam_reg *next = camlist;
-
-    while ((reg_addr != 0xFF) | (reg_val != 0xFF)) {
-        reg_addr = next->reg;
-        reg_val = next->val;
-        CamWrite(reg_addr, reg_val);
-        next++;
-    }
 }
 
 /**

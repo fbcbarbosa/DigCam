@@ -27,6 +27,8 @@
 /* Global variables                                                           */
 /******************************************************************************/
 
+#define NROW_BUFF 10
+
 extern char strBuffer[16];
 
 #endif	/* MAIN_H */

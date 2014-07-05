@@ -160,46 +160,13 @@ unsigned char I2CReadByte(unsigned char device_addr, unsigned char reg_addr, uns
     I2CStart();
     error += !I2CWriteAck((device_addr << 1) | I2CREAD);
 
-//    if (error) {
-//        I2CStop();
-//        return error;
-//    }
-
-    *data = I2CRead();
-    I2CNack();
-    I2CStop();
-    return error;
-}
-
-/**
- * I2C read array function.
- * @param device_addr
- * @param reg_addr
- * @param data
- * @param length
- * @return
- */
-unsigned char I2CReadArray(unsigned char device_addr, unsigned char reg_addr, unsigned char *data, unsigned char length) {
-    unsigned char error = 0;
-    I2CStart();
-    error += !I2CWriteAck((device_addr << 1) | I2CWRITE);
-    error += !I2CWriteAck(reg_addr);
-    I2CStart();
-    error += !I2CWriteAck((device_addr << 1) | I2CREAD);
-
     if (error) {
         I2CStop();
         return error;
     }
 
-    while (length-- > 1) {
-        *data++ = I2CRead();
-        I2CAck();
-    }
-   
     *data = I2CRead();
     I2CNack();
     I2CStop();
-
     return error;
 }

@@ -99,15 +99,15 @@ void CamReset() {
      */
 
     /* SQCIF mode 128 x 96 */
-    CamWrite(0xff, 0x01); // Select bank
-    CamWrite(0x12, 0x10); // CIF mode
-    CamWrite(0x17, 0x22); // HREFST[10:3] (Default)
-    CamWrite(0x03, 0x06); // CIF default
-    CamWrite(0x18, 0x32); // HREFEND[10:3] (CIF default)
-    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
-    CamWrite(0x1a, 0x4A); // VEND[9:2]
-    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
-    CamWrite(0x03, 0x0A); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
+//    CamWrite(0xff, 0x01); // Select bank
+//    CamWrite(0x12, 0x10); // CIF mode
+//    CamWrite(0x17, 0x22); // HREFST[10:3] (Default)
+//    CamWrite(0x03, 0x06); // CIF default
+//    CamWrite(0x18, 0x32); // HREFEND[10:3] (CIF default)
+//    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
+//    CamWrite(0x1a, 0x4A); // VEND[9:2]
+//    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
+//    CamWrite(0x03, 0x0A); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
 
     /* Window
      * HREFST = 0010 0010 001 = 273
@@ -119,15 +119,15 @@ void CamReset() {
      */
 
     /* CIF mode */
-//    CamWrite(0xff, 0x01); // Select bank
-//    CamWrite(0x12, 0x10); // CIF mode
-//    CamWrite(0x17, 0x11); // HREFST[10:3] (Default)
-//    CamWrite(0x03, 0x06); // CIF default
-//    CamWrite(0x18, 0x43); // HREFEND[10:3] (CIF default)
-//    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
-//    CamWrite(0x1a, 0x97); // VEND[9:2] (Default)
-//    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
-//    CamWrite(0x03, 0x06); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
+    CamWrite(0xff, 0x01); // Select bank
+    CamWrite(0x12, 0x10); // CIF mode
+    CamWrite(0x17, 0x11); // HREFST[10:3] (Default)
+    CamWrite(0x03, 0x06); // CIF default
+    CamWrite(0x18, 0x43); // HREFEND[10:3] (CIF default)
+    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
+    CamWrite(0x1a, 0x97); // VEND[9:2] (Default)
+    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
+    CamWrite(0x03, 0x06); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
 
     /* Window
      * HREFST = 0001 0001 001 = 137
@@ -236,7 +236,7 @@ int CamCheckHREFX() {
  */
 void CamReadPixelRow(int r0, unsigned int buffer[CAM_WIDTH]) {
     int r;
-    r0 = r0 + 98;
+    r0 = r0 + 2;
     
     // Vsync
     while (!CAM_VSYNC);
@@ -249,10 +249,10 @@ void CamReadPixelRow(int r0, unsigned int buffer[CAM_WIDTH]) {
         while (CAM_HREFX);
     }
 
-    // wait for HREF high
-    while (!CAM_HREFX);
-
     for (r = 0; r < CAM_WIDTH; r++) {
+        // wait for HREF high
+        while (!CAM_HREFX);
+
         while (CAM_PCLK);
         while (!CAM_PCLK);
 
@@ -263,7 +263,43 @@ void CamReadPixelRow(int r0, unsigned int buffer[CAM_WIDTH]) {
         while (CAM_PCLK);
         while (!CAM_PCLK);
     }
+    
 }
+
+///**
+// * Return Lume (Y) bytes.
+// * @param r0 Row number.
+// */
+//void CamReadPixelRow(int r0, unsigned int buffer[CAM_WIDTH]) {
+//    int r;
+//    r0 = r0 + 98;
+//
+//    // Vsync
+//    while (!CAM_VSYNC);
+//    while (CAM_VSYNC);
+//
+//    // get to line r0
+//    for (r = 0; r < r0; r++) {
+//        // wait for Hsync
+//        while (!CAM_HREFX);
+//        while (CAM_HREFX);
+//    }
+//
+//    // wait for HREF high
+//    while (!CAM_HREFX);
+//
+//    for (r = 0; r < CAM_WIDTH; r++) {
+//        while (CAM_PCLK);
+//        while (!CAM_PCLK);
+//
+//        // read first px (Y) when pclk low
+//        buffer[r] = PORTB;
+//
+//        // discard Y/U bit
+//        while (CAM_PCLK);
+//        while (!CAM_PCLK);
+//    }
+//}
 
 /**
  * Turn on camera.

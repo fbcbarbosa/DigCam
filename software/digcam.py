@@ -4,9 +4,9 @@
 import numpy as np
 from PIL import Image
 
-import matplotlib.pyplot as plt
 import serial
 import sys
+import os
 
 # user imports
 import instructions
@@ -14,8 +14,8 @@ import instructions
 # global variables
 ser = 0
 version = 0.1
-WIDTH = 128
-HEIGHT = 96
+WIDTH = 400
+HEIGHT = 200
 
 # constants
 LOG = chr(253)
@@ -126,22 +126,24 @@ def readImage():
             else: # timeout
                 error = error + 1
                 j = j - 1 # try again to get a char!
-            print '\rByte count = {0}/{1}\tTimeout count = {2}'.format(HEIGHT*i + j + 1, WIDTH*HEIGHT, error),
+            print '\rByte count = {0}/{1}\tTimeout count = {2}'.format(WIDTH*i + j + 1, WIDTH*HEIGHT, error),
      
     img = Image.fromarray(imgarray)
     img.mode = 'L'
     img.show()
-    img.save('Photo.bmp')
+    img.save(os.path.join(os.pardir, "temp\\photo.bmp"))
+    print 'Image saved in "'"Digcam\\temp\\.photo.bmp"'"'
     
     #plt.imshow(imgarray)
     #plt.show()
     #plt.savefig('photo.bmp')
     
-    log = open('log.txt', 'w+')
+    txt = open(os.path.join(os.pardir, "temp\\filename"), "w+")
     for i in range(0, HEIGHT):
         for j in range(0, WIDTH):
-            log.write(str(int(imgarray[i][j])) + " ") # write ASCII code (integer value) of char
-
+            txt.write(str(int(imgarray[i][j])) + " ") # write ASCII code (integer value) of char
+    print 'Grayscale matrix saved in "'"Digcam\\temp\\.grayscale.txt"'"'
+             
 def helpMessage():
     """
     Display help message.

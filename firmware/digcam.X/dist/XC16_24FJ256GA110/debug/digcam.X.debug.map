@@ -1,4 +1,4 @@
-Microchip Technology Inc, v¨›—
+Microchip Technology Inc, vð—m
 
 Tool Name:
   c:\program files (x86)\microchip\xc16\v1.21\bin\bin\..\bin/elf-ld.exe
@@ -6,7 +6,7 @@ Tool Name:
 Command:
   -p24FJ256GB106 \
   -o \
-  dist/XC16_24FJ256GA110/production/digcam.X.production.elf \
+  dist/XC16_24FJ256GA110/debug/digcam.X.debug.elf \
   -Lc:/program files (x86)/microchip/xc16/v1.21/bin/bin/.. \
   -Lc:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib \
   -Lc:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib/PIC24E \
@@ -21,17 +21,21 @@ Command:
   -Lc:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../support/dsPIC33E/gld \
   -Lc:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib/dsPIC33F \
   -Lc:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../support/dsPIC33F/gld \
-  build/XC16_24FJ256GA110/production/interrupts.o \
-  build/XC16_24FJ256GA110/production/main.o \
-  build/XC16_24FJ256GA110/production/system.o \
-  build/XC16_24FJ256GA110/production/traps.o \
-  build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o \
-  build/XC16_24FJ256GA110/production/uart1.o \
-  build/XC16_24FJ256GA110/production/ov2640.o \
-  build/XC16_24FJ256GA110/production/delay.o \
-  build/XC16_24FJ256GA110/production/bmp.o \
-  build/XC16_24FJ256GA110/production/i2c.o \
+  build/XC16_24FJ256GA110/debug/interrupts.o \
+  build/XC16_24FJ256GA110/debug/main.o \
+  build/XC16_24FJ256GA110/debug/system.o \
+  build/XC16_24FJ256GA110/debug/traps.o \
+  build/XC16_24FJ256GA110/debug/lib/picdev/configuration_bits.o \
+  build/XC16_24FJ256GA110/debug/uart1.o \
+  build/XC16_24FJ256GA110/debug/ov2640.o \
+  build/XC16_24FJ256GA110/debug/delay.o \
+  build/XC16_24FJ256GA110/debug/bmp.o \
+  build/XC16_24FJ256GA110/debug/i2c.o \
   --defsym=__MPLAB_BUILD=1 \
+  --defsym=__ICD2RAM=1 \
+  --defsym=__MPLAB_DEBUG=1 \
+  --defsym=__DEBUG=1 \
+  --defsym=__MPLAB_DEBUGGER_PK3=1 \
   -Tp24FJ256GB106.gld.00 \
   --stack=16 \
   --check-sections \
@@ -44,7 +48,7 @@ Command:
   --stackguard=16 \
   --no-force-link \
   --smart-io \
-  -Map=dist/XC16_24FJ256GA110/production/digcam.X.production.map \
+  -Map=dist/XC16_24FJ256GA110/debug/digcam.X.debug.map \
   --report-mem \
   -start-group \
   --library=fx-elf \
@@ -60,7 +64,7 @@ c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(crt
 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(data_init_standard.o)
                               c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o) (__data_init_standard)
 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(sprintf_cdnopsuxX.XXeo)
-                              build/XC16_24FJ256GA110/production/main.o (__sprintf_cdnopsuxX)
+                              build/XC16_24FJ256GA110/debug/main.o (__sprintf_cdnopsuxX)
 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopsuxX.XXeo)
                               c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(sprintf_cdnopsuxX.XXeo) (__vfprintf_cdnopsuxX)
 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(fputc.eo)
@@ -94,15 +98,16 @@ Data Memory  [Origin = 0x800, Length = 0x4000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0           0xa14  (2580)
-.ndata                      0x1214                   0             0x2  (2)
-.data.dpowers               0x1216                   0            0xa0  (160)
-.data                       0x12b6                   0            0x2a  (42)
-.data._iob                  0x12e0                   0            0x26  (38)
-.bss                        0x1306                   0             0x6  (6)
-.data.__C30_UART            0x130c                   0             0x2  (2)
+.icd                         0x800                0x50            0x50  (80)
+.nbss                        0x850                   0           0xa14  (2580)
+.ndata                      0x1264                   0             0x2  (2)
+.data.dpowers               0x1266                   0            0xa0  (160)
+.data                       0x1306                   0            0x2a  (42)
+.data._iob                  0x1330                   0            0x26  (38)
+.bss                        0x1356                   0             0x6  (6)
+.data.__C30_UART            0x135c                   0             0x2  (2)
 
-                        Total data memory used (bytes):          0xb0e  (2830) 17%
+                        Total data memory used (bytes):          0xb5e  (2910) 17%
 
 
 Dynamic Memory Usage
@@ -110,36 +115,36 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x130e                              0x34f2  (13554)
+stack                       0x135e                              0x34a2  (13474)
 
-                        Maximum dynamic memory (bytes):         0x34f2  (13554)
+                        Maximum dynamic memory (bytes):         0x34a2  (13474)
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0800                  _strBuffer
-                    0x0810                  _hexBuffer
-                    0x0814                  _camBuffer
-                    0x1214                  _count
-                    0x12e0                  __iob
-                    0x1304                  __Files
-                    0x1306                  __outdone
-                    0x1307                  __sibuf
-                    0x1309                  __sobuf
-                    0x130c                  ___C30_UART
+                    0x0850                  _strBuffer
+                    0x0860                  _hexBuffer
+                    0x0864                  _camBuffer
+                    0x1264                  _count
+                    0x1330                  __iob
+                    0x1354                  __Files
+                    0x1356                  __outdone
+                    0x1357                  __sibuf
+                    0x1359                  __sobuf
+                    0x135c                  ___C30_UART
 
 External Symbols in Data Memory (by name):
 
-                    0x1304                  __Files
-                    0x130c                  ___C30_UART
-                    0x12e0                  __iob
-                    0x1306                  __outdone
-                    0x1307                  __sibuf
-                    0x1309                  __sobuf
-                    0x0814                  _camBuffer
-                    0x1214                  _count
-                    0x0810                  _hexBuffer
-                    0x0800                  _strBuffer
+                    0x1354                  __Files
+                    0x135c                  ___C30_UART
+                    0x1330                  __iob
+                    0x1356                  __outdone
+                    0x1357                  __sibuf
+                    0x1359                  __sobuf
+                    0x0864                  _camBuffer
+                    0x1264                  _count
+                    0x0860                  _hexBuffer
+                    0x0850                  _strBuffer
 
 External Symbols in Program Memory (by address):
 
@@ -291,17 +296,21 @@ CONFIG1          0x02abfe           0x000002
 
 Linker script and memory map
 
-LOAD build/XC16_24FJ256GA110/production/interrupts.o
-LOAD build/XC16_24FJ256GA110/production/main.o
-LOAD build/XC16_24FJ256GA110/production/system.o
-LOAD build/XC16_24FJ256GA110/production/traps.o
-LOAD build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
-LOAD build/XC16_24FJ256GA110/production/uart1.o
-LOAD build/XC16_24FJ256GA110/production/ov2640.o
-LOAD build/XC16_24FJ256GA110/production/delay.o
-LOAD build/XC16_24FJ256GA110/production/bmp.o
-LOAD build/XC16_24FJ256GA110/production/i2c.o
+LOAD build/XC16_24FJ256GA110/debug/interrupts.o
+LOAD build/XC16_24FJ256GA110/debug/main.o
+LOAD build/XC16_24FJ256GA110/debug/system.o
+LOAD build/XC16_24FJ256GA110/debug/traps.o
+LOAD build/XC16_24FJ256GA110/debug/lib/picdev/configuration_bits.o
+LOAD build/XC16_24FJ256GA110/debug/uart1.o
+LOAD build/XC16_24FJ256GA110/debug/ov2640.o
+LOAD build/XC16_24FJ256GA110/debug/delay.o
+LOAD build/XC16_24FJ256GA110/debug/bmp.o
+LOAD build/XC16_24FJ256GA110/debug/i2c.o
                     0x0001                  __MPLAB_BUILD = 0x1
+                    0x0001                  __ICD2RAM = 0x1
+                    0x0001                  __MPLAB_DEBUG = 0x1
+                    0x0001                  __DEBUG = 0x1
+                    0x0001                  __MPLAB_DEBUGGER_PK3 = 0x1
 LOAD c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib/PIC24F\libpPIC24Fxxx-elf.a
                     0x2abfa                  __CONFIG3 = 0x2abfa
                     0x2abfc                  __CONFIG2 = 0x2abfc
@@ -331,7 +340,7 @@ LOAD c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib/PIC24F\libpPI
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x000294         0x34 build/XC16_24FJ256GA110/production/traps.o
+ .isr.text        0x000294         0x34 build/XC16_24FJ256GA110/debug/traps.o
                   0x000294                  __OscillatorFail
                   0x00029a                  __AddressError
                   0x0002a0                  __StackError
@@ -386,78 +395,82 @@ usercode
 
 __CONFIG3         0x02abfa          0x2
  *(__CONFIG3.sec*)
- __CONFIG3.sec    0x02abfa          0x2 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
+ __CONFIG3.sec    0x02abfa          0x2 build/XC16_24FJ256GA110/debug/lib/picdev/configuration_bits.o
 
 __CONFIG2         0x02abfc          0x2
  *(__CONFIG2.sec*)
- __CONFIG2.sec    0x02abfc          0x2 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
+ __CONFIG2.sec    0x02abfc          0x2 build/XC16_24FJ256GA110/debug/lib/picdev/configuration_bits.o
 
 __CONFIG1         0x02abfe          0x2
  *(__CONFIG1.sec*)
- __CONFIG1.sec    0x02abfe          0x2 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
+ __CONFIG1.sec    0x02abfe          0x2 build/XC16_24FJ256GA110/debug/lib/picdev/configuration_bits.o
+
+.icd                0x0800         0x50
+                    0x0850                  . = (. + DEFINED (__ICD2RAM)?0x50:0x0)
+ *fill*             0x0800         0x5000
 
 .comment
  *(.comment)
 
 .debug_info       0x000000       0x2d6c
  *(.debug_info)
- .debug_info      0x000000        0x125 build/XC16_24FJ256GA110/production/interrupts.o
- .debug_info      0x000125        0x454 build/XC16_24FJ256GA110/production/main.o
- .debug_info      0x000579        0x473 build/XC16_24FJ256GA110/production/system.o
- .debug_info      0x0009ec        0x2e9 build/XC16_24FJ256GA110/production/traps.o
- .debug_info      0x000cd5        0x10d build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
- .debug_info      0x000de2        0x833 build/XC16_24FJ256GA110/production/uart1.o
- .debug_info      0x001615        0xc91 build/XC16_24FJ256GA110/production/ov2640.o
- .debug_info      0x0022a6        0x15b build/XC16_24FJ256GA110/production/delay.o
- .debug_info      0x002401        0x2b2 build/XC16_24FJ256GA110/production/bmp.o
- .debug_info      0x0026b3        0x6b9 build/XC16_24FJ256GA110/production/i2c.o
+ .debug_info      0x000000        0x125 build/XC16_24FJ256GA110/debug/interrupts.o
+ .debug_info      0x000125        0x454 build/XC16_24FJ256GA110/debug/main.o
+ .debug_info      0x000579        0x473 build/XC16_24FJ256GA110/debug/system.o
+ .debug_info      0x0009ec        0x2e9 build/XC16_24FJ256GA110/debug/traps.o
+ .debug_info      0x000cd5        0x10d build/XC16_24FJ256GA110/debug/lib/picdev/configuration_bits.o
+ .debug_info      0x000de2        0x833 build/XC16_24FJ256GA110/debug/uart1.o
+ .debug_info      0x001615        0xc91 build/XC16_24FJ256GA110/debug/ov2640.o
+ .debug_info      0x0022a6        0x15b build/XC16_24FJ256GA110/debug/delay.o
+ .debug_info      0x002401        0x2b2 build/XC16_24FJ256GA110/debug/bmp.o
+ .debug_info      0x0026b3        0x6b9 build/XC16_24FJ256GA110/debug/i2c.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x78e
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0x1f build/XC16_24FJ256GA110/production/interrupts.o
- .debug_abbrev    0x00001f        0x114 build/XC16_24FJ256GA110/production/main.o
- .debug_abbrev    0x000133         0xa7 build/XC16_24FJ256GA110/production/system.o
- .debug_abbrev    0x0001da         0x7d build/XC16_24FJ256GA110/production/traps.o
- .debug_abbrev    0x000257         0x30 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
- .debug_abbrev    0x000287        0x122 build/XC16_24FJ256GA110/production/uart1.o
- .debug_abbrev    0x0003a9        0x1d4 build/XC16_24FJ256GA110/production/ov2640.o
- .debug_abbrev    0x00057d         0x6e build/XC16_24FJ256GA110/production/delay.o
- .debug_abbrev    0x0005eb         0x72 build/XC16_24FJ256GA110/production/bmp.o
- .debug_abbrev    0x00065d        0x131 build/XC16_24FJ256GA110/production/i2c.o
+ .debug_abbrev    0x000000         0x1f build/XC16_24FJ256GA110/debug/interrupts.o
+ .debug_abbrev    0x00001f        0x114 build/XC16_24FJ256GA110/debug/main.o
+ .debug_abbrev    0x000133         0xa7 build/XC16_24FJ256GA110/debug/system.o
+ .debug_abbrev    0x0001da         0x7d build/XC16_24FJ256GA110/debug/traps.o
+ .debug_abbrev    0x000257         0x30 build/XC16_24FJ256GA110/debug/lib/picdev/configuration_bits.o
+ .debug_abbrev    0x000287        0x122 build/XC16_24FJ256GA110/debug/uart1.o
+ .debug_abbrev    0x0003a9        0x1d4 build/XC16_24FJ256GA110/debug/ov2640.o
+ .debug_abbrev    0x00057d         0x6e build/XC16_24FJ256GA110/debug/delay.o
+ .debug_abbrev    0x0005eb         0x72 build/XC16_24FJ256GA110/debug/bmp.o
+ .debug_abbrev    0x00065d        0x131 build/XC16_24FJ256GA110/debug/i2c.o
 
 .debug_line       0x000000       0x1969
  *(.debug_line)
- .debug_line      0x000000         0x24 build/XC16_24FJ256GA110/production/interrupts.o
- .debug_line      0x000024        0x4d7 build/XC16_24FJ256GA110/production/main.o
- .debug_line      0x0004fb         0xc8 build/XC16_24FJ256GA110/production/system.o
- .debug_line      0x0005c3        0x1b7 build/XC16_24FJ256GA110/production/traps.o
- .debug_line      0x00077a         0x82 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
- .debug_line      0x0007fc        0x1f9 build/XC16_24FJ256GA110/production/uart1.o
- .debug_line      0x0009f5        0x655 build/XC16_24FJ256GA110/production/ov2640.o
- .debug_line      0x00104a        0x111 build/XC16_24FJ256GA110/production/delay.o
- .debug_line      0x00115b        0x50f build/XC16_24FJ256GA110/production/bmp.o
- .debug_line      0x00166a        0x2ff build/XC16_24FJ256GA110/production/i2c.o
+ .debug_line      0x000000         0x24 build/XC16_24FJ256GA110/debug/interrupts.o
+ .debug_line      0x000024        0x4d7 build/XC16_24FJ256GA110/debug/main.o
+ .debug_line      0x0004fb         0xc8 build/XC16_24FJ256GA110/debug/system.o
+ .debug_line      0x0005c3        0x1b7 build/XC16_24FJ256GA110/debug/traps.o
+ .debug_line      0x00077a         0x82 build/XC16_24FJ256GA110/debug/lib/picdev/configuration_bits.o
+ .debug_line      0x0007fc        0x1f9 build/XC16_24FJ256GA110/debug/uart1.o
+ .debug_line      0x0009f5        0x655 build/XC16_24FJ256GA110/debug/ov2640.o
+ .debug_line      0x00104a        0x111 build/XC16_24FJ256GA110/debug/delay.o
+ .debug_line      0x00115b        0x50f build/XC16_24FJ256GA110/debug/bmp.o
+ .debug_line      0x00166a        0x2ff build/XC16_24FJ256GA110/debug/i2c.o
 
 .debug_frame      0x000000        0x51c
  *(.debug_frame)
- .debug_frame     0x000000        0x180 build/XC16_24FJ256GA110/production/main.o
- .debug_frame     0x000180         0x24 build/XC16_24FJ256GA110/production/system.o
- .debug_frame     0x0001a4         0xa4 build/XC16_24FJ256GA110/production/traps.o
- .debug_frame     0x000248         0x74 build/XC16_24FJ256GA110/production/uart1.o
- .debug_frame     0x0002bc        0x114 build/XC16_24FJ256GA110/production/ov2640.o
- .debug_frame     0x0003d0         0x34 build/XC16_24FJ256GA110/production/delay.o
- .debug_frame     0x000404         0x64 build/XC16_24FJ256GA110/production/bmp.o
- .debug_frame     0x000468         0xb4 build/XC16_24FJ256GA110/production/i2c.o
+ .debug_frame     0x000000        0x180 build/XC16_24FJ256GA110/debug/main.o
+ .debug_frame     0x000180         0x24 build/XC16_24FJ256GA110/debug/system.o
+ .debug_frame     0x0001a4         0xa4 build/XC16_24FJ256GA110/debug/traps.o
+ .debug_frame     0x000248         0x74 build/XC16_24FJ256GA110/debug/uart1.o
+ .debug_frame     0x0002bc        0x114 build/XC16_24FJ256GA110/debug/ov2640.o
+ .debug_frame     0x0003d0         0x34 build/XC16_24FJ256GA110/debug/delay.o
+ .debug_frame     0x000404         0x64 build/XC16_24FJ256GA110/debug/bmp.o
+ .debug_frame     0x000468         0xb4 build/XC16_24FJ256GA110/debug/i2c.o
 
 .debug_str        0x000000         0xe4
  *(.debug_str)
- .debug_str       0x000000         0x27 build/XC16_24FJ256GA110/production/main.o
- .debug_str       0x000027         0x14 build/XC16_24FJ256GA110/production/system.o
- .debug_str       0x00003b          0xc build/XC16_24FJ256GA110/production/traps.o
- .debug_str       0x000047         0x2a build/XC16_24FJ256GA110/production/uart1.o
- .debug_str       0x000071         0x45 build/XC16_24FJ256GA110/production/ov2640.o
- .debug_str       0x0000b6         0x2e build/XC16_24FJ256GA110/production/i2c.o
+ .debug_str       0x000000         0x27 build/XC16_24FJ256GA110/debug/main.o
+ .debug_str       0x000027         0x14 build/XC16_24FJ256GA110/debug/system.o
+ .debug_str       0x00003b          0xc build/XC16_24FJ256GA110/debug/traps.o
+ .debug_str       0x000047         0x2a build/XC16_24FJ256GA110/debug/uart1.o
+ .debug_str       0x000071         0x45 build/XC16_24FJ256GA110/debug/ov2640.o
+ .debug_str       0x0000b6         0x2e build/XC16_24FJ256GA110/debug/i2c.o
 
 .debug_loc
  *(.debug_loc)
@@ -469,23 +482,23 @@ __CONFIG1         0x02abfe          0x2
                   0x000000        0x44b
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x5d build/XC16_24FJ256GA110/production/main.o
+                  0x000000         0x5d build/XC16_24FJ256GA110/debug/main.o
  .debug_pubnames
-                  0x00005d         0x2a build/XC16_24FJ256GA110/production/system.o
+                  0x00005d         0x2a build/XC16_24FJ256GA110/debug/system.o
  .debug_pubnames
-                  0x000087         0xbe build/XC16_24FJ256GA110/production/traps.o
+                  0x000087         0xbe build/XC16_24FJ256GA110/debug/traps.o
  .debug_pubnames
-                  0x000145         0x39 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
+                  0x000145         0x39 build/XC16_24FJ256GA110/debug/lib/picdev/configuration_bits.o
  .debug_pubnames
-                  0x00017e         0x77 build/XC16_24FJ256GA110/production/uart1.o
+                  0x00017e         0x77 build/XC16_24FJ256GA110/debug/uart1.o
  .debug_pubnames
-                  0x0001f5        0x11f build/XC16_24FJ256GA110/production/ov2640.o
+                  0x0001f5        0x11f build/XC16_24FJ256GA110/debug/ov2640.o
  .debug_pubnames
-                  0x000314         0x34 build/XC16_24FJ256GA110/production/delay.o
+                  0x000314         0x34 build/XC16_24FJ256GA110/debug/delay.o
  .debug_pubnames
-                  0x000348         0x69 build/XC16_24FJ256GA110/production/bmp.o
+                  0x000348         0x69 build/XC16_24FJ256GA110/debug/bmp.o
  .debug_pubnames
-                  0x0003b1         0x9a build/XC16_24FJ256GA110/production/i2c.o
+                  0x0003b1         0x9a build/XC16_24FJ256GA110/debug/i2c.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -493,21 +506,21 @@ __CONFIG1         0x02abfe          0x2
 .debug_aranges    0x000000         0xc0
  *(.debug_aranges)
  .debug_aranges
-                  0x000000         0x18 build/XC16_24FJ256GA110/production/main.o
+                  0x000000         0x18 build/XC16_24FJ256GA110/debug/main.o
  .debug_aranges
-                  0x000018         0x18 build/XC16_24FJ256GA110/production/system.o
+                  0x000018         0x18 build/XC16_24FJ256GA110/debug/system.o
  .debug_aranges
-                  0x000030         0x18 build/XC16_24FJ256GA110/production/traps.o
+                  0x000030         0x18 build/XC16_24FJ256GA110/debug/traps.o
  .debug_aranges
-                  0x000048         0x18 build/XC16_24FJ256GA110/production/uart1.o
+                  0x000048         0x18 build/XC16_24FJ256GA110/debug/uart1.o
  .debug_aranges
-                  0x000060         0x18 build/XC16_24FJ256GA110/production/ov2640.o
+                  0x000060         0x18 build/XC16_24FJ256GA110/debug/ov2640.o
  .debug_aranges
-                  0x000078         0x18 build/XC16_24FJ256GA110/production/delay.o
+                  0x000078         0x18 build/XC16_24FJ256GA110/debug/delay.o
  .debug_aranges
-                  0x000090         0x18 build/XC16_24FJ256GA110/production/bmp.o
+                  0x000090         0x18 build/XC16_24FJ256GA110/debug/bmp.o
  .debug_aranges
-                  0x0000a8         0x18 build/XC16_24FJ256GA110/production/i2c.o
+                  0x0000a8         0x18 build/XC16_24FJ256GA110/debug/i2c.o
 
 .ivt              0x000004         0xfc
                   0x000004          0x4 LONG 0x2c4 DEFINED (__ReservedTrap0)?ABSOLUTE (__ReservedTrap0):ABSOLUTE (__DefaultInterrupt)
@@ -1850,52 +1863,52 @@ LOAD c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.
 LOAD c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a
 END GROUP
-OUTPUT(dist/XC16_24FJ256GA110/production/digcam.X.production.elf elf32-pic30)
+OUTPUT(dist/XC16_24FJ256GA110/debug/digcam.X.debug.elf elf32-pic30)
 LOAD data_init
 
 .debug_pubtypes
                   0x0000c0        0x2bb
  .debug_pubtypes
-                  0x0000c0         0x12 build/XC16_24FJ256GA110/production/interrupts.o
+                  0x0000c0         0x12 build/XC16_24FJ256GA110/debug/interrupts.o
  .debug_pubtypes
-                  0x0000d2         0x2d build/XC16_24FJ256GA110/production/main.o
+                  0x0000d2         0x2d build/XC16_24FJ256GA110/debug/main.o
  .debug_pubtypes
-                  0x0000ff         0x50 build/XC16_24FJ256GA110/production/system.o
+                  0x0000ff         0x50 build/XC16_24FJ256GA110/debug/system.o
  .debug_pubtypes
-                  0x00014f         0x35 build/XC16_24FJ256GA110/production/traps.o
+                  0x00014f         0x35 build/XC16_24FJ256GA110/debug/traps.o
  .debug_pubtypes
-                  0x000184         0x12 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
+                  0x000184         0x12 build/XC16_24FJ256GA110/debug/lib/picdev/configuration_bits.o
  .debug_pubtypes
-                  0x000196         0x92 build/XC16_24FJ256GA110/production/uart1.o
+                  0x000196         0x92 build/XC16_24FJ256GA110/debug/uart1.o
  .debug_pubtypes
-                  0x000228         0xe7 build/XC16_24FJ256GA110/production/ov2640.o
+                  0x000228         0xe7 build/XC16_24FJ256GA110/debug/ov2640.o
  .debug_pubtypes
-                  0x00030f         0x12 build/XC16_24FJ256GA110/production/delay.o
+                  0x00030f         0x12 build/XC16_24FJ256GA110/debug/delay.o
  .debug_pubtypes
-                  0x000321         0x5a build/XC16_24FJ256GA110/production/i2c.o
+                  0x000321         0x5a build/XC16_24FJ256GA110/debug/i2c.o
 
 __c30_signature
                   0x00037c         0x78
  __c30_signature
-                  0x00037c          0x6 build/XC16_24FJ256GA110/production/interrupts.o
+                  0x00037c          0x6 build/XC16_24FJ256GA110/debug/interrupts.o
  __c30_signature
-                  0x000382          0x6 build/XC16_24FJ256GA110/production/main.o
+                  0x000382          0x6 build/XC16_24FJ256GA110/debug/main.o
  __c30_signature
-                  0x000388          0x6 build/XC16_24FJ256GA110/production/system.o
+                  0x000388          0x6 build/XC16_24FJ256GA110/debug/system.o
  __c30_signature
-                  0x00038e          0x6 build/XC16_24FJ256GA110/production/traps.o
+                  0x00038e          0x6 build/XC16_24FJ256GA110/debug/traps.o
  __c30_signature
-                  0x000394          0x6 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
+                  0x000394          0x6 build/XC16_24FJ256GA110/debug/lib/picdev/configuration_bits.o
  __c30_signature
-                  0x00039a          0x6 build/XC16_24FJ256GA110/production/uart1.o
+                  0x00039a          0x6 build/XC16_24FJ256GA110/debug/uart1.o
  __c30_signature
-                  0x0003a0          0x6 build/XC16_24FJ256GA110/production/ov2640.o
+                  0x0003a0          0x6 build/XC16_24FJ256GA110/debug/ov2640.o
  __c30_signature
-                  0x0003a6          0x6 build/XC16_24FJ256GA110/production/delay.o
+                  0x0003a6          0x6 build/XC16_24FJ256GA110/debug/delay.o
  __c30_signature
-                  0x0003ac          0x6 build/XC16_24FJ256GA110/production/bmp.o
+                  0x0003ac          0x6 build/XC16_24FJ256GA110/debug/bmp.o
  __c30_signature
-                  0x0003b2          0x6 build/XC16_24FJ256GA110/production/i2c.o
+                  0x0003b2          0x6 build/XC16_24FJ256GA110/debug/i2c.o
  __c30_signature
                   0x0003b8          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(crt0_standard.o)
  __c30_signature
@@ -1917,45 +1930,45 @@ __c30_signature
  __c30_signature
                   0x0003ee          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
 
-.nbss               0x0800        0xa14
- .nbss              0x0800        0xa14 build/XC16_24FJ256GA110/production/main.o
-                    0x0800                  _strBuffer
-                    0x0810                  _hexBuffer
-                    0x0814                  _camBuffer
+.nbss               0x0850        0xa14
+ .nbss              0x0850        0xa14 build/XC16_24FJ256GA110/debug/main.o
+                    0x0850                  _strBuffer
+                    0x0860                  _hexBuffer
+                    0x0864                  _camBuffer
 
-.ndata              0x1214          0x2
- .ndata             0x1214          0x2 build/XC16_24FJ256GA110/production/delay.o
-                    0x1214                  _count
+.ndata              0x1264          0x2
+ .ndata             0x1264          0x2 build/XC16_24FJ256GA110/debug/delay.o
+                    0x1264                  _count
 
-.data.dpowers       0x1216         0xa0
- .data.dpowers      0x1216         0xa0 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopsuxX.XXeo)
+.data.dpowers       0x1266         0xa0
+ .data.dpowers      0x1266         0xa0 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopsuxX.XXeo)
 
-.data               0x12b6         0x2a
- .data              0x12b6         0x2a c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopsuxX.XXeo)
+.data               0x1306         0x2a
+ .data              0x1306         0x2a c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopsuxX.XXeo)
 
-.data._iob          0x12e0         0x26
- .data._iob         0x12e0         0x26 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
-                    0x12e0                  __iob
-                    0x1304                  __Files
+.data._iob          0x1330         0x26
+ .data._iob         0x1330         0x26 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
+                    0x1330                  __iob
+                    0x1354                  __Files
 
-.bss                0x1306          0x6
- .bss               0x1306          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
-                    0x1306                  __outdone
-                    0x1307                  __sibuf
-                    0x1309                  __sobuf
+.bss                0x1356          0x6
+ .bss               0x1356          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
+                    0x1356                  __outdone
+                    0x1357                  __sibuf
+                    0x1359                  __sobuf
 
 .data.__C30_UART
-                    0x130c          0x2
+                    0x135c          0x2
  .data.__C30_UART
-                    0x130c          0x2 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(c30_uart.eo)
-                    0x130c                  ___C30_UART
+                    0x135c          0x2 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(c30_uart.eo)
+                    0x135c                  ___C30_UART
 
 .const              0x8b94        0x18a load address 0x000b94  
- .const             0x8b94        0x188 build/XC16_24FJ256GA110/production/main.o
- .const             0x8d1c          0x2 build/XC16_24FJ256GA110/production/uart1.o
+ .const             0x8b94        0x188 build/XC16_24FJ256GA110/debug/main.o
+ .const             0x8d1c          0x2 build/XC16_24FJ256GA110/debug/uart1.o
 
 .text             0x000d1e        0xd22
- .text            0x000d1e        0x40a build/XC16_24FJ256GA110/production/ov2640.o
+ .text            0x000d1e        0x40a build/XC16_24FJ256GA110/debug/ov2640.o
                   0x000d1e                  _CamInit
                   0x000d4a                  _CamReset
                   0x000db4                  _CamIsOn
@@ -1972,17 +1985,17 @@ __c30_signature
                   0x001046                  _CamRead
                   0x001064                  _CamCountBytesPerLine
                   0x0010c8                  _CamCountLines
- .text            0x001128        0x3de build/XC16_24FJ256GA110/production/main.o
+ .text            0x001128        0x3de build/XC16_24FJ256GA110/debug/main.o
                   0x001128                  _main
                   0x00143e                  _InitApp
                   0x00144e                  _Dec2Hex
- .text            0x001506        0x3ca build/XC16_24FJ256GA110/production/bmp.o
+ .text            0x001506        0x3ca build/XC16_24FJ256GA110/debug/bmp.o
                   0x001506                  _createheader
                   0x0015d4                  _createinfoheader
                   0x0017d6                  _usart_putnumchars
                   0x001802                  _sendtable
                   0x001834                  _senddata
- .text            0x0018d0        0x170 build/XC16_24FJ256GA110/production/i2c.o
+ .text            0x0018d0        0x170 build/XC16_24FJ256GA110/debug/i2c.o
                   0x0018d0                  _I2CInit
                   0x0018ea                  _I2CStart
                   0x0018fc                  _I2CStop
@@ -1998,15 +2011,15 @@ __c30_signature
  .dinit           0x001a40         0xd2 data_init
 
 .text             0x001b12        0x14a
- .text            0x001b12         0xbe build/XC16_24FJ256GA110/production/uart1.o
+ .text            0x001b12         0xbe build/XC16_24FJ256GA110/debug/uart1.o
                   0x001b12                  _UART1Init
                   0x001b4c                  _UART1Check
                   0x001b5c                  _UART1GetChar
                   0x001b74                  _UART1GetString
                   0x001b9c                  _UART1PutChar
                   0x001bb4                  _UART1PutString
- .text            0x001bd0         0x5a build/XC16_24FJ256GA110/production/delay.o
+ .text            0x001bd0         0x5a build/XC16_24FJ256GA110/debug/delay.o
                   0x001bd0                  _Delayms
                   0x001bfe                  _Delayus
- .text            0x001c2a         0x32 build/XC16_24FJ256GA110/production/system.o
+ .text            0x001c2a         0x32 build/XC16_24FJ256GA110/debug/system.o
                   0x001c2a                  _ConfigureOscillator

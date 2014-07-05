@@ -30,9 +30,9 @@ void Dec2Hex(int n, char* hex); // Converts Decimal to Hexadecimal
 /* Global Variable Declaration                                                */
 /******************************************************************************/
 
-char strBuffer[16];                 // buffer for UART messages
-char hexBuffer[3];                  // buffer for hexadecimal strings
-unsigned int camBuffer[CAM_WIDTH];  // buffer to store camera data
+char strBuffer[16];                             // buffer for UART messages
+char hexBuffer[3];                              // buffer for hexadecimal strings
+unsigned int camBuffer[CAM_WIDTH];    // buffer to store camera data
 
 /******************************************************************************/
 /* Main Program                                                               */
@@ -192,7 +192,7 @@ int16_t main(void) {
 
         // informs that command has concluded
         end();
-    };
+    }
 }
 
 /**

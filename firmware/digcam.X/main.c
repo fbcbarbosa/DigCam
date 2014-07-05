@@ -30,9 +30,10 @@ void Dec2Hex(int n, char* hex); // Converts Decimal to Hexadecimal
 /* Global Variable Declaration                                                */
 /******************************************************************************/
 
-char strBuffer[16];                             // buffer for UART messages
-char hexBuffer[3];                              // buffer for hexadecimal strings
-unsigned int camBuffer[CAM_WIDTH];    // buffer to store camera data
+int flagRX = 0;
+char strBuffer[16];                 // buffer for UART messages
+char hexBuffer[3];                  // buffer for hexadecimal strings
+unsigned int camBuffer[CAM_WIDTH];  // buffer to store camera data
 
 /******************************************************************************/
 /* Main Program                                                               */
@@ -41,157 +42,168 @@ unsigned int camBuffer[CAM_WIDTH];    // buffer to store camera data
 int16_t main(void) {
     // initialize IO ports and peripherals
     InitApp();
-
+    
     // main loop
     while (1) {
-        struct cam_status status;
-        unsigned char chCommand;
+        // check for received char UART flag
+        if (flagRX) {
 
-        // wait for command
-        chCommand = readch();
+            int i;
+            struct cam_status status;
+            unsigned char chCommand;
 
-        // acknolowdges command
-        ack();
+            // clear flag
+            flagRX = 0;
 
-        switch (chCommand) {
-                int i;
+            // wait for command
+            chCommand = readch();
 
-            case COM_NONE:
-                break;
+            // acknolowdges command
+            ack();
 
-            case COM_READ1:
-                writeln("Printing registers: ");
-                writeln("Device Control Register List (Register 0xFF = 0x01)");
-                CamWrite(0xFF, 0x01);
-                for (i = 0; i < 255; i++) {
-                    Dec2Hex(i, hexBuffer);
-                    sprintf(strBuffer, "\tReg 0x%s", hexBuffer), write(strBuffer);
+            switch (chCommand) {                 
+                case COM_NONE:
+                    break;
 
-                    Dec2Hex(CamRead(i), hexBuffer);
-                    sprintf(strBuffer, " = 0x%s", hexBuffer), writeln(strBuffer);
-                }
-                break;
+                case COM_READ1:
+                    writeln("Printing registers: ");
+                    writeln("Device Control Register List (Register 0xFF = 0x01)");
+                    CamWrite(0xFF, 0x01);
+                    for (i = 0; i < 255; i++) {
+                        Dec2Hex(i, hexBuffer);
+                        sprintf(strBuffer, "\tReg 0x%s", hexBuffer), write(strBuffer);
 
-             case COM_READ0:
-                writeln("Device Control Register List (Register 0xFF = 0x00)");
-                CamWrite(0xFF, 0x00);
-                for (i = 0; i < 255; i++) {
-                    Dec2Hex(i, hexBuffer);
-                    sprintf(strBuffer, "\tReg 0x%s", hexBuffer), write(strBuffer);
-
-                    Dec2Hex(CamRead(i), hexBuffer);
-                    sprintf(strBuffer, " = 0x%s", hexBuffer), writeln(strBuffer);
-                }
-                break;
-
-            case COM_RESET:
-                writeln("Reseting camera...");
-                CamReset();
-                break;
-
-            case COM_STATUS:
-                writeln("Getting camera status...");
-                status = CamStatus();
-
-                write("POWER: \t\t");
-                if (status.POWER) {
-                    writeln("ON");
-                } else {
-                    writeln("OFF");
-                }
-
-                write("RESET: \t\t");
-                if (status.RESET) {
-                    writeln("ON");
-                } else {
-                    writeln("OFF");
-                }
-
-                write("PCLK: \t\t");
-                if (status.PCLK) {
-                    writeln("ON");
-                } else {
-                    writeln("OFF");
-                }
-
-                write("HREF: \t\t");
-                if (status.HREF) {
-                    writeln("ON");
-                } else {
-                    writeln("OFF");
-                }
-
-                write("VSYNC: \t\t");
-                if (status.VSYNC) {
-                    writeln("ON");
-                } else {
-                    writeln("OFF");
-                }
-                sprintf(strBuffer, "WIDTH: \t\t%lu", status.WIDTH), writeln(strBuffer);
-                sprintf(strBuffer, "HEIGHT: \t%lu", status.HEIGHT), writeln(strBuffer);
-                sprintf(strBuffer, "NBYTELINE: \t%lu", status.NBYTELINE), writeln(strBuffer);
-                sprintf(strBuffer, "NHSYNC: \t%lu", status.NHSYNC), writeln(strBuffer);
-                sprintf(strBuffer, "NBYTETOTAL: \t%lu", status.NBYTETOTAL), writeln(strBuffer);
-                break;
-
-            case COM_PHOTO:
-                writeln("Taking picture...");
-
-                // tell software to save the data in a txt file
-                log();
-
-                for (i = 0; i < CAM_HEIGHT; i++) {
-
-                    unsigned int Y;
-                    unsigned int D7, D6, D5, D4, D3, D2, D1, D0;
-                    int j;
-
-                    CamReadPixelRow(i, camBuffer);
-
-//                    // Add a full black and full white pixel for comparison.
-//                    camBuffer[CAM_WIDTH - 1] = 0xFFFF;
-//                    camBuffer[CAM_WIDTH - 2] = 0x0000;
-
-                    for (j = 0; j < CAM_WIDTH; j++) {
-
-                        Y = camBuffer[j];
-
-                        D7 = (Y & (1 << 0)) >> 7; // RB0  -> 7
-                        D6 = (Y & (1 << 14)) >> 8; // RB14 -> 6
-                        D5 = (Y & (1 << 13)) >> 8; // RB13 -> 5
-                        D4 = (Y & (1 << 12)) >> 8; // RB12 -> 4
-                        D3 = (Y & (1 << 11)) >> 8; // RB11 -> 3
-                        D2 = (Y & (1 << 10)) >> 8; // RB10 -> 2
-                        D1 = (Y & (1 << 9)) >> 8; // RB8  -> 1
-                        D0 = (Y & (1 << 8)) >> 8; // RB9  -> 0
-
-                        char ch = D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0;
-
-                        writech(ch);
+                        Dec2Hex(CamRead(i), hexBuffer);
+                        sprintf(strBuffer, " = 0x%s", hexBuffer), writeln(strBuffer);
                     }
-                }
+                    break;
 
-                writeln("\nDone!");
-                break;
+                case COM_READ0:
+                    writeln("Device Control Register List (Register 0xFF = 0x00)");
+                    CamWrite(0xFF, 0x00);
+                    for (i = 0; i < 255; i++) {
+                        Dec2Hex(i, hexBuffer);
+                        sprintf(strBuffer, "\tReg 0x%s", hexBuffer), write(strBuffer);
 
-            case COM_OFF:
-                writeln("Turning off camera...");
-                CamTurnOff();
-                writeln("Done!");
-                break;
+                        Dec2Hex(CamRead(i), hexBuffer);
+                        sprintf(strBuffer, " = 0x%s", hexBuffer), writeln(strBuffer);
+                    }
+                    break;
 
-            case COM_ON:
-                writeln("Turning on camera...");
-                CamTurnOn();
-                writeln("Done!");
-                break;
+                case COM_RESET:
+                    writeln("Reseting camera...");
+                    CamReset();
+                    break;
 
-            default:
-                break;
-        }
+                case COM_STATUS:
+                    writeln("Getting camera status...");
 
-        // informs that command has concluded
-        end();
+                    UART1DisableInterrupt();
+                    status = CamStatus();
+                    UART1EnableInterrupt();
+
+                    write("POWER: \t\t");
+                    if (status.POWER) {
+                        writeln("ON");
+                    } else {
+                        writeln("OFF");
+                    }
+
+                    write("RESET: \t\t");
+                    if (status.RESET) {
+                        writeln("ON");
+                    } else {
+                        writeln("OFF");
+                    }
+
+                    write("PCLK: \t\t");
+                    if (status.PCLK) {
+                        writeln("ON");
+                    } else {
+                        writeln("OFF");
+                    }
+
+                    write("HREF: \t\t");
+                    if (status.HREF) {
+                        writeln("ON");
+                    } else {
+                        writeln("OFF");
+                    }
+
+                    write("VSYNC: \t\t");
+                    if (status.VSYNC) {
+                        writeln("ON");
+                    } else {
+                        writeln("OFF");
+                    }
+                    sprintf(strBuffer, "WIDTH: \t\t%lu", status.WIDTH), writeln(strBuffer);
+                    sprintf(strBuffer, "HEIGHT: \t%lu", status.HEIGHT), writeln(strBuffer);
+                    sprintf(strBuffer, "NBYTELINE: \t%lu", status.NBYTELINE), writeln(strBuffer);
+                    sprintf(strBuffer, "NHSYNC: \t%lu", status.NHSYNC), writeln(strBuffer);
+                    sprintf(strBuffer, "NBYTETOTAL: \t%lu", status.NBYTETOTAL), writeln(strBuffer);
+                    break;
+
+                case COM_PHOTO:
+                    writeln("Taking picture...");
+
+                    // tell software to save the data in a txt file
+                    log();
+
+                    for (i = 0; i < CAM_HEIGHT; i++) {
+
+                        unsigned int Y;
+                        unsigned int D7, D6, D5, D4, D3, D2, D1, D0;
+                        int j;
+
+                        UART1DisableInterrupt();
+                        CamReadPixelRow(i, camBuffer);
+                        UART1EnableInterrupt();
+
+                        //                    // Add a full black and full white pixel for comparison.
+                        //                    camBuffer[CAM_WIDTH - 1] = 0xFFFF;
+                        //                    camBuffer[CAM_WIDTH - 2] = 0x0000;
+
+                        for (j = 0; j < CAM_WIDTH; j++) {
+
+                            Y = camBuffer[j];
+
+                            D7 = (Y & (1 << 0)) >> 7; // RB0  -> 7
+                            D6 = (Y & (1 << 14)) >> 8; // RB14 -> 6
+                            D5 = (Y & (1 << 13)) >> 8; // RB13 -> 5
+                            D4 = (Y & (1 << 12)) >> 8; // RB12 -> 4
+                            D3 = (Y & (1 << 11)) >> 8; // RB11 -> 3
+                            D2 = (Y & (1 << 10)) >> 8; // RB10 -> 2
+                            D1 = (Y & (1 << 9)) >> 8; // RB8  -> 1
+                            D0 = (Y & (1 << 8)) >> 8; // RB9  -> 0
+
+                            char ch = D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0;
+
+                            writech(ch);
+                        }
+                    }
+
+                    writeln("\nDone!");
+                    break;
+
+                case COM_OFF:
+                    writeln("Turning off camera...");
+                    CamTurnOff();
+                    writeln("Done!");
+                    break;
+
+                case COM_ON:
+                    writeln("Turning on camera...");
+                    CamTurnOn();
+                    writeln("Done!");
+                    break;
+
+                default:
+                    break;
+            }
+
+            // informs that command has concluded
+            end();
+        };
     }
 }
 

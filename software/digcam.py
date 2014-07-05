@@ -129,20 +129,24 @@ def readImage():
             print '\rByte count = {0}/{1}\tTimeout count = {2}'.format(WIDTH*i + j + 1, WIDTH*HEIGHT, error),
      
     img = Image.fromarray(imgarray)
-    img.mode = 'L'
     img.show()
+    img.mode = 'L'
     img.save(os.path.join(os.pardir, "temp\\photo.bmp"))
-    print 'Image saved in "'"Digcam\\temp\\.photo.bmp"'"'
+    img.save(os.path.join(os.pardir, "temp\\photo.png"))
+    img.save(os.path.join(os.pardir, "temp\\photo.jpg"))
+    print 'Image saved in "'"DigCam\\temp\\.photo.bmp"'"'
     
     #plt.imshow(imgarray)
     #plt.show()
     #plt.savefig('photo.bmp')
-    
-    txt = open(os.path.join(os.pardir, "temp\\filename"), "w+")
+
+    raw_input('Press any key to continue...')
+    txt = open(os.path.join(os.pardir, "temp\\grayscale.txt"), "w+")
     for i in range(0, HEIGHT):
         for j in range(0, WIDTH):
             txt.write(str(int(imgarray[i][j])) + " ") # write ASCII code (integer value) of char
-    print 'Grayscale matrix saved in "'"Digcam\\temp\\.grayscale.txt"'"'
+    print 'Grayscale matrix saved in "'"DigCam\\temp\\grayscale.txt"'"'
+    raw_input('Press any key to continue...')
              
 def helpMessage():
     """

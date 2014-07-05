@@ -33,18 +33,19 @@
 //Initiation
 void UART1Init();
 
-//Check if there's a char in the RX buffer
-int UART1Check();
-
 //UART char receive function
 char UART1GetChar();
-
-//UART string receive function
-char* UART1GetString();
 
 //UART char transmit function
 void UART1PutChar(char ch);
 
 //UART string transmit function
-void UART1PutString(char *string);
+int UART1PutString(char *string);
 
+void UART1DisableInterrupt();
+
+void UART1EnableInterrupt();
+
+//ISR
+void __attribute__((__interrupt__, no_auto_psv)) _U1TXInterrupt(void);
+void __attribute__((__interrupt__, no_auto_psv)) _U1RXInterrupt(void);

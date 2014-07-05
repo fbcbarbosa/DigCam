@@ -236,7 +236,6 @@ int CamCheckHREFX() {
  */
 void CamReadPixelRow(int r0, unsigned int buffer[CAM_WIDTH]) {
     int r;
-    r0 = r0 + 2;
     
     // Vsync
     while (!CAM_VSYNC);
@@ -249,10 +248,10 @@ void CamReadPixelRow(int r0, unsigned int buffer[CAM_WIDTH]) {
         while (CAM_HREFX);
     }
 
-    for (r = 0; r < CAM_WIDTH; r++) {
-        // wait for HREF high
-        while (!CAM_HREFX);
+    // wait for HREF high
+    while (!CAM_HREFX);
 
+    for (r = 0; r < CAM_WIDTH; r++) {
         while (CAM_PCLK);
         while (!CAM_PCLK);
 

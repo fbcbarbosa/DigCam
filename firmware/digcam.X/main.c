@@ -23,7 +23,7 @@
 /* User Function Prototypes                                                   */
 /******************************************************************************/
 
-void InitApp(void); // I/O and Peripheral Initialization
+void InitApp(void);             // I/O and Peripheral Initialization
 void Dec2Hex(int n, char* hex); // Converts Decimal to Hexadecimal
 
 /******************************************************************************/
@@ -36,7 +36,6 @@ unsigned int camBuffer[CAM_WIDTH];  // buffer to store camera data
 
 /******************************************************************************/
 /* Main Program                                                               */
-
 /******************************************************************************/
 
 int16_t main(void) {

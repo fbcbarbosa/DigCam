@@ -98,20 +98,20 @@ void CamReset() {
      * VEND - VSTRT = 96
      */
 
-    /* CIF mode 400 x 296 */
-//    CamWrite(0xff, 0x01); // Select bank
-//    CamWrite(0x12, 0x10); // CIF mode
-//    CamWrite(0x17, 0x11); // HREFST[10:3] (Default)
-//    CamWrite(0x03, 0x06); // CIF default
-//    CamWrite(0x18, 0x43); // HREFEND[10:3] (CIF default)
-//    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
-//    CamWrite(0x1a, 0x4A); // VEND[9:2]
-//    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
-//    CamWrite(0x03, 0x0A); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
+    /* SQCIF mode 128 x 96 */
+    CamWrite(0xff, 0x01); // Select bank
+    CamWrite(0x12, 0x10); // CIF mode
+    CamWrite(0x17, 0x22); // HREFST[10:3] (Default)
+    CamWrite(0x03, 0x06); // CIF default
+    CamWrite(0x18, 0x32); // HREFEND[10:3] (CIF default)
+    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
+    CamWrite(0x1a, 0x4A); // VEND[9:2]
+    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
+    CamWrite(0x03, 0x0A); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
 
     /* Window
-     * HREFST = 0001 0001 001 = 137
-     * HREFEND = 0100 0011 001 = 537
+     * HREFST = 0010 0010 001 = 273
+     * HREFEND = 0011 0010 001 = 401
      * VSTRT = 0000 0000 10 = 2
      * VEND = 0100 1010 10 = 298
      * HREFEND - HREFST = 400
@@ -119,15 +119,15 @@ void CamReset() {
      */
 
     /* CIF mode */
-    CamWrite(0xff, 0x01); // Select bank
-    CamWrite(0x12, 0x10); // CIF mode
-    CamWrite(0x17, 0x11); // HREFST[10:3] (Default)
-    CamWrite(0x03, 0x06); // CIF default
-    CamWrite(0x18, 0x43); // HREFEND[10:3] (CIF default)
-    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
-    CamWrite(0x1a, 0x97); // VEND[9:2] (Default)
-    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
-    CamWrite(0x03, 0x06); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
+//    CamWrite(0xff, 0x01); // Select bank
+//    CamWrite(0x12, 0x10); // CIF mode
+//    CamWrite(0x17, 0x11); // HREFST[10:3] (Default)
+//    CamWrite(0x03, 0x06); // CIF default
+//    CamWrite(0x18, 0x43); // HREFEND[10:3] (CIF default)
+//    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
+//    CamWrite(0x1a, 0x97); // VEND[9:2] (Default)
+//    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
+//    CamWrite(0x03, 0x06); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
 
     /* Window
      * HREFST = 0001 0001 001 = 137
@@ -236,7 +236,7 @@ int CamCheckHREFX() {
  */
 void CamReadPixelRow(int r0, unsigned int buffer[CAM_WIDTH]) {
     int r;
-    r0 = r0 - 2;
+    r0 = r0 + 98;
     
     // Vsync
     while (!CAM_VSYNC);

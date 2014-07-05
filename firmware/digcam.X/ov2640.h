@@ -36,8 +36,8 @@
 #define CAM_Y0      _RB2
 
 // Camera definitions
-#define CAM_WIDTH      400 // 128
-#define CAM_HEIGHT     148 // 96
+#define CAM_WIDTH      128
+#define CAM_HEIGHT     96
 
 // Slave address
 #define CAM_ADDR        0x30

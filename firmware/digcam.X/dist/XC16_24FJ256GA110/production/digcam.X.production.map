@@ -1,4 +1,4 @@
-Microchip Technology Inc, v¨›¨
+Microchip Technology Inc, v¨›§
 
 Tool Name:
   c:\program files (x86)\microchip\xc16\v1.21\bin\bin\..\bin/elf-ld.exe
@@ -94,15 +94,15 @@ Data Memory  [Origin = 0x800, Length = 0x4000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0           0x334  (820)
-.ndata                       0xb34                   0             0x2  (2)
-.data.dpowers                0xb36                   0            0xa0  (160)
-.data                        0xbd6                   0            0x2a  (42)
-.data._iob                   0xc00                   0            0x26  (38)
-.bss                         0xc26                   0             0x6  (6)
-.data.__C30_UART             0xc2c                   0             0x2  (2)
+.nbss                        0x800                   0           0x114  (276)
+.ndata                       0x914                   0             0x2  (2)
+.data.dpowers                0x916                   0            0xa0  (160)
+.data                        0x9b6                   0            0x2a  (42)
+.data._iob                   0x9e0                   0            0x26  (38)
+.bss                         0xa06                   0             0x6  (6)
+.data.__C30_UART             0xa0c                   0             0x2  (2)
 
-                        Total data memory used (bytes):          0x42e  (1070) 6%
+                        Total data memory used (bytes):          0x20e  (526) 3%
 
 
 Dynamic Memory Usage
@@ -110,9 +110,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0xc2e                              0x3bd2  (15314)
+stack                        0xa0e                              0x3df2  (15858)
 
-                        Maximum dynamic memory (bytes):         0x3bd2  (15314)
+                        Maximum dynamic memory (bytes):         0x3df2  (15858)
 
 
 External Symbols in Data Memory (by address):
@@ -120,24 +120,24 @@ External Symbols in Data Memory (by address):
                     0x0800                  _strBuffer
                     0x0810                  _hexBuffer
                     0x0814                  _camBuffer
-                    0x0b34                  _count
-                    0x0c00                  __iob
-                    0x0c24                  __Files
-                    0x0c26                  __outdone
-                    0x0c27                  __sibuf
-                    0x0c29                  __sobuf
-                    0x0c2c                  ___C30_UART
+                    0x0914                  _count
+                    0x09e0                  __iob
+                    0x0a04                  __Files
+                    0x0a06                  __outdone
+                    0x0a07                  __sibuf
+                    0x0a09                  __sobuf
+                    0x0a0c                  ___C30_UART
 
 External Symbols in Data Memory (by name):
 
-                    0x0c24                  __Files
-                    0x0c2c                  ___C30_UART
-                    0x0c00                  __iob
-                    0x0c26                  __outdone
-                    0x0c27                  __sibuf
-                    0x0c29                  __sobuf
+                    0x0a04                  __Files
+                    0x0a0c                  ___C30_UART
+                    0x09e0                  __iob
+                    0x0a06                  __outdone
+                    0x0a07                  __sibuf
+                    0x0a09                  __sobuf
                     0x0814                  _camBuffer
-                    0x0b34                  _count
+                    0x0914                  _count
                     0x0810                  _hexBuffer
                     0x0800                  _strBuffer
 
@@ -401,32 +401,32 @@ __CONFIG1         0x02abfe          0x2
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x2ddd
+.debug_info       0x000000       0x2ddc
  *(.debug_info)
  .debug_info      0x000000        0x125 build/XC16_24FJ256GA110/production/interrupts.o
- .debug_info      0x000125        0x454 build/XC16_24FJ256GA110/production/main.o
- .debug_info      0x000579        0x473 build/XC16_24FJ256GA110/production/system.o
- .debug_info      0x0009ec        0x2e9 build/XC16_24FJ256GA110/production/traps.o
- .debug_info      0x000cd5        0x10d build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
- .debug_info      0x000de2        0x833 build/XC16_24FJ256GA110/production/uart1.o
- .debug_info      0x001615        0xc91 build/XC16_24FJ256GA110/production/ov2640.o
- .debug_info      0x0022a6        0x15b build/XC16_24FJ256GA110/production/delay.o
- .debug_info      0x002401        0x2b2 build/XC16_24FJ256GA110/production/bmp.o
- .debug_info      0x0026b3        0x72a build/XC16_24FJ256GA110/production/i2c.o
+ .debug_info      0x000125        0x453 build/XC16_24FJ256GA110/production/main.o
+ .debug_info      0x000578        0x473 build/XC16_24FJ256GA110/production/system.o
+ .debug_info      0x0009eb        0x2e9 build/XC16_24FJ256GA110/production/traps.o
+ .debug_info      0x000cd4        0x10d build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
+ .debug_info      0x000de1        0x833 build/XC16_24FJ256GA110/production/uart1.o
+ .debug_info      0x001614        0xc91 build/XC16_24FJ256GA110/production/ov2640.o
+ .debug_info      0x0022a5        0x15b build/XC16_24FJ256GA110/production/delay.o
+ .debug_info      0x002400        0x2b2 build/XC16_24FJ256GA110/production/bmp.o
+ .debug_info      0x0026b2        0x72a build/XC16_24FJ256GA110/production/i2c.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x78e
+.debug_abbrev     0x000000        0x785
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x1f build/XC16_24FJ256GA110/production/interrupts.o
- .debug_abbrev    0x00001f        0x114 build/XC16_24FJ256GA110/production/main.o
- .debug_abbrev    0x000133         0xa7 build/XC16_24FJ256GA110/production/system.o
- .debug_abbrev    0x0001da         0x7d build/XC16_24FJ256GA110/production/traps.o
- .debug_abbrev    0x000257         0x30 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
- .debug_abbrev    0x000287        0x122 build/XC16_24FJ256GA110/production/uart1.o
- .debug_abbrev    0x0003a9        0x1d4 build/XC16_24FJ256GA110/production/ov2640.o
- .debug_abbrev    0x00057d         0x6e build/XC16_24FJ256GA110/production/delay.o
- .debug_abbrev    0x0005eb         0x72 build/XC16_24FJ256GA110/production/bmp.o
- .debug_abbrev    0x00065d        0x131 build/XC16_24FJ256GA110/production/i2c.o
+ .debug_abbrev    0x00001f        0x10b build/XC16_24FJ256GA110/production/main.o
+ .debug_abbrev    0x00012a         0xa7 build/XC16_24FJ256GA110/production/system.o
+ .debug_abbrev    0x0001d1         0x7d build/XC16_24FJ256GA110/production/traps.o
+ .debug_abbrev    0x00024e         0x30 build/XC16_24FJ256GA110/production/lib/picdev/configuration_bits.o
+ .debug_abbrev    0x00027e        0x122 build/XC16_24FJ256GA110/production/uart1.o
+ .debug_abbrev    0x0003a0        0x1d4 build/XC16_24FJ256GA110/production/ov2640.o
+ .debug_abbrev    0x000574         0x6e build/XC16_24FJ256GA110/production/delay.o
+ .debug_abbrev    0x0005e2         0x72 build/XC16_24FJ256GA110/production/bmp.o
+ .debug_abbrev    0x000654        0x131 build/XC16_24FJ256GA110/production/i2c.o
 
 .debug_line       0x000000       0x19e9
  *(.debug_line)
@@ -1919,38 +1919,38 @@ __c30_signature
  __c30_signature
                   0x0003ee          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
 
-.nbss               0x0800        0x334
- .nbss              0x0800        0x334 build/XC16_24FJ256GA110/production/main.o
+.nbss               0x0800        0x114
+ .nbss              0x0800        0x114 build/XC16_24FJ256GA110/production/main.o
                     0x0800                  _strBuffer
                     0x0810                  _hexBuffer
                     0x0814                  _camBuffer
 
-.ndata              0x0b34          0x2
- .ndata             0x0b34          0x2 build/XC16_24FJ256GA110/production/delay.o
-                    0x0b34                  _count
+.ndata              0x0914          0x2
+ .ndata             0x0914          0x2 build/XC16_24FJ256GA110/production/delay.o
+                    0x0914                  _count
 
-.data.dpowers       0x0b36         0xa0
- .data.dpowers      0x0b36         0xa0 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopsuxX.XXeo)
+.data.dpowers       0x0916         0xa0
+ .data.dpowers      0x0916         0xa0 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopsuxX.XXeo)
 
-.data               0x0bd6         0x2a
- .data              0x0bd6         0x2a c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopsuxX.XXeo)
+.data               0x09b6         0x2a
+ .data              0x09b6         0x2a c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(doprnt_cdnopsuxX.XXeo)
 
-.data._iob          0x0c00         0x26
- .data._iob         0x0c00         0x26 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
-                    0x0c00                  __iob
-                    0x0c24                  __Files
+.data._iob          0x09e0         0x26
+ .data._iob         0x09e0         0x26 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
+                    0x09e0                  __iob
+                    0x0a04                  __Files
 
-.bss                0x0c26          0x6
- .bss               0x0c26          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
-                    0x0c26                  __outdone
-                    0x0c27                  __sibuf
-                    0x0c29                  __sobuf
+.bss                0x0a06          0x6
+ .bss               0x0a06          0x6 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libc-elf.a(_iob.eo)
+                    0x0a06                  __outdone
+                    0x0a07                  __sibuf
+                    0x0a09                  __sobuf
 
 .data.__C30_UART
-                    0x0c2c          0x2
+                    0x0a0c          0x2
  .data.__C30_UART
-                    0x0c2c          0x2 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(c30_uart.eo)
-                    0x0c2c                  ___C30_UART
+                    0x0a0c          0x2 c:/program files (x86)/microchip/xc16/v1.21/bin/bin/../../lib\libpic30-elf.a(c30_uart.eo)
+                    0x0a0c                  ___C30_UART
 
 .const              0x8b94        0x18a load address 0x000b94  
  .const             0x8b94        0x188 build/XC16_24FJ256GA110/production/main.o

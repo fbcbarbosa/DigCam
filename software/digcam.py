@@ -14,8 +14,8 @@ import instructions
 # global variables
 ser = 0
 version = 0.1
-WIDTH = 400
-HEIGHT = 198
+WIDTH = 128
+HEIGHT = 96
 
 # constants
 LOG = chr(253)
@@ -129,9 +129,10 @@ def readImage():
             print '\rByte count = {0}/{1}\tTimeout count = {2}'.format(HEIGHT*i + j + 1, WIDTH*HEIGHT, error),
      
     img = Image.fromarray(imgarray)
-    img.show('Photo')
+    img.mode = 'L'
+    img.show()
     img.save('Photo.bmp')
-
+    
     #plt.imshow(imgarray)
     #plt.show()
     #plt.savefig('photo.bmp')

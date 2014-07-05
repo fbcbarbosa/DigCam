@@ -1,0 +1,1 @@
+Windows Virtual COM drivers: http://www.ftdichip.com/Drivers/CDM/CDM%20v2.10.00%20WHQL%20Certified.zip

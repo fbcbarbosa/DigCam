@@ -30,22 +30,9 @@ void Dec2Hex(int n, char* hex); // Converts Decimal to Hexadecimal
 /* Global Variable Declaration                                                */
 /******************************************************************************/
 
-int debugging = 0;
-int p = 100;
-char buffer[32];
-char hex[3];
-char header[14];
-char infoheader[40];
-unsigned int cam_buffer[CAM_WIDTH];
-//unsigned int cam_buffer[CAM_HEIGHT/10][CAM_WIDTH/10];
-
-const char bmp_header[54] = {
-    0x42, 0x4D, 0x36, 0x58, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x36, 0x00, 0x00, 0x00, 0x28, 0x00,
-    0x00, 0x00, 0x40, 0x01, 0x00, 0x00, 0xF0, 0x00, 0x00, 0x00, 0x01, 0x00, 0x10, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x58, 0x02, 0x00, 0xC4, 0x0E, 0x00, 0x00, 0xC4, 0x0E, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-};
-
+char strBuffer[16];                 // buffer for UART messages
+char hexBuffer[3];                  // buffer for hexadecimal strings
+unsigned int camBuffer[CAM_WIDTH];  // buffer to store camera data
 
 /******************************************************************************/
 /* Main Program                                                               */
@@ -59,13 +46,10 @@ int16_t main(void) {
     // main loop
     while (1) {
         struct cam_status status;
-
         unsigned char chCommand;
-        unsigned char chParameter;
 
         // wait for command
         chCommand = readch();
-        chParameter = readch();
 
         // acknolowdges command
         ack();
@@ -73,64 +57,37 @@ int16_t main(void) {
         switch (chCommand) {
                 int i;
 
-                //            case COM_BMP:
-                //                writeln("Creating TEST BMP file...");
-                //                log();
-                //                createheader(header,352,244);
-                //                createinfoheader(infoheader,352,244);
-                //                usart_putnumchars(header, 14);
-                //                usart_putnumchars(infoheader, 40);
-                //                sendtable();
-                //                senddata();
-                //                Delayms(4000);
-
-            case COM_GET_P:
-                sprintf(buffer, "The value of parameter p is %d", p), writeln(buffer);
-                break;
-
             case COM_NONE:
                 break;
 
-            case COM_READ:
-                Dec2Hex(chParameter, hex);
-                sprintf(buffer, "Reading register 0x%s", hex), writeln(buffer);
-                Dec2Hex(CamRead(chParameter), hex);
-                sprintf(buffer, "Value: 0x%s", hex), writeln(buffer);
-                break;
-
-            case COM_READALL:
+            case COM_READ1:
                 writeln("Printing registers: ");
-
                 writeln("Device Control Register List (Register 0xFF = 0x01)");
                 CamWrite(0xFF, 0x01);
                 for (i = 0; i < 255; i++) {
-                    Dec2Hex(i, hex);
-                    sprintf(buffer, "\tReg 0x%s", hex), write(buffer);
+                    Dec2Hex(i, hexBuffer);
+                    sprintf(strBuffer, "\tReg 0x%s", hexBuffer), write(strBuffer);
 
-                    Dec2Hex(CamRead(i), hex);
-                    sprintf(buffer, " = 0x%s", hex), writeln(buffer);
+                    Dec2Hex(CamRead(i), hexBuffer);
+                    sprintf(strBuffer, " = 0x%s", hexBuffer), writeln(strBuffer);
                 }
+                break;
 
+             case COM_READ0:
                 writeln("Device Control Register List (Register 0xFF = 0x00)");
                 CamWrite(0xFF, 0x00);
                 for (i = 0; i < 255; i++) {
-                    Dec2Hex(i, hex);
-                    sprintf(buffer, "\tReg 0x%s", hex), write(buffer);
+                    Dec2Hex(i, hexBuffer);
+                    sprintf(strBuffer, "\tReg 0x%s", hexBuffer), write(strBuffer);
 
-                    Dec2Hex(CamRead(i), hex);
-                    sprintf(buffer, " = 0x%s", hex), writeln(buffer);
+                    Dec2Hex(CamRead(i), hexBuffer);
+                    sprintf(strBuffer, " = 0x%s", hexBuffer), writeln(strBuffer);
                 }
-
                 break;
 
             case COM_RESET:
                 writeln("Reseting camera...");
                 CamReset();
-                break;
-
-            case COM_SET_P:
-                writeln("P is set!");
-                p = (uint8_t) chParameter;
                 break;
 
             case COM_STATUS:
@@ -171,130 +128,60 @@ int16_t main(void) {
                 } else {
                     writeln("OFF");
                 }
-
-                sprintf(buffer, "WIDTH: \t\t%lu", status.WIDTH), writeln(buffer);
-                sprintf(buffer, "HEIGHT: \t%lu", status.HEIGHT), writeln(buffer);
-
-                sprintf(buffer, "NBYTELINE: \t%lu", status.NBYTELINE), writeln(buffer);
-                sprintf(buffer, "NHSYNC: \t%lu", status.NHSYNC), writeln(buffer);
-                sprintf(buffer, "NBYTETOTAL: \t%lu", status.NBYTETOTAL), writeln(buffer);
-
+                sprintf(strBuffer, "WIDTH: \t\t%lu", status.WIDTH), writeln(strBuffer);
+                sprintf(strBuffer, "HEIGHT: \t%lu", status.HEIGHT), writeln(strBuffer);
+                sprintf(strBuffer, "NBYTELINE: \t%lu", status.NBYTELINE), writeln(strBuffer);
+                sprintf(strBuffer, "NHSYNC: \t%lu", status.NHSYNC), writeln(strBuffer);
+                sprintf(strBuffer, "NBYTETOTAL: \t%lu", status.NBYTETOTAL), writeln(strBuffer);
                 break;
 
-            case COM_TAKE_PIC:
+            case COM_PHOTO:
                 writeln("Taking picture...");
 
-                log(); // tell software to save the data in a txt file
+                // tell software to save the data in a txt file
+                log();
 
                 for (i = 0; i < CAM_HEIGHT; i++) {
 
                     unsigned int Y;
                     unsigned int D7, D6, D5, D4, D3, D2, D1, D0;
                     int j;
-                    
-                    CamGetPixelRow(i);
 
-                    cam_buffer[CAM_WIDTH - 1] = 0xFFFF;
-                    cam_buffer[CAM_WIDTH - 2] = 0x0000;
+                    CamReadPixelRow(i, camBuffer);
+
+//                    // Add a full black and full white pixel for comparison.
+//                    camBuffer[CAM_WIDTH - 1] = 0xFFFF;
+//                    camBuffer[CAM_WIDTH - 2] = 0x0000;
 
                     for (j = 0; j < CAM_WIDTH; j++) {
 
-                        Y = cam_buffer[j];
+                        Y = camBuffer[j];
 
-                        D7 = (Y & (1 << 0)) >> 0; // RB0
-                        D6 = (Y & (1 << 14)) >> 14; // RB14
-                        D5 = (Y & (1 << 13)) >> 13; // RB13
-                        D4 = (Y & (1 << 12)) >> 12; // RB12
-                        D3 = (Y & (1 << 11)) >> 11; // RB11
-                        D2 = (Y & (1 << 10)) >> 10; // RB10
-                        D1 = (Y & (1 << 9)) >> 9; // RB8
-                        D0 = (Y & (1 << 8)) >> 8; // RB9
+                        D7 = (Y & (1 << 0)) >> 7; // RB0  -> 7
+                        D6 = (Y & (1 << 14)) >> 8; // RB14 -> 6
+                        D5 = (Y & (1 << 13)) >> 8; // RB13 -> 5
+                        D4 = (Y & (1 << 12)) >> 8; // RB12 -> 4
+                        D3 = (Y & (1 << 11)) >> 8; // RB11 -> 3
+                        D2 = (Y & (1 << 10)) >> 8; // RB10 -> 2
+                        D1 = (Y & (1 << 9)) >> 8; // RB8  -> 1
+                        D0 = (Y & (1 << 8)) >> 8; // RB9  -> 0
 
-                        char ch = D7 << 7 | D6 << 6 | D5 << 5 | D4 << 4 | D3 << 3 | D2 << 2 | D1 << 1 | D0 << 0;
+                        char ch = D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0;
 
                         writech(ch);
-                        //sprintf(buffer, "%d ", Y), write(buffer);
                     }
                 }
 
-//                cam_buffer[CAM_HEIGHT - 1][CAM_WIDTH - 1] = 0xFFFF;
-//                cam_buffer[CAM_HEIGHT - 1][CAM_WIDTH - 2] = 0x0000;
-//
-//                int j;
-//                for (i = 0; i < CAM_HEIGHT; i++) {
-//                    for (j = 0; j < CAM_WIDTH; j++) {
-//                        unsigned int Y;
-//                        unsigned int D7, D6, D5, D4, D3, D2, D1, D0;
-//
-//                        Y = cam_buffer[i][j];
-//
-//                        D7 = (Y & (1 << 0)) >> 0; // RB0
-//                        D6 = (Y & (1 << 14)) >> 14; // RB14
-//                        D5 = (Y & (1 << 13)) >> 13; // RB13
-//                        D4 = (Y & (1 << 12)) >> 12; // RB12
-//                        D3 = (Y & (1 << 11)) >> 11; // RB11
-//                        D2 = (Y & (1 << 10)) >> 10; // RB10
-//                        D1 = (Y & (1 << 9)) >> 9; // RB8
-//                        D0 = (Y & (1 << 8)) >> 8; // RB9
-//
-//                        char ch = D7 << 7 | D6 << 6 | D5 << 5 | D4 << 4 | D3 << 3 | D2 << 2 | D1 << 1 | D0 << 0;
-//
-//                        writech(ch);
-//                        //sprintf(buffer, "%d ", Y), write(buffer);
-//                    }
-//                }
-
-                //                for (i = 0; i < CAM_HEIGHT; i++) {
-                //
-                //                    CamTakePic(i);
-                //
-                //                    for (j = 0; j < CAM_WIDTH; j++) {
-                //
-                //                        unsigned char VH;
-                //                        unsigned char VL;
-                //                        unsigned D7, D6, D5, D4, D3, D2, D1, D0;
-                //
-                //                        D7 = (cam_buffer_h[j] & (1 << 0)) >> 0; // RB0
-                //                        D6 = (cam_buffer_h[j] & (1 << 14)) >> 14; // RB14
-                //                        D5 = (cam_buffer_h[j] & (1 << 13)) >> 13; // RB13
-                //                        D4 = (cam_buffer_h[j] & (1 << 12)) >> 12; // RB12
-                //                        D3 = (cam_buffer_h[j] & (1 << 11)) >> 11; // RB11
-                //                        D2 = (cam_buffer_h[j] & (1 << 10)) >> 10; // RB10
-                //                        D1 = (cam_buffer_h[j] & (1 << 9)) >> 9; // RB8
-                //                        D0 = (cam_buffer_h[j] & (1 << 8)) >> 8; // RB9
-                //
-                //                        VH = (unsigned char) (D7 << 7 | D6 << 6 | D5 << 5 | D4 << 4 | D3 << 3 | D2 << 2 | D1 << 1 | D0 << 0);
-                //
-                //                        D7 = (cam_buffer_l[j] & (1 << 0)) >> 0; // RB0
-                //                        D6 = (cam_buffer_l[j] & (1 << 14)) >> 14; // RB14
-                //                        D5 = (cam_buffer_l[j] & (1 << 13)) >> 13; // RB13
-                //                        D4 = (cam_buffer_l[j] & (1 << 12)) >> 12; // RB12
-                //                        D3 = (cam_buffer_l[j] & (1 << 11)) >> 11; // RB11
-                //                        D2 = (cam_buffer_l[j] & (1 << 10)) >> 10; // RB10
-                //                        D1 = (cam_buffer_l[j] & (1 << 9)) >> 9; // RB8
-                //                        D0 = (cam_buffer_l[j] & (1 << 8)) >> 8; // RB9
-                //
-                //                        VL = (unsigned char) (D7 << 7 | D6 << 6 | D5 << 5 | D4 << 4 | D3 << 3 | D2 << 2 | D1 << 1 | D0);
-                //
-                //                        //VL = (VH << 7) | ((VL & 0xC0) >> 1) | (VL & 0x1f);
-                //                        //VH = VH >> 1;
-                //
-                //                        writech(VL);
-                //                        writech(VH);
-                //                    }
-                //                }
-
                 writeln("\nDone!");
-
                 break;
 
-            case COM_TURN_OFF:
+            case COM_OFF:
                 writeln("Turning off camera...");
                 CamTurnOff();
                 writeln("Done!");
                 break;
 
-            case COM_TURN_ON:
+            case COM_ON:
                 writeln("Turning on camera...");
                 CamTurnOn();
                 writeln("Done!");
@@ -323,8 +210,9 @@ void InitApp(void) {
 }
 
 /**
- * Function to convert decimal to hexadecimal.
+ * Function to convert a decimal number into a hexadecimal string.
  * @param n Decimal number between 0 and 255.
+ * @param hex Hexadecimal char buffer.
  */
 void Dec2Hex(int n, char* hex) {
     char temp[2] = "00";

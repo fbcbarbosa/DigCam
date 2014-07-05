@@ -10,16 +10,10 @@
 
 #include "ov2640.h"
 
-extern int debugging;
-extern char buffer[32];
-extern unsigned int cam_buffer[CAM_WIDTH];
-//extern unsigned int cam_buffer[CAM_HEIGHT/10][CAM_WIDTH/10];
-
 /******************************************************************************/
 /* UART shortcuts                                                             */
 /******************************************************************************/
 
-#define debugmsg(s)         debugging ? UART1PutString(" >>>"),UART1PutString((char*)s),UART1PutString("\r\n") : UART1PutString("")
 #define write(s)            UART1PutString((char*)s)
 #define writeln(s)          UART1PutString((char*)s);UART1PutString("\r\n")
 #define writech(ch)         UART1PutChar((char)ch)
@@ -30,10 +24,10 @@ extern unsigned int cam_buffer[CAM_WIDTH];
 #define end()               UART1PutChar(255)
 
 /******************************************************************************/
-/* Bit/Byte operations                                                        */
+/* Global variables                                                           */
 /******************************************************************************/
 
-#define pgm_read_word(x)        ( ((*((unsigned char *)x + 1)) << 8) + (*((unsigned char *)x)))
+extern char strBuffer[16];
 
 #endif	/* MAIN_H */
 

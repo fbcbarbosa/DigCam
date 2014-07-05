@@ -1,8 +1,10 @@
 #!/usr/bin/env python
+#!/usr/bin/python -i
 
 import numpy as np
 from PIL import Image
 
+import matplotlib.pyplot as plt
 import serial
 import sys
 
@@ -12,8 +14,8 @@ import instructions
 # global variables
 ser = 0
 version = 0.1
-WIDTH = 320
-HEIGHT = 160
+WIDTH = 400
+HEIGHT = 198
 
 # constants
 LOG = chr(253)
@@ -45,7 +47,7 @@ def main():
         
         com = raw_input('> Insert instruction: ')   # ask user for command
         
-        if com == 'quit' or com == 'exit' or com == 'close':  
+        if com == 'close':  
             ser.close();
             print 'Goodbye!'
             break
@@ -58,7 +60,7 @@ def main():
             print 'Authors:'
             print '\t Fernando Barbosa'
             print '\t Joao Lucas Kunzel'
-            print '\t Roberto "El Loco" Walter'
+            print '\t Roberto Walter'
             
         else: # then it wasn't a terminal command
             code = instructions.encode(com);
@@ -81,7 +83,6 @@ def main():
                 while answer != END:        # END - code for end of stream
                     if answer == LOG:
                         readImage()
-                        #startLogging()
                     else:
                         sys.stdout.write(answer)
                     
@@ -110,7 +111,36 @@ def openRoutine():
                 return 0
         else:
             return 0          
+   
+def readImage():
+    """
+    Read the photo.
+    """
+    error = 0
+    imgarray = np.empty([HEIGHT,WIDTH])
+    for i in range(0, HEIGHT):
+        for j in range(0, WIDTH):
+            answer = ser.read()
+            if answer != '': 
+                imgarray[i][j] = ord(answer) # write ASCII code (integer value) of char    
+            else: # timeout
+                error = error + 1
+                j = j - 1 # try again to get a char!
+            print '\rByte count = {0}/{1}\tTimeout count = {2}'.format(HEIGHT*i + j + 1, WIDTH*HEIGHT, error),
+     
+    img = Image.fromarray(imgarray)
+    img.show('Photo')
+    img.save('Photo.bmp')
+
+    #plt.imshow(imgarray)
+    #plt.show()
+    #plt.savefig('photo.bmp')
     
+    log = open('log.txt', 'w+')
+    for i in range(0, HEIGHT):
+        for j in range(0, WIDTH):
+            log.write(str(int(imgarray[i][j])) + " ") # write ASCII code (integer value) of char
+
 def helpMessage():
     """
     Display help message.
@@ -118,63 +148,14 @@ def helpMessage():
     global ser # serial communication handler
     print 'Reading from ' + ser.name
     print 'Terminal command list:'
-    print '\t' +  'about' + '\t\t' + 'display program info'
-    print '\t' +  'close' + '\t\t' + 'close program'
-    print '\t' +  'exit'  + '\t\t' + 'close program'
-    print '\t' +  'help'  + '\t\t' + 'display the instruction list'
-    print '\t' +  'quit'  + '\t\t' + 'close program'
+    print '\t' +  'about' + '\t\t' + 'Display program info'
+    print '\t' +  'close' + '\t\t' + 'Close program'
+    print '\t' +  'help'  + '\t\t' + 'Display the instruction list'
     print 'Camera command list:'
     instructions.initDatabase()
     instructions.listAll()
     print 'IMPORTANT: parameters must be decimal values between 0 and 255.'
-
-def startLogging():
-    """
-    Logs UART output to a file.
-    """
-
-    log = open('log.txt', 'w+')
     
-    i = 0;
-    while True:
-        i = i + 1
-        answer = ser.read()
         
-        if answer == '':
-            print '\nLog saved at log.txt!'
-            log.close()
-            return
-        
-        print '\rByte Count = {0}'.format(i),
-        log.write(str(ord(answer)) + " ") # write ASCII code (integer value) of tchar
-
-def readImage():
-    """
-    Read the photo.
-    """
-    error = 0
-    imgarray = np.empty([WIDTH,HEIGHT])
-    for i in range(0, WIDTH):
-        for j in range(0, HEIGHT):
-            answer = ser.read()
-            if answer != '': 
-                imgarray[i][j] = ord(answer) # write ASCII code (integer value) of char    
-            else: # timeout
-                error = error + 1
-                j = j - 1 # try again to get a char!
-            print '\rRow count = {0}\tTimeout count = {1}'.format(i+1, error),
-    
-    # more light!
-    #imgarray = imgarray*256/np.amax(imgarray)
-    
-    img = Image.fromarray(imgarray)
-    #img = img.resize([800,592])
-    img.show('Photo')
-    
-    log = open('log.txt', 'w+')
-    for i in range(0, WIDTH):
-        for j in range(0, HEIGHT):
-            log.write(str(int(imgarray[i][j])) + " ") # write ASCII code (integer value) of tchar
-    
 if __name__ == "__main__":
     main()

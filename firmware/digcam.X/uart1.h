@@ -16,7 +16,7 @@
 #define	UART_H
 
 #define	U_MODE	0x8008	// Enable UART, BREGH=1 (High-speed mode)
-#define	U_STA	0x0400	// Set interrupts (maybe 0x8400)
+#define	U_STA	0x2400	// Set interrupts
 
 #define BAUD_RATE           115200
 #define BAUD_RATE_REG       (GetPeripheralClock()/4/BAUD_RATE - 1)

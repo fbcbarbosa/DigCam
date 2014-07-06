@@ -58,17 +58,14 @@ void UART1Init() {
     U1BRG = BAUD_RATE_REG;
     U1MODE = U_MODE;
     U1STA = U_STA;
-
+    
     IEC0bits.U1RXIE = 1;
     IEC0bits.U1TXIE = 1;
+
     TRISFbits.TRISF4 = 1; // configure the RX pin (RF4 - RP10)
     TRISFbits.TRISF5 = 0; // configure the TX pin (RF5 - RP17)
-    U1STAbits.URXISEL0 = 0; // configure interruption on receive
-    U1STAbits.URXISEL1 = 0; // configure interruption on receive
-    U1STAbits.UTXISEL0 = 1; // configure interruption on transmission
-    U1STAbits.UTXISEL1 = 0; // configure interruption on transmission
 
-    _U1RXR = UART1_RX; // map RX for picDev board
+    _U1RXR = UART1_RX;  // map RX for picDev board
     UART1_TX = Ro_U1TX; // map TX for picDev board
 
     // delete trash

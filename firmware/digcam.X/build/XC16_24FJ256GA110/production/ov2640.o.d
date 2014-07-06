@@ -7,5 +7,4 @@ i2c.h  \
 delay.h  \
 main.h  \
 ov2640.h  \
- uart1.h  \
-ov2640_regs.h 
+ uart1.h 

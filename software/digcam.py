@@ -3,7 +3,6 @@
 
 import numpy as np
 from PIL import Image
-
 import serial
 import sys
 import os
@@ -14,8 +13,8 @@ import instructions
 # global variables
 ser = 0
 version = 0.1
-WIDTH = 800
-HEIGHT = 200
+WIDTH = 400
+HEIGHT = 300
 
 # constants
 LOG = chr(253)
@@ -32,7 +31,7 @@ def main():
     print 'Welcome to DigCam Interface!'
     
     # if can't open USB port, quit
-    if openRoutine() == -1:
+    if openSerialPort() == -1:
         sys.exit()           
         
     # display instructions
@@ -47,7 +46,7 @@ def main():
         
         com = raw_input('> Insert instruction: ')   # ask user for command
         
-        if com == 'close':  
+        if com == 'exit':  
             ser.close();
             print 'Goodbye!'
             break
@@ -58,9 +57,9 @@ def main():
         elif com == 'about':
             print 'DigCam Interface Version ' + str(version)
             print 'Authors:'
-            print '\t Fernando Barbosa'
-            print '\t Joao Lucas Kunzel'
-            print '\t Roberto Walter'
+            print '\t Fernando "01" Barbosa'
+            print '\t Joao "Bigode" Kunzel'
+            print '\t Roberto "Loco" Walter'
             
         else: # then it wasn't a terminal command
             code = instructions.encode(com);
@@ -89,7 +88,7 @@ def main():
                     answer = ser.read()
                     
             
-def openRoutine():
+def openSerialPort():
     """
     Tries to find and open the correct serial port.
     """
@@ -101,10 +100,10 @@ def openRoutine():
             return -1;
         
         try:
-            ser = serial.Serial(int(port), 115200, timeout=3)   # Windows
+            ser = serial.Serial(int(port), 115200, timeout=5)   # Windows
         except serial.serialutil.SerialException:
             try:
-                ser = serial.Serial('/dev/ttyUSB' + port, 115200, timeout=3)    # Linux
+                ser = serial.Serial('/dev/ttyUSB' + port, 115200, timeout=5)    # Linux
             except serial.serialutil.SerialException:
                 print 'Error: did not find PicDev! Check your USB connection or try another port.'
             else:
@@ -122,16 +121,17 @@ def readImage():
         for j in range(0, WIDTH):
             answer = ser.read()
             if answer != '': 
-                imgarray[i][j] = int(ord(answer)) # write ASCII code (integer value) of char    
+                imgarray[i][j] = ord(answer) # write ASCII code (integer value) of char    
             else: # timeout
                 error = error + 1
                 j = j - 1 # try again to get a char!
             print '\rByte count = {0}/{1}\tTimeout count = {2}'.format(WIDTH*i + j + 1, WIDTH*HEIGHT, error),
-     
+
+   
+    imgarray = imgarray.astype(np.uint8)  # convert to uint8
     img = Image.fromarray(imgarray)
-    img.show()
-    img.mode = "L"
-    img.save(os.path.join(os.pardir, "temp\\photo.bmp"), "L")
+    img.show()   
+    img.save(os.path.join(os.pardir, "temp\\photo.bmp"))
     print 'Image saved in "'"DigCam\\temp\\.photo.bmp"'"'
 
     txt = open(os.path.join(os.pardir, "temp\\grayscale.txt"), "w+")
@@ -148,13 +148,11 @@ def helpMessage():
     print 'Reading from ' + ser.name
     print 'Terminal command list:'
     print '\t' +  'about' + '\t\t' + 'Display program info'
-    print '\t' +  'close' + '\t\t' + 'Close program'
+    print '\t' +  'exit' + '\t\t' + 'Exit program'
     print '\t' +  'help'  + '\t\t' + 'Display the instruction list'
     print 'Camera command list:'
     instructions.initDatabase()
     instructions.listAll()
-    print 'IMPORTANT: parameters must be decimal values between 0 and 255.'
-    
-        
+
 if __name__ == "__main__":
     main()

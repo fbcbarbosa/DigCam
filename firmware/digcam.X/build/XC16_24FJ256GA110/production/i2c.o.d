@@ -4,5 +4,4 @@ lib/picdev/pinOut.h  \
 i2c.h  \
  delay.h  \
 main.h  \
-ov2640.h  \
 uart1.h 

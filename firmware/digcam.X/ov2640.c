@@ -33,20 +33,18 @@ int CamCheckPCLK();
 int CamCheckHREFX();
 int CamCheckVSYNC();
 long CamCountLines();
-long CamCountBytesPerLine();
+long CamCountBytesPerRow();
 
 /**
  * Initializes pin connections and turns on the Camera.
  */
 void CamInit() {
     // Output
-    _TRISB3 = 0; // PWDN
-    _TRISB4 = 0; // RESET
-
-    // Input
-    _TRISD0 = 1; // PCLK
-    _TRISF3 = 1; // HREFX
-    _TRISD11 = 1; // VSYNC
+    _TRISB3 = 0;    // PWDN
+    _TRISB4 = 0;    // RESET
+    _TRISD0 = 1;    // PCLK
+    _TRISF3 = 1;    // HREFX
+    _TRISD11 = 1;   // VSYNC
 
     // Input
     _TRISB0 = 1;    // D7
@@ -77,56 +75,16 @@ void CamReset() {
 
     Delayms(100);
 
-    /* SQCIF mode = 1600 X 1200 */
-//    CamWrite(0xff, 0x01); // Select bank
-//    CamWrite(0x12, 0x10); // CIF mode
-//    CamWrite(0x17, 0x11); // HREFST[10:3] (Default)
-//    CamWrite(0x03, 0x06); // CIF default
-//    CamWrite(0x18, 0x21); // HREFEND[10:3] (CIF default)
-//    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
-//    CamWrite(0x1a, 0x18); // VEND[9:2] (Default)
-//    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
-//    CamWrite(0x03, 0x0A); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
-
-    /* Window
-     * HREFST = 0001 0001 001 = 137
-     * HREFEND = 0010 0001 001 = 265
-     * VSTRT = 0000 0000 10 = 2
-     * VEND = 0001 1000 10 = 98
-     * HREFEND - HREFST = 128
-     * VEND - VSTRT = 96
-     */
-
-    /* SQCIF mode 128 x 96 */
-//    CamWrite(0xff, 0x01); // Select bank
-//    CamWrite(0x12, 0x10); // CIF mode
-//    CamWrite(0x17, 0x22); // HREFST[10:3] (Default)
-//    CamWrite(0x03, 0x06); // CIF default
-//    CamWrite(0x18, 0x32); // HREFEND[10:3] (CIF default)
-//    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
-//    CamWrite(0x1a, 0x4A); // VEND[9:2]
-//    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
-//    CamWrite(0x03, 0x0A); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
-
-    /* Window
-     * HREFST = 0010 0010 001 = 273
-     * HREFEND = 0011 0010 001 = 401
-     * VSTRT = 0000 0000 10 = 2
-     * VEND = 0100 1010 10 = 298
-     * HREFEND - HREFST = 400
-     * VEND - VSTRT = 296
-     */
-
     /* CIF mode */
-//    CamWrite(0xff, 0x01); // Select bank
-//    CamWrite(0x12, 0x10); // CIF mode
-//    CamWrite(0x17, 0x11); // HREFST[10:3] (Default)
-//    CamWrite(0x03, 0x06); // CIF default
-//    CamWrite(0x18, 0x43); // HREFEND[10:3] (CIF default)
-//    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
-//    CamWrite(0x1a, 0x97); // VEND[9:2] (Default)
-//    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
-//    CamWrite(0x03, 0x06); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
+    CamWrite(0xff, 0x01); // Select bank
+    CamWrite(0x12, 0x10); // CIF mode
+    CamWrite(0x17, 0x11); // HREFST[10:3] (Default)
+    CamWrite(0x03, 0x06); // CIF default
+    CamWrite(0x18, 0x43); // HREFEND[10:3] (CIF default)
+    CamWrite(0x19, 0x00); // VSTRT[9:2] (CIF default)
+    CamWrite(0x1a, 0x97); // VEND[9:2] (Default)
+    CamWrite(0x32, 0x09); // Bit[5:3]: HREFEND[2:0]; Bit[2:0]: HREFST[2:0] (CIF default)
+    CamWrite(0x03, 0x06); // Bit[3:2]: VEND[1:0]; Bit[1:0]: VSTRT[1:0] (CIF default)
 
     /* Window
      * HREFST = 0001 0001 001 = 137
@@ -138,11 +96,11 @@ void CamReset() {
      */
 
     CamWrite(0xff, 0x00); // Select bank
-    CamWrite(0x2c, 0xff); // Configure PCLK/VSYNC/HREFX as output
-    CamWrite(0x2e, 0xdf); // Configure PCLK/VSYNC/HREFX as output
+    CamWrite(0x2c, 0xff); // Configure PCLK/VSYNC/HREFX/D7-D0 as output
+    CamWrite(0x2e, 0xdf); // Configure PCLK/VSYNC/HREFX/D7-D0 as output
 
     CamWrite(0xff, 0x01);
-    CamWrite(0x11, 35); // divide XCLK by 36 (0,333 MHz)
+    CamWrite(0x11, 35);   // divide XCLK by 36 (0,333 MHz)
 }
 
 int CamIsOn() {
@@ -178,7 +136,7 @@ struct cam_status CamStatus() {
     tempStatus.HEIGHT = CAM_HEIGHT;
 
     if (tempStatus.PCLK && tempStatus.HREF && tempStatus.VSYNC) {
-        tempStatus.NBYTELINE = CamCountBytesPerLine();
+        tempStatus.NBYTELINE = CamCountBytesPerRow();
         tempStatus.NHSYNC = CamCountLines();
         tempStatus.NBYTETOTAL = (long)tempStatus.NBYTELINE * (long)tempStatus.NHSYNC;
     } else {
@@ -218,10 +176,10 @@ int CamCheckVSYNC() {
 
 int CamCheckHREFX() {
     long i;
-    unsigned char temp = CAM_HREFX;
+    unsigned char temp = CAM_HREF;
 
     for (i = 0; i < 50000000; i++) {
-        if (temp != CAM_HREFX) {
+        if (temp != CAM_HREF) {
             return 1;
         }
     }
@@ -243,21 +201,21 @@ void CamReadPixelRow(int r0, unsigned int buffer[CAM_WIDTH]) {
     // get to line r0
     for (r = 0; r < r0; r++) {
         // wait for Hsync
-        while (!CAM_HREFX);
-        while (CAM_HREFX);
+        while (!CAM_HREF);
+        while (CAM_HREF);
     }
 
     // wait for HREF high
-    while (!CAM_HREFX);
+    while (!CAM_HREF);
 
     for (r = 0; r < CAM_WIDTH; r++) {
         while (CAM_PCLK);
         while (!CAM_PCLK);
 
-        // read first px (Y) when pclk low
+        // read first px (Y) when pclk high
         buffer[r] = PORTB;
 
-        // discard Y/U bit
+        // discard U/V bit
         while (CAM_PCLK);
         while (!CAM_PCLK);
     }
@@ -338,17 +296,21 @@ unsigned char CamRead(unsigned char reg_addr) {
     return data;
 }
 
-long CamCountBytesPerLine() {
+/**
+ * Counts the number of bytes in each row.
+ * @return
+ */
+long CamCountBytesPerRow() {
     long w = 0;
 
     // wait for initial pulse
     while (!CAM_VSYNC);
     while (CAM_VSYNC);
 
-    while (CAM_HREFX);
-    while (!CAM_HREFX);
+    while (CAM_HREF);
+    while (!CAM_HREF);
 
-    for (w = 0;CAM_HREFX; w++) {
+    for (w = 0;CAM_HREF; w++) {
         while (CAM_PCLK);
         while (!CAM_PCLK);
     }
@@ -356,6 +318,10 @@ long CamCountBytesPerLine() {
     return w;
 }
 
+/**
+ * Counts the number of HREFX pulses between two VSYNC pulses.
+ * @return
+ */
 long CamCountLines() {
     long h = 0;
 
@@ -367,9 +333,9 @@ long CamCountLines() {
     // while valid data
     while (!CAM_VSYNC) {
         // start counting horizontal syncs!
-        while (!CAM_VSYNC && !CAM_HREFX);
+        while (!CAM_VSYNC && !CAM_HREF);
         h++;
-        while (CAM_HREFX);
+        while (CAM_HREF);
     }
     h--;
 

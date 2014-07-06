@@ -149,7 +149,6 @@ unsigned char I2CReadByte(unsigned char device_addr, unsigned char reg_addr, uns
     }
 
     *data = I2CRead();
-    I2CNack();
     I2CStop();
     return error;
 }

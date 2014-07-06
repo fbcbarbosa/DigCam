@@ -18,15 +18,15 @@
 #define CAM_SCL     _RD10
 #define CAM_SDA     _RD9
 #define CAM_PCLK    _RD0
-#define CAM_HREFX   _RF3
+#define CAM_HREF   _RF3
 #define CAM_XVCLK   _RB15    
 #define CAM_VSYNC   _RD11
 #define CAM_PWDN    _RB3     
 #define CAM_RESET   _RB4
 
 // Camera definitions
-#define CAM_WIDTH      1600
-#define CAM_HEIGHT     1200
+#define CAM_WIDTH      400
+#define CAM_HEIGHT     300
 
 // Slave address
 #define CAM_ADDR        0x30

@@ -28,7 +28,7 @@ def main():
     global ser # serial communication handler
     global version
     
-    print 'Welcome to DigCam Interface!'
+    print 'Welcome to DigCam Terminal!'
     
     # if can't open USB port, quit
     if openSerialPort() == -1:
@@ -55,11 +55,11 @@ def main():
             helpMessage()
             
         elif com == 'about':
-            print 'DigCam Interface Version ' + str(version)
+            print 'DigCam Terminal Version ' + str(version)
             print 'Authors:'
-            print '\t Fernando "01" Barbosa'
-            print '\t Joao "Bigode" Kunzel'
-            print '\t Roberto "Loco" Walter'
+            print '\t Fernando Barbosa'
+            print '\t Joao Kunzel'
+            print '\t Roberto Walter'
             
         else: # then it wasn't a terminal command
             code = instructions.encode(com);
@@ -115,7 +115,6 @@ def readImage():
     """
     Read the photo.
     """
-    error = 0
     imgarray = np.empty([HEIGHT,WIDTH])
     for i in range(0, HEIGHT):
         for j in range(0, WIDTH):
@@ -123,15 +122,14 @@ def readImage():
             if answer != '': 
                 imgarray[i][j] = ord(answer) # write ASCII code (integer value) of char    
             else: # timeout
-                error = error + 1
                 j = j - 1 # try again to get a char!
-            print '\rByte count = {0}/{1}\tTimeout count = {2}'.format(WIDTH*i + j + 1, WIDTH*HEIGHT, error),
-
-   
+            print '\rByte count = {0}'.format(i*WIDTH + j + 1),
+            
     imgarray = imgarray.astype(np.uint8)  # convert to uint8
     img = Image.fromarray(imgarray)
     img.show()   
     img.save(os.path.join(os.pardir, "temp\\photo.bmp"))
+    
     print 'Image saved in "'"DigCam\\temp\\.photo.bmp"'"'
 
     txt = open(os.path.join(os.pardir, "temp\\grayscale.txt"), "w+")

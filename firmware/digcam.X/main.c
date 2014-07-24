@@ -144,7 +144,7 @@ int16_t main(void) {
                 case COM_PHOTO:
                     writeln("Taking picture...");
 
-                    // tell software to save the data in a txt file
+                    // tell software to save the data
                     log();
 
                     for (i = 0; i < CAM_HEIGHT; i++) {
@@ -156,10 +156,6 @@ int16_t main(void) {
                         UART1DisableInterrupt();
                         CamReadPixelRow(i, camBuffer);
                         UART1EnableInterrupt();
-
-                        //                    // Add a full black and full white pixel for comparison.
-                        //                    camBuffer[CAM_WIDTH - 1] = 0xFFFF;
-                        //                    camBuffer[CAM_WIDTH - 2] = 0x0000;
 
                         for (j = 0; j < CAM_WIDTH; j++) {
 

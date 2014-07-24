@@ -15,7 +15,7 @@ class Instruction:
         Creates a new instruction.
         
         PARAMETERS
-        number - int: an integer between 0 and 256
+        number - int: an integer between 0 and 255
         name - string: call name of the instruction
         description - string: description of the instruction
         """

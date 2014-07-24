@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.5.0">
+<eagle version="6.6.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1623,7 +1623,7 @@ Grid 5.00 mm&lt;p&gt;
 <text x="167.64" y="78.74" size="1.778" layer="91">D3</text>
 <text x="167.64" y="76.2" size="1.778" layer="91">D1</text>
 <text x="167.64" y="73.66" size="1.778" layer="91">Y1</text>
-<text x="167.64" y="71.12" size="1.778" layer="91">RESET</text>
+<text x="167.64" y="71.12" size="1.778" layer="91">RST</text>
 </plain>
 <instances>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
@@ -1738,12 +1738,16 @@ Grid 5.00 mm&lt;p&gt;
 <label x="165.1" y="81.28" size="1.27" layer="95" rot="R180" xref="yes"/>
 <pinref part="OV2640" gate="A" pin="11"/>
 </segment>
+<segment>
+<wire x1="165.1" y1="83.82" x2="180.34" y2="83.82" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="RB14" class="0">
 <segment>
 <wire x1="83.82" y1="20.32" x2="83.82" y2="27.94" width="0.1524" layer="91"/>
 <label x="83.82" y="20.32" size="1.27" layer="95" rot="R270" xref="yes"/>
 <pinref part="JP2" gate="A" pin="13"/>
+<label x="83.82" y="45.72" size="1.27" layer="95" rot="R270" xref="yes"/>
 </segment>
 <segment>
 <wire x1="203.2" y1="83.82" x2="187.96" y2="83.82" width="0.1524" layer="91"/>
@@ -1756,6 +1760,8 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="86.36" y1="20.32" x2="86.36" y2="27.94" width="0.1524" layer="91"/>
 <label x="86.36" y="20.32" size="1.27" layer="95" rot="R270" xref="yes"/>
 <pinref part="JP2" gate="A" pin="14"/>
+<label x="203.2" y="86.36" size="1.27" layer="95" xref="yes"/>
+<label x="86.36" y="45.72" size="1.27" layer="95" rot="R270" xref="yes"/>
 </segment>
 </net>
 <net name="RF3" class="0">
@@ -2192,6 +2198,7 @@ Grid 5.00 mm&lt;p&gt;
 <label x="20.32" y="53.34" size="1.27" layer="95" rot="R180" xref="yes"/>
 <wire x1="27.94" y1="53.34" x2="20.32" y2="53.34" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="17"/>
+<label x="165.1" y="83.82" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
 <pinref part="OV2640" gate="A" pin="8"/>
@@ -2390,13 +2397,6 @@ Grid 5.00 mm&lt;p&gt;
 <net name="N$11" class="0">
 <segment>
 <wire x1="83.82" y1="45.72" x2="83.82" y2="50.8" width="0.1524" layer="91"/>
-<label x="83.82" y="45.72" size="1.27" layer="95" rot="R270" xref="yes"/>
-</segment>
-</net>
-<net name="N$12" class="0">
-<segment>
-<wire x1="86.36" y1="45.72" x2="86.36" y2="50.8" width="0.1524" layer="91"/>
-<label x="86.36" y="45.72" size="1.27" layer="95" rot="R270" xref="yes"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -2434,6 +2434,11 @@ Grid 5.00 mm&lt;p&gt;
 <pinref part="P+2" gate="1" pin="+5V"/>
 <wire x1="170.18" y1="48.26" x2="175.26" y2="48.26" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="48.26" x2="175.26" y2="50.8" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<wire x1="86.36" y1="45.72" x2="86.36" y2="50.8" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

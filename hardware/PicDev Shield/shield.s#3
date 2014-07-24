@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.6.0">
+<eagle version="6.5.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1791,11 +1791,6 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="99.06" y1="76.2" x2="93.98" y2="76.2" width="0.1524" layer="91"/>
 <label x="99.06" y="76.2" size="1.27" layer="95" xref="yes"/>
 </segment>
-<segment>
-<wire x1="127" y1="76.2" x2="119.38" y2="76.2" width="0.1524" layer="91"/>
-<label x="127" y="76.2" size="1.27" layer="95" xref="yes"/>
-<pinref part="JP3" gate="A" pin="11"/>
-</segment>
 </net>
 <net name="RD9" class="0">
 <segment>
@@ -2008,21 +2003,11 @@ Grid 5.00 mm&lt;p&gt;
 </net>
 <net name="SOSC1" class="0">
 <segment>
-<wire x1="127" y1="88.9" x2="119.38" y2="88.9" width="0.1524" layer="91"/>
-<label x="127" y="88.9" size="1.27" layer="95" xref="yes"/>
-<pinref part="JP3" gate="A" pin="16"/>
-</segment>
-<segment>
 <wire x1="99.06" y1="88.9" x2="93.98" y2="88.9" width="0.1524" layer="91"/>
 <label x="99.06" y="88.9" size="1.27" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="SOSC2" class="0">
-<segment>
-<wire x1="127" y1="91.44" x2="119.38" y2="91.44" width="0.1524" layer="91"/>
-<label x="127" y="91.44" size="1.27" layer="95" xref="yes"/>
-<pinref part="JP3" gate="A" pin="17"/>
-</segment>
 <segment>
 <wire x1="99.06" y1="91.44" x2="93.98" y2="91.44" width="0.1524" layer="91"/>
 <label x="99.06" y="91.44" size="1.27" layer="95" xref="yes"/>
